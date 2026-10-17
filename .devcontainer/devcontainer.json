@@ -1,0 +1,6 @@
+{
+  "name": "chrome-history",
+  "image": "mcr.microsoft.com/devcontainers/go:1.22-bookworm",
+  "forwardPorts": [8080],
+  "postCreateCommand": "go version"
+}
