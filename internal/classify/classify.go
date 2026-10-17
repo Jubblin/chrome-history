@@ -1,6 +1,7 @@
 // Package classify flags URLs that belong to sensitive categories using local
-// rules only. It is a heuristic: lists are short, conservative starter sets
-// and will both miss sites and occasionally flag the wrong one. Users correct
+// rules only. It is a heuristic: the bundled lists favour precision over recall
+// and will both miss sites and occasionally flag the wrong one. Bundled
+// keywords match whole host tokens or whole path segments only. Users correct
 // it with a rules file (see Load). Classification never touches the network
 // and never logs URLs.
 //
@@ -69,9 +70,13 @@ type UserRules struct {
 	Allow map[string]CategoryRules `json:"allow,omitempty"`
 }
 
+// bundledRules is the format of rules.json. allow lists domains (with their
+// subdomains) that are exempt from the bundled rules only; user add rules are
+// never affected by it.
 type bundledRules struct {
 	Version    int                      `json:"version"`
 	Categories map[string]CategoryRules `json:"categories"`
+	Allow      map[string]CategoryRules `json:"allow,omitempty"`
 }
 
 type catSet uint8
@@ -86,16 +91,19 @@ func bit(cat string) catSet {
 }
 
 type keywordRule struct {
-	kw   string
-	mask catSet
+	kw      string
+	mask    catSet
+	bundled bool // bundled keywords match whole tokens only; user keywords are substrings
 }
 
 // Classifier classifies URLs. It is immutable and safe for concurrent use.
 type Classifier struct {
-	domains       map[string]catSet // registrable-suffix -> categories
-	keywords      []keywordRule
-	allowDomains  map[string]catSet
-	allowKeywords []keywordRule
+	bundledDomains map[string]catSet // domain suffix -> categories (bundled rules)
+	bundledAllow   map[string]catSet // exemptions from bundled rules only
+	userDomains    map[string]catSet // domain suffix -> categories (user add)
+	keywords       []keywordRule
+	allowDomains   map[string]catSet // user allow
+	allowKeywords  []keywordRule
 }
 
 var (
@@ -128,20 +136,33 @@ func newClassifier(user *UserRules) (*Classifier, error) {
 	if err := dec.Decode(&b); err != nil {
 		return nil, fmt.Errorf("bundled rules: %w", err)
 	}
-	c := &Classifier{domains: map[string]catSet{}, allowDomains: map[string]catSet{}}
+	c := &Classifier{
+		bundledDomains: map[string]catSet{},
+		bundledAllow:   map[string]catSet{},
+		userDomains:    map[string]catSet{},
+		allowDomains:   map[string]catSet{},
+	}
 	for cat, r := range b.Categories {
-		if err := c.add(cat, r, false); err != nil {
+		if err := c.add(cat, r, c.bundledDomains, &c.keywords, true); err != nil {
 			return nil, fmt.Errorf("bundled rules: %w", err)
+		}
+	}
+	for cat, r := range b.Allow {
+		if len(r.Keywords) > 0 {
+			return nil, fmt.Errorf("bundled rules: allow %q: keywords are not supported", cat)
+		}
+		if err := c.add(cat, r, c.bundledAllow, nil, true); err != nil {
+			return nil, fmt.Errorf("bundled rules: allow: %w", err)
 		}
 	}
 	if user != nil {
 		for cat, r := range user.Add {
-			if err := c.add(cat, r, false); err != nil {
+			if err := c.add(cat, r, c.userDomains, &c.keywords, false); err != nil {
 				return nil, fmt.Errorf("add: %w", err)
 			}
 		}
 		for cat, r := range user.Allow {
-			if err := c.add(cat, r, true); err != nil {
+			if err := c.add(cat, r, c.allowDomains, &c.allowKeywords, false); err != nil {
 				return nil, fmt.Errorf("allow: %w", err)
 			}
 		}
@@ -149,14 +170,10 @@ func newClassifier(user *UserRules) (*Classifier, error) {
 	return c, nil
 }
 
-func (c *Classifier) add(cat string, r CategoryRules, allow bool) error {
+func (c *Classifier) add(cat string, r CategoryRules, doms map[string]catSet, kws *[]keywordRule, bundled bool) error {
 	m := bit(cat)
 	if m == 0 {
 		return fmt.Errorf("unknown category %q (valid: %s)", cat, strings.Join(Categories, ", "))
-	}
-	doms, kws := c.domains, &c.keywords
-	if allow {
-		doms, kws = c.allowDomains, &c.allowKeywords
 	}
 	for _, d := range r.Domains {
 		n, err := normDomain(d)
@@ -173,7 +190,7 @@ func (c *Classifier) add(cat string, r CategoryRules, allow bool) error {
 		if strings.ContainsAny(k, " \t/?#") {
 			return fmt.Errorf("category %q: keyword %q must not contain spaces or any of / ? #", cat, k)
 		}
-		*kws = append(*kws, keywordRule{k, m})
+		*kws = append(*kws, keywordRule{k, m, bundled})
 	}
 	return nil
 }
@@ -195,9 +212,11 @@ func (c *Classifier) Classify(rawURL string) []string {
 	if !ok {
 		return nil
 	}
-	var got, allowed catSet
+	var gotB, gotU, bundledOK, allowed catSet
 	for h := host; ; {
-		got |= c.domains[h]
+		gotB |= c.bundledDomains[h]
+		gotU |= c.userDomains[h]
+		bundledOK |= c.bundledAllow[h]
 		allowed |= c.allowDomains[h]
 		i := strings.IndexByte(h, '.')
 		if i < 0 {
@@ -208,11 +227,15 @@ func (c *Classifier) Classify(rawURL string) []string {
 	if len(c.keywords) > 0 || len(c.allowKeywords) > 0 {
 		hp := host + path
 		for _, k := range c.keywords {
-			if got&k.mask != k.mask && strings.Contains(hp, k.kw) {
-				got |= k.mask
+			if k.bundled {
+				if gotB&k.mask != k.mask && tokenMatch(host, path, k.kw) {
+					gotB |= k.mask
+				}
+			} else if gotU&k.mask != k.mask && strings.Contains(hp, k.kw) {
+				gotU |= k.mask
 			}
 		}
-		if got != 0 {
+		if (gotB&^bundledOK)|gotU != 0 {
 			for _, k := range c.allowKeywords {
 				if strings.Contains(hp, k.kw) {
 					allowed |= k.mask
@@ -220,6 +243,7 @@ func (c *Classifier) Classify(rawURL string) []string {
 			}
 		}
 	}
+	got := (gotB &^ bundledOK) | gotU
 	got &^= allowed
 	if got == 0 {
 		return nil
@@ -231,6 +255,36 @@ func (c *Classifier) Classify(rawURL string) []string {
 		}
 	}
 	return out
+}
+
+// tokenMatch reports whether kw is a whole token of the host (delimited by '.'
+// or '-') or exactly one path segment. Bundled keywords use this so that
+// "poker" flags /poker/lobby and poker-room.example but not
+// /poker-hand-evaluator or pokerface.example.
+func tokenMatch(host, path, kw string) bool {
+	for i := 0; i+len(kw) <= len(host); {
+		j := strings.Index(host[i:], kw)
+		if j < 0 {
+			break
+		}
+		a, b := i+j, i+j+len(kw)
+		if (a == 0 || host[a-1] == '.' || host[a-1] == '-') && (b == len(host) || host[b] == '.' || host[b] == '-') {
+			return true
+		}
+		i = a + 1
+	}
+	for rest := path; rest != ""; {
+		seg := rest
+		if i := strings.IndexByte(rest, '/'); i >= 0 {
+			seg, rest = rest[:i], rest[i+1:]
+		} else {
+			rest = ""
+		}
+		if seg == kw {
+			return true
+		}
+	}
+	return false
 }
 
 // hostPath extracts the lower-cased host and path of an absolute URL.

@@ -23,7 +23,7 @@ func TestBundledRulesValid(t *testing.T) {
 	c := Default()
 	for _, cat := range Categories {
 		n := 0
-		for _, m := range c.domains {
+		for _, m := range c.bundledDomains {
 			if m&bit(cat) != 0 {
 				n++
 			}
