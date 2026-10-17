@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>chrome-history</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<a class="skip" href="#timeline">Skip to timeline</a>
+<header class="top">
+  <h1>History</h1>
+  <label class="profile">Profile
+    <select id="profile"></select>
+  </label>
+  <span id="status" role="status" aria-live="polite"></span>
+</header>
+
+<main>
+  <section class="overview" aria-label="Overview">
+    <div class="chart-wrap">
+      <h2>Activity <small id="chart-unit"></small></h2>
+      <div id="chart" class="chart" role="group" aria-label="Visits per period. Activate a bar to zoom to that period."></div>
+    </div>
+    <div class="domains-wrap">
+      <h2>Top domains</h2>
+      <ol id="domains" class="domains"></ol>
+    </div>
+  </section>
+
+  <form id="filters" class="filters" autocomplete="off">
+    <label>From <input type="date" id="f-start"></label>
+    <label>To <input type="date" id="f-end"></label>
+    <label class="grow">Search <input type="search" id="f-q" placeholder="title or URL"></label>
+    <label>Domain <input type="text" id="f-domain" placeholder="example.com"></label>
+    <details class="transitions">
+      <summary>Transition types</summary>
+      <div id="f-trans" class="trans-list"></div>
+    </details>
+    <button type="button" id="f-reset">Reset</button>
+    <button type="button" id="f-csv">Export CSV</button>
+  </form>
+  <div id="summary-line" class="summary-line"></div>
+
+  <div id="timeline" class="timeline" tabindex="-1"></div>
+  <div id="sentinel" class="sentinel"><button type="button" id="more" hidden>Load more</button></div>
+  <p id="empty" class="empty" hidden>No visits match these filters.</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
