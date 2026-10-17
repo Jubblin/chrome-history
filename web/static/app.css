@@ -94,3 +94,6 @@ button.vtitle.masked-btn{border:0;background:none;padding:0;text-align:left}
 .dom-masked{display:flex;gap:8px;align-items:center;padding:2px 4px;color:var(--muted)}
 .dom-masked .n{margin-left:auto;font-variant-numeric:tabular-nums}
 .dom-tags{display:flex;flex-wrap:wrap}
+
+.mask-note { margin: .25rem 0 .75rem; padding: .4rem .6rem; border-left: 3px solid currentColor; font-size: .9em; opacity: .85; }
+.mask-note[hidden] { display: none; }

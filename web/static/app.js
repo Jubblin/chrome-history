@@ -363,7 +363,12 @@ function checkSentinel() {
   if (!st.done && !st.loading && r.top < window.innerHeight + 600) loadMore();
 }
 
+function updateMaskNote() {
+  $('mask-note').hidden = !(st.hide && ($('f-q').value.trim() || $('f-domain').value.trim()));
+}
+
 async function refresh() {
+  updateMaskNote();
   resetTimeline();
   setStatus('Loading…');
   try {
