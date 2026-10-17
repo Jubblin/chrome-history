@@ -106,10 +106,23 @@ func TestTokenURLSetsCookieAndRedirects(t *testing.T) {
 	if resp.Header.Get("Location") != "/api/timeline?limit=5" {
 		t.Errorf("location %q", resp.Header.Get("Location"))
 	}
-	// No open redirect through a double-slash path.
-	resp = do(t, ts, "//evil.example/x?token="+srv.Token(), nil)
-	if loc := resp.Header.Get("Location"); !strings.HasPrefix(loc, "/") || strings.HasPrefix(loc, "//") {
-		t.Errorf("open redirect: %q", loc)
+	// Paths that browsers could read as a protocol-relative redirect are refused.
+	for _, bad := range []string{`/\evil.example`, "/%5Cevil.example", "/%5cevil.example", "//evil.example/x", "/%2F%2Fevil.example", "/%2f%2fevil.example"} {
+		resp = do(t, ts, bad+"?token="+srv.Token(), nil)
+		if resp.StatusCode != 400 || resp.Header.Get("Location") != "" {
+			t.Errorf("%s: status %d location %q, want 400 and no redirect", bad, resp.StatusCode, resp.Header.Get("Location"))
+		}
+		if ct := resp.Header.Get("Content-Type"); !strings.HasPrefix(ct, "application/json") {
+			t.Errorf("%s: content-type %q", bad, ct)
+		}
+		if resp.Header.Get("Set-Cookie") != "" {
+			t.Errorf("%s: cookie set on refused path", bad)
+		}
+	}
+	// A plain nested path redirects to the same path, always starting with one "/".
+	resp = do(t, ts, "/api/x%3Fy?token="+srv.Token(), nil)
+	if loc := resp.Header.Get("Location"); resp.StatusCode != 302 || loc != "/api/x%3Fy" {
+		t.Errorf("plain path: status %d location %q", resp.StatusCode, loc)
 	}
 	// Wrong URL token: 401, no cookie.
 	resp = do(t, ts, "/?token=wrong", nil)

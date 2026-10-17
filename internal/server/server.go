@@ -12,6 +12,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -164,13 +165,18 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			writeError(w, http.StatusUnauthorized, "missing or invalid access token")
 			return
 		}
+		// The redirect target must be a same-origin path starting with a
+		// single "/". Browsers read "/\\host" as "//host", so refuse
+		// backslashes and a leading "//" (checked after percent-decoding).
+		if strings.Contains(r.URL.Path, "\\") || strings.HasPrefix(r.URL.Path, "//") {
+			writeError(w, http.StatusBadRequest, "invalid path")
+			return
+		}
 		http.SetCookie(w, &http.Cookie{Name: TokenCookie, Value: s.token, Path: "/",
 			HttpOnly: true, SameSite: http.SameSiteStrictMode})
 		q.Del("token")
-		dest := "/" + strings.TrimLeft(r.URL.Path, "/")
-		if enc := q.Encode(); enc != "" {
-			dest += "?" + enc
-		}
+		target := url.URL{Path: "/" + strings.TrimPrefix(r.URL.Path, "/"), RawQuery: q.Encode()}
+		dest := target.String()
 		http.Redirect(w, r, dest, http.StatusFound)
 		return
 	}
