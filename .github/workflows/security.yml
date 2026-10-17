@@ -26,7 +26,10 @@ jobs:
           go-version: stable
           cache: true
       - name: govulncheck
-        run: go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...
+        # Pinned to a commit (v1.1.4, the latest tag, panics on current Go:
+        # its golang.org/x/tools cannot build SSA for the newest stdlib).
+        # Bump together with the Go toolchain.
+        run: go run golang.org/x/vuln/cmd/govulncheck@e672cbe8fbc8c76e28fcb6db0efd9ce354e0dac5 ./...
 
   codeql:
     runs-on: ubuntu-latest
