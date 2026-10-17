@@ -82,15 +82,20 @@ Times are accepted as RFC3339, `YYYY-MM-DD` (UTC; as `end` it includes that whol
 | Endpoint | Response |
 |---|---|
 | `/api/profiles` | `{"profiles":[{"id","browser","channel?","name","email?","dir","kind","visitCount?"}]}` (`visitCount` = total visits; omitted if the database cannot be read) |
-| `/api/timeline?profile=&start=&end=&q=&domain=&limit=&offset=` | `{"visits":[{"id","time","timeMs","url","title","domain","transition","durationMs","fromVisit"}],"total","limit","offset"}`, newest first; `limit` default 100, max 1000 |
-| `/api/summary?profile=&start=&end=` | `{"totalVisits","perDay":[{"date","visits"}],"topDomains":[{"domain","visits"}],"sessions":[{"start","startMs","end","endMs","visits"}],"sessionGapMinutes"}` (days in UTC, top 20 domains) |
+| `/api/timeline?profile=&start=&end=&q=&domain=&category=&limit=&offset=` | `{"visits":[{"id","time","timeMs","url","title","domain","transition","durationMs","fromVisit","categories"}],"total","limit","offset"}`, newest first; `limit` default 100, max 1000; `categories` is an array (empty if unflagged) |
+| `/api/summary?profile=&start=&end=&category=` | `{"totalVisits","perDay":[{"date","visits","flagged?","flaggedVisits"}],"topDomains":[{"domain","visits","categories"}],"sessions":[{"start","startMs","end","endMs","visits"}],"sessionGapMinutes"}` (days in UTC, top 20 domains) |
 | `/api/domains?profile=&start=&end=` | `{"domains":[{"domain","visits"}]}` sorted by visits |
+| `/api/categories?profile=&start=&end=` | `{"categories":[{"id","label","visits"}],"flaggedVisits"}`: all six categories with visit counts in the date range (the `category` filter is ignored here) |
+
+`category` is repeatable or comma-separated (`category=gambling,privacy`); a visit matches if it has any listed category. Valid IDs: `adult`, `finance`, `gambling`, `health`, `news_politics`, `privacy`; anything else is a `400`. In `perDay`, `flagged` maps category to visit count for that day and `flaggedVisits` counts visits with at least one category.
 
 `time`, `start`, `end` in responses are ISO-8601 UTC; the `*Ms` fields are epoch milliseconds.
 
 ## Sensitive-site flags
 
 Visits are tagged locally with up to six categories: `adult`, `gambling`, `health`, `finance`, `privacy` (VPN, proxy and Tor sites; not incognito mode, which Chrome does not record) and `news_politics`. This is a **heuristic**: the bundled starter list (`internal/classify/rules.json`) is short and conservative, so it misses sites and can occasionally be wrong. `news_politics` is the broadest and most subjective category (news outlets, parties, campaigns, advocacy groups). Classification uses only the URL, makes no network requests and logs no URLs.
+
+In the UI, each flagged visit shows a badge per category (icon plus text), the category chips filter the timeline and the day-bar chart (striped part of a bar = flagged visits), and **Hide sensitive details** (remembered in the browser) replaces the title, URL and domain of flagged visits with a placeholder until you click Reveal. With it on, CSV export masks those columns as `[hidden]`; the CSV always has a `categories` column.
 
 Edit the rules with a JSON file at `<user config dir>/chrome-history/rules.json` (or `--rules PATH`). A broken file stops startup with an error naming the file and the problem.
 

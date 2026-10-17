@@ -4,11 +4,18 @@
 // only ever placed into the DOM via textContent / setAttribute, never innerHTML.
 
 const PAGE = 200;
+const rowData = new WeakMap();
 const TRANSITIONS = ['link','typed','auto_bookmark','auto_subframe','manual_subframe','generated',
   'start_page','form_submit','reload','keyword','keyword_generated','unknown'];
+const CAT_ICON = { adult: '18+', gambling: '\u2660', health: '+', finance: '$', privacy: '\u25cd', news_politics: '\u00a7' };
+const CAT_LABEL = { adult: 'Adult', gambling: 'Gambling', health: 'Health', finance: 'Finance',
+  privacy: 'Privacy tools', news_politics: 'News & politics' };
+const catLabel = c => CAT_LABEL[c] || c;
+const HIDE_KEY = 'chrome-history.hideSensitive';
+const MASK = '[hidden]';
 const $ = id => document.getElementById(id);
 const st = { profile: '', gapMs: 30 * 60000, offset: 0, total: 0, loading: false, done: false,
-  gen: 0, hidden: new Set(), day: null, dayEl: null, sessEl: null, sessCount: 0, lastMs: null };
+  topDomains: [], gen: 0, hidden: new Set(), cats: new Set(), hide: false, revealed: new Set(), day: null, dayEl: null, sessEl: null, sessCount: 0, lastMs: null };
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
@@ -43,7 +50,7 @@ async function api(path, params) {
 
 function filters() {
   return { profile: st.profile, start: $('f-start').value, end: $('f-end').value,
-    q: $('f-q').value.trim(), domain: $('f-domain').value.trim() };
+    q: $('f-q').value.trim(), domain: $('f-domain').value.trim(), category: [...st.cats].sort().join(',') };
 }
 function setStatus(msg) { $('status').textContent = msg || ''; }
 
@@ -82,12 +89,17 @@ function binRange(key, unit) {
 
 async function loadSummary() {
   const f = filters();
-  const s = await api('summary', { profile: f.profile, start: f.start, end: f.end });
+  const s = await api('summary', { profile: f.profile, start: f.start, end: f.end, category: f.category });
   st.gapMs = (s.sessionGapMinutes || 30) * 60000;
   const days = s.perDay || [];
   const unit = days.length > 400 ? 'month' : days.length > 120 ? 'week' : 'day';
   const bins = new Map();
-  for (const d of days) bins.set(binOf(d.date, unit), (bins.get(binOf(d.date, unit)) || 0) + d.visits);
+  const flaggedBins = new Map();
+  for (const d of days) {
+    const k = binOf(d.date, unit);
+    bins.set(k, (bins.get(k) || 0) + d.visits);
+    flaggedBins.set(k, (flaggedBins.get(k) || 0) + (d.flaggedVisits || 0));
+  }
   const keys = [...bins.keys()].sort();
   const max = Math.max(1, ...bins.values());
   $('chart-unit').textContent = `(visits per ${unit}, UTC)`;
@@ -95,14 +107,21 @@ async function loadSummary() {
   chart.replaceChildren();
   for (const k of keys) {
     const n = bins.get(k);
+    const fl = flaggedBins.get(k) || 0;
     const b = el('button', 'bar');
     b.type = 'button';
     b.tabIndex = chart.childElementCount === 0 ? 0 : -1;
-    b.title = `${k}: ${num(n)} visits`;
-    b.setAttribute('aria-label', `${k}: ${num(n)} visits`);
+    const label = `${k}: ${num(n)} visits` + (fl ? `, ${num(fl)} flagged` : '');
+    b.title = label;
+    b.setAttribute('aria-label', label);
     const i = el('i');
     i.style.height = Math.max(2, (n / max) * 100) + '%';
     b.appendChild(i);
+    if (fl) {
+      const m = el('b');
+      m.style.height = Math.max(2, (fl / max) * 100) + '%';
+      b.appendChild(m);
+    }
     b.addEventListener('click', () => {
       const [a, z] = binRange(k, unit);
       $('f-start').value = a; $('f-end').value = z;
@@ -128,18 +147,59 @@ async function loadSummary() {
       for (const b of chart.querySelectorAll('.bar')) b.tabIndex = b === t ? 0 : -1;
     });
   }
+  st.topDomains = s.topDomains || [];
+  renderDomains();
+  return s;
+}
+
+function renderDomains() {
   const dl = $('domains');
   dl.replaceChildren();
-  for (const d of s.topDomains || []) {
+  for (const d of st.topDomains) {
     const li = el('li');
-    const b = el('button');
-    b.type = 'button';
-    b.append(el('span', '', d.domain), el('span', 'n', num(d.visits)));
-    b.addEventListener('click', () => { $('f-domain').value = d.domain; refresh(); });
-    li.appendChild(b);
+    const cats = d.categories || [];
+    if (st.hide && cats.length) {
+      // Flagged domains are not named (or clickable) while hiding is on.
+      const row = el('div', 'dom-masked');
+      const name = el('span', '', MASK);
+      const tags = el('span', 'dom-tags');
+      for (const c of cats) tags.append(catBadge(c));
+      row.append(name, tags, el('span', 'n', num(d.visits)));
+      li.appendChild(row);
+    } else {
+      const b = el('button');
+      b.type = 'button';
+      b.append(el('span', '', d.domain), el('span', 'n', num(d.visits)));
+      b.addEventListener('click', () => { $('f-domain').value = d.domain; refresh(); });
+      li.appendChild(b);
+    }
     dl.appendChild(li);
   }
-  return s;
+}
+
+// ---------- categories ----------
+async function loadCategories() {
+  const f = filters();
+  const r = await api('categories', { profile: f.profile, start: f.start, end: f.end });
+  const box = $('cat-chips');
+  const hadFocus = box.contains(document.activeElement) ? document.activeElement.dataset.cat : null;
+  box.replaceChildren();
+  for (const c of r.categories || []) {
+    CAT_LABEL[c.id] = CAT_LABEL[c.id] || c.label;
+    const b = el('button', 'chip cat-' + c.id);
+    b.type = 'button';
+    b.dataset.cat = c.id;
+    b.setAttribute('aria-pressed', st.cats.has(c.id) ? 'true' : 'false');
+    b.append(el('span', '', catLabel(c.id)), el('span', 'n', num(c.visits)));
+    b.setAttribute('aria-label', `${catLabel(c.id)}, ${num(c.visits)} visits`);
+    b.addEventListener('click', () => {
+      if (st.cats.has(c.id)) st.cats.delete(c.id); else st.cats.add(c.id);
+      b.setAttribute('aria-pressed', st.cats.has(c.id) ? 'true' : 'false');
+      refresh();
+    });
+    box.appendChild(b);
+  }
+  if (hadFocus) { const b = box.querySelector(`[data-cat="${hadFocus}"]`); if (b) b.focus(); }
 }
 
 // ---------- timeline ----------
@@ -164,30 +224,78 @@ function updateSessionHead(sess) {
   sessionHead(sess).textContent = `Session ${span} UTC · ${vs} visit${vs === 1 ? '' : 's'} loaded`;
 }
 
-function renderVisit(v) {
-  const row = el('div', 'visit');
-  row.dataset.tr = v.transition;
-  if (st.hidden.has(v.transition)) row.hidden = true;
+function catBadge(c) {
+  const b = el('span', 'cat cat-' + c);
+  const ic = el('i', '', CAT_ICON[c] || '*');
+  ic.setAttribute('aria-hidden', 'true');
+  b.append(ic, el('span', '', catLabel(c)));
+  return b;
+}
+
+function isMasked(v) { return st.hide && v.categories.length > 0 && !st.revealed.has(v.id); }
+
+// Fills (or refills) a visit row. Masked rows never put the real title, URL or
+// domain into the DOM.
+function fillRow(row, v) {
+  const masked = isMasked(v);
+  row.classList.toggle('masked', masked);
   const t = el('time', '', utcTime(v.timeMs));
   t.dateTime = v.time;
-  const badge = el('span', 'badge', v.domain || '(none)');
-  badge.style.background = `hsl(${hue(v.domain || '')} 45% 38%)`;
+  const badge = el('span', 'badge', masked ? MASK : (v.domain || '(none)'));
+  if (masked) badge.classList.add('domain-hidden');
+  else badge.style.background = `hsl(${hue(v.domain || '')} 45% 38%)`;
   const main = el('div', 'vmain');
-  const title = v.title || v.url;
-  const href = safeHref(v.url);
-  let tl;
-  if (href) { tl = el('a', 'vtitle', title); tl.href = href; tl.rel = 'noopener noreferrer'; tl.target = '_blank'; }
-  else tl = el('span', 'vtitle', title);
-  tl.title = title;
-  const url = el('span', 'vurl', v.url);
-  url.title = v.url;
+  let tl, url;
+  if (masked) {
+    tl = el('span', 'vtitle', 'Sensitive details hidden');
+    url = el('span', 'vurl', '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022');
+  } else {
+    const title = v.title || v.url;
+    const href = safeHref(v.url);
+    if (href) { tl = el('a', 'vtitle', title); tl.href = href; tl.rel = 'noopener noreferrer'; tl.target = '_blank'; }
+    else tl = el('span', 'vtitle', title);
+    tl.title = title;
+    url = el('span', 'vurl', v.url);
+    url.title = v.url;
+  }
   main.append(tl, url);
   const meta = el('div', 'vmeta');
+  for (const c of v.categories) meta.append(catBadge(c));
   meta.append(el('span', 'tr', v.transition));
   const d = fmtDur(v.durationMs);
   if (d) meta.append(document.createTextNode(d));
-  row.append(t, badge, main, meta);
+  if (st.hide && v.categories.length) {
+    const rb = el('button', 'reveal', masked ? 'Reveal' : 'Hide');
+    rb.type = 'button';
+    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${utcTime(v.timeMs)} visit`);
+    rb.addEventListener('click', () => {
+      if (masked) st.revealed.add(v.id); else st.revealed.delete(v.id);
+      fillRow(row, v);
+      const nb = row.querySelector('.reveal');
+      if (nb) nb.focus();
+    });
+    meta.append(rb);
+  }
+  row.replaceChildren(t, badge, main, meta);
+}
+
+function renderVisit(v) {
+  v.categories = v.categories || [];
+  const row = el('div', 'visit');
+  row.dataset.tr = v.transition;
+  if (st.hidden.has(v.transition)) row.hidden = true;
+  rowData.set(row, v);
+  fillRow(row, v);
   return row;
+}
+
+function applyHide() {
+  st.revealed.clear();
+  renderDomains();
+  for (const row of document.querySelectorAll('.visit')) {
+    const v = rowData.get(row);
+    if (v && v.categories.length) fillRow(row, v);
+  }
 }
 
 function appendVisits(visits) {
@@ -258,7 +366,7 @@ async function refresh() {
   resetTimeline();
   setStatus('Loading…');
   try {
-    await Promise.all([loadSummary(), loadMore()]);
+    await Promise.all([loadSummary(), loadMore(), loadCategories()]);
   } catch (e) { setStatus('Error: ' + e.message); }
 }
 
@@ -291,7 +399,7 @@ async function exportCsv() {
   btn.disabled = true;
   try {
     const f = filters();
-    const rows = [['time','url','title','domain','transition','duration_ms'].join(',')];
+    const rows = [['time','url','title','domain','transition','duration_ms','categories'].join(',')];
     let offset = 0, total = Infinity;
     while (offset < total) {
       setStatus(`Exporting… ${num(offset)}`);
@@ -300,7 +408,10 @@ async function exportCsv() {
       if (!r.visits.length) break;
       for (const v of r.visits) {
         if (st.hidden.has(v.transition)) continue;
-        rows.push([v.time, v.url, v.title, v.domain, v.transition, v.durationMs].map(csvCell).join(','));
+        const cats = v.categories || [];
+        const mask = st.hide && cats.length > 0; // masks regardless of per-row reveals
+        rows.push([v.time, mask ? MASK : v.url, mask ? MASK : v.title, mask ? MASK : v.domain,
+          v.transition, v.durationMs, cats.join(';')].map(csvCell).join(','));
       }
       offset += r.visits.length;
     }
@@ -333,10 +444,18 @@ async function init() {
   $('f-reset').addEventListener('click', () => {
     for (const id of ['f-start','f-end','f-q','f-domain']) $(id).value = '';
     st.hidden.clear();
+    st.cats.clear();
     for (const c of $('f-trans').querySelectorAll('input')) c.checked = true;
     refresh();
   });
   $('f-csv').addEventListener('click', exportCsv);
+  try { st.hide = localStorage.getItem(HIDE_KEY) === '1'; } catch (_) {}
+  $('f-hide').checked = st.hide;
+  $('f-hide').addEventListener('change', e => {
+    st.hide = e.target.checked;
+    try { localStorage.setItem(HIDE_KEY, st.hide ? '1' : '0'); } catch (_) {}
+    applyHide();
+  });
   $('more').addEventListener('click', loadMore);
   window.addEventListener('scroll', checkSentinel, { passive: true });
   window.addEventListener('resize', checkSentinel);

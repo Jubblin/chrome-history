@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	"chrome-history/internal/classify"
 	"chrome-history/internal/history"
 )
 
@@ -45,6 +46,7 @@ func New(profiles []history.Profile, static fs.FS) *Server {
 	s.mux.HandleFunc("/api/timeline", s.handleTimeline)
 	s.mux.HandleFunc("/api/summary", s.handleSummary)
 	s.mux.HandleFunc("/api/domains", s.handleDomains)
+	s.mux.HandleFunc("/api/categories", s.handleCategories)
 	s.mux.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusNotFound, "unknown endpoint")
 	})
@@ -155,6 +157,19 @@ func rangeFilter(r *http.Request) (history.Filter, error) {
 	return f, nil
 }
 
+// categoryParam reads the repeatable / comma-separated `category` parameter.
+func categoryParam(r *http.Request) ([]string, error) {
+	var names []string
+	for _, v := range r.URL.Query()["category"] {
+		names = append(names, strings.Split(v, ",")...)
+	}
+	cats, err := classify.ParseCategories(names)
+	if err != nil {
+		return nil, badRequest(err.Error())
+	}
+	return cats, nil
+}
+
 // withReader resolves the profile, opens a private copy, and runs fn.
 func (s *Server) withReader(w http.ResponseWriter, r *http.Request, fn func(*history.Reader) (any, error)) {
 	id := r.URL.Query().Get("profile")
@@ -239,11 +254,17 @@ type visitJSON struct {
 	Transition string `json:"transition"`
 	DurationMs int64  `json:"durationMs"`
 	FromVisit  int64  `json:"fromVisit"`
+	// Categories is always an array (empty for unflagged visits).
+	Categories []string `json:"categories"`
 }
 
 func toVisitJSON(v history.Visit) visitJSON {
+	cats := v.Categories
+	if cats == nil {
+		cats = []string{}
+	}
 	return visitJSON{v.ID, v.Time.UTC().Format(time.RFC3339Nano), v.Time.UnixMilli(), v.URL, v.Title,
-		v.Domain, v.Transition, v.Duration.Milliseconds(), v.FromVisit}
+		v.Domain, v.Transition, v.Duration.Milliseconds(), v.FromVisit, cats}
 }
 
 func (s *Server) handleTimeline(w http.ResponseWriter, r *http.Request) {
@@ -251,6 +272,9 @@ func (s *Server) handleTimeline(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		q := r.URL.Query()
 		f.Search, f.Domain = q.Get("q"), q.Get("domain")
+		f.Categories, err = categoryParam(r)
+	}
+	if err == nil {
 		if f.Limit, err = intParam(r, "limit", defaultLimit, 1, maxLimit); err == nil {
 			f.Offset, err = intParam(r, "offset", 0, 0, 1<<30)
 		}
@@ -278,6 +302,9 @@ func (s *Server) handleTimeline(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) handleSummary(w http.ResponseWriter, r *http.Request) {
 	f, err := rangeFilter(r)
+	if err == nil {
+		f.Categories, err = categoryParam(r)
+	}
 	if err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
@@ -311,8 +338,21 @@ func (s *Server) handleSummary(w http.ResponseWriter, r *http.Request) {
 			sessions = append(sessions, sessionJSON{x.Start.Format(time.RFC3339Nano), x.Start.UnixMilli(),
 				x.End.Format(time.RFC3339Nano), x.End.UnixMilli(), len(x.Visits)})
 		}
+		type topDomainJSON struct {
+			history.DomainCount
+			// Categories classify the domain alone (so the UI can mask it).
+			Categories []string `json:"categories"`
+		}
+		top := make([]topDomainJSON, 0, len(doms))
+		for _, d := range doms {
+			cats := classify.Classify("https://" + d.Domain + "/")
+			if cats == nil {
+				cats = []string{}
+			}
+			top = append(top, topDomainJSON{d, cats})
+		}
 		return map[string]any{
-			"totalVisits": total, "perDay": days, "topDomains": doms,
+			"totalVisits": total, "perDay": days, "topDomains": top,
 			"sessions": sessions, "sessionGapMinutes": int(history.DefaultSessionGap.Minutes()),
 		}, nil
 	})
@@ -330,5 +370,45 @@ func (s *Server) handleDomains(w http.ResponseWriter, r *http.Request) {
 			return nil, err
 		}
 		return map[string]any{"domains": doms}, nil
+	})
+}
+
+// categoryLabels are the human-readable names for the category IDs.
+var categoryLabels = map[string]string{
+	classify.Adult: "Adult", classify.Gambling: "Gambling", classify.Health: "Health",
+	classify.Finance: "Finance", classify.Privacy: "Privacy tools", classify.NewsPolitics: "News & politics",
+}
+
+// handleCategories lists every category with its visit count in the selected
+// date range (the category filter itself is ignored so the chips stay stable).
+func (s *Server) handleCategories(w http.ResponseWriter, r *http.Request) {
+	f, err := rangeFilter(r)
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	s.withReader(w, r, func(rd *history.Reader) (any, error) {
+		days, err := rd.VisitsPerDay(f, time.UTC)
+		if err != nil {
+			return nil, err
+		}
+		counts := map[string]int{}
+		flagged := 0
+		for _, d := range days {
+			flagged += d.FlaggedVisits
+			for c, n := range d.Flagged {
+				counts[c] += n
+			}
+		}
+		type catJSON struct {
+			ID     string `json:"id"`
+			Label  string `json:"label"`
+			Visits int    `json:"visits"`
+		}
+		out := make([]catJSON, 0, len(classify.Categories))
+		for _, c := range classify.Categories {
+			out = append(out, catJSON{c, categoryLabels[c], counts[c]})
+		}
+		return map[string]any{"categories": out, "flaggedVisits": flagged}, nil
 	})
 }

@@ -21,6 +21,13 @@ import (
 var sites = []string{"example.com", "docs.example.org", "news.example.net", "shop.example.com",
 	"video.example.org", "wiki.example.net", "mail.example.com", "code.example.org", "maps.example.net", "blog.example.com"}
 
+// flaggedSites exercise every sensitive-site category using domains from the
+// bundled rules (plus a keyword match). Only the host names are real; all
+// paths and titles are synthetic.
+var flaggedSites = []string{"www.bet365.com", "pokerstars.com", "lucky-casino.example", "nordvpn.com", "mullvad.net",
+	"torproject.org", "www.nhs.uk", "webmd.com", "www.paypal.com", "monzo.com", "www.bbc.co.uk", "theguardian.com",
+	"porn-example.example", "casino-vpn.example"}
+
 func main() {
 	out := flag.String("out", "fixture", "output user-data directory (created; must not already hold a History)")
 	days := flag.Int("days", 90, "number of days of history ending today (UTC)")
@@ -72,6 +79,9 @@ func main() {
 			burst := 1 + r.Intn(12)
 			for j := 0; j < burst && i < cnt; j, i = j+1, i+1 {
 				site := sites[r.Intn(len(sites))]
+				if r.Intn(12) == 0 {
+					site = flaggedSites[r.Intn(len(flaggedSites))]
+				}
 				path := fmt.Sprintf("/page-%d", r.Intn(60))
 				u := "https://" + site + path
 				id, ok := urlIDs[u]
