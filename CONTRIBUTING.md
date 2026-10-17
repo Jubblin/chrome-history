@@ -77,6 +77,19 @@ The bundled lists in `internal/classify/rules.json` are a heuristic that favours
 - Keep each list sorted and free of duplicates, and add or update tests in `internal/classify`.
 - Users can fix misclassifications themselves with `add` and `allow` rules (see the README), so a borderline entry is better left out.
 
+## Releasing
+
+Releases are cut from `main` by pushing a version tag:
+
+```sh
+git tag -a v1.2.3 -m "v1.2.3"
+git push origin v1.2.3
+```
+
+The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It writes a `SHA256SUMS` file, adds build provenance attestations, and publishes a GitHub Release with generated notes. The tag is injected as the version, so `chrome-history --version` prints it. Check a download with `sha256sum -c SHA256SUMS` or `gh attestation verify <file> --repo Jubblin/chrome-history`.
+
+CI (`ci.yml`) and the security scans (`security.yml`) run on every pull request. Workflow actions are pinned to full commit SHAs and updated by Dependabot.
+
 ## Pull requests
 
 Before opening a pull request:

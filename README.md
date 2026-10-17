@@ -1,5 +1,8 @@
 # chrome-history
 
+[![CI](https://github.com/Jubblin/chrome-history/actions/workflows/ci.yml/badge.svg)](https://github.com/Jubblin/chrome-history/actions/workflows/ci.yml)
+[![Security](https://github.com/Jubblin/chrome-history/actions/workflows/security.yml/badge.svg)](https://github.com/Jubblin/chrome-history/actions/workflows/security.yml)
+
 A local, read-only timeline viewer for Chromium-family browser history (Chrome, Chromium, Edge, Brave, Vivaldi, Opera).
 It ships as one self-contained binary with the web UI embedded. No data leaves your machine.
 
