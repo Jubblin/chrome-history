@@ -81,6 +81,27 @@ type Filter struct {
 	// Categories keeps only visits with at least one of these categories
 	// (names from package classify). Applied after the SQL query.
 	Categories []string `json:"categories,omitempty"`
+	// MaskFlagged hides flagged visits' title, URL and domain from matching:
+	// Search and Domain never match a flagged visit (it is dropped from the
+	// result), and TopDomains leaves flagged visits out. Flagged visits still
+	// match through other fields (date, Categories).
+	MaskFlagged bool `json:"maskFlagged,omitempty"`
+}
+
+// postFilter reports whether matching needs the Go-side pass after SQL.
+func (f Filter) postFilter() bool {
+	return len(f.Categories) > 0 || (f.MaskFlagged && (f.Search != "" || f.Domain != ""))
+}
+
+// keep applies the Go-side part of the filter to v.
+func (f Filter) keep(v Visit) bool {
+	if len(f.Categories) > 0 && !classify.HasAny(v.Categories, f.Categories) {
+		return false
+	}
+	if f.MaskFlagged && (f.Search != "" || f.Domain != "") && len(v.Categories) > 0 {
+		return false
+	}
+	return true
 }
 
 // Reader reads a private copy of a History database.
@@ -265,7 +286,7 @@ func (r *Reader) Query(f Filter) ([]Visit, error) {
 
 // Count returns the number of visits matching f (Limit/Offset ignored).
 func (r *Reader) Count(f Filter) (int, error) {
-	if len(f.Categories) > 0 {
+	if f.postFilter() {
 		n := 0
 		err := r.each(f, 0, 0, func(Visit) { n++ })
 		return n, err
@@ -277,13 +298,13 @@ func (r *Reader) Count(f Filter) (int, error) {
 }
 
 func (r *Reader) each(f Filter, limit, offset int, fn func(Visit)) error {
-	if len(f.Categories) == 0 {
+	if !f.postFilter() {
 		return r.scan(f, limit, offset, func(v Visit) error { fn(v); return nil })
 	}
 	skipped, taken := 0, 0
 	stop := errStop
 	err := r.scan(f, 0, 0, func(v Visit) error {
-		if !classify.HasAny(v.Categories, f.Categories) {
+		if !f.keep(v) {
 			return nil
 		}
 		if skipped < offset {
@@ -417,7 +438,7 @@ func (r *Reader) TopDomains(f Filter, n int) ([]DomainCount, error) {
 	f.Limit, f.Offset = 0, 0
 	m := map[string]int{}
 	if err := r.each(f, 0, 0, func(v Visit) {
-		if v.Domain != "" {
+		if v.Domain != "" && !(f.MaskFlagged && len(v.Categories) > 0) {
 			m[v.Domain]++
 		}
 	}); err != nil {

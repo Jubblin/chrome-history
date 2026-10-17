@@ -170,6 +170,19 @@ func categoryParam(r *http.Request) ([]string, error) {
 	return cats, nil
 }
 
+// maskParam reads the boolean `maskFlagged` parameter (absent = false).
+func maskParam(r *http.Request) (bool, error) {
+	v := r.URL.Query().Get("maskFlagged")
+	if v == "" {
+		return false, nil
+	}
+	b, err := strconv.ParseBool(v)
+	if err != nil {
+		return false, badRequest("maskFlagged must be true or false")
+	}
+	return b, nil
+}
+
 // withReader resolves the profile, opens a private copy, and runs fn.
 func (s *Server) withReader(w http.ResponseWriter, r *http.Request, fn func(*history.Reader) (any, error)) {
 	id := r.URL.Query().Get("profile")
@@ -275,6 +288,9 @@ func (s *Server) handleTimeline(w http.ResponseWriter, r *http.Request) {
 		f.Categories, err = categoryParam(r)
 	}
 	if err == nil {
+		f.MaskFlagged, err = maskParam(r)
+	}
+	if err == nil {
 		if f.Limit, err = intParam(r, "limit", defaultLimit, 1, maxLimit); err == nil {
 			f.Offset, err = intParam(r, "offset", 0, 0, 1<<30)
 		}
@@ -304,6 +320,9 @@ func (s *Server) handleSummary(w http.ResponseWriter, r *http.Request) {
 	f, err := rangeFilter(r)
 	if err == nil {
 		f.Categories, err = categoryParam(r)
+	}
+	if err == nil {
+		f.MaskFlagged, err = maskParam(r)
 	}
 	if err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
@@ -360,6 +379,9 @@ func (s *Server) handleSummary(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) handleDomains(w http.ResponseWriter, r *http.Request) {
 	f, err := rangeFilter(r)
+	if err == nil {
+		f.MaskFlagged, err = maskParam(r)
+	}
 	if err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return

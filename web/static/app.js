@@ -50,7 +50,8 @@ async function api(path, params) {
 
 function filters() {
   return { profile: st.profile, start: $('f-start').value, end: $('f-end').value,
-    q: $('f-q').value.trim(), domain: $('f-domain').value.trim(), category: [...st.cats].sort().join(',') };
+    q: $('f-q').value.trim(), domain: $('f-domain').value.trim(), category: [...st.cats].sort().join(','),
+    maskFlagged: st.hide ? 'true' : '' };
 }
 function setStatus(msg) { $('status').textContent = msg || ''; }
 
@@ -89,7 +90,7 @@ function binRange(key, unit) {
 
 async function loadSummary() {
   const f = filters();
-  const s = await api('summary', { profile: f.profile, start: f.start, end: f.end, category: f.category });
+  const s = await api('summary', { profile: f.profile, start: f.start, end: f.end, category: f.category, maskFlagged: f.maskFlagged });
   st.gapMs = (s.sessionGapMinutes || 30) * 60000;
   const days = s.perDay || [];
   const unit = days.length > 400 ? 'month' : days.length > 120 ? 'week' : 'day';
@@ -180,7 +181,7 @@ function renderDomains() {
 // ---------- categories ----------
 async function loadCategories() {
   const f = filters();
-  const r = await api('categories', { profile: f.profile, start: f.start, end: f.end });
+  const r = await api('categories', { profile: f.profile, start: f.start, end: f.end, maskFlagged: f.maskFlagged });
   const box = $('cat-chips');
   const hadFocus = box.contains(document.activeElement) ? document.activeElement.dataset.cat : null;
   box.replaceChildren();
@@ -455,6 +456,8 @@ async function init() {
     st.hide = e.target.checked;
     try { localStorage.setItem(HIDE_KEY, st.hide ? '1' : '0'); } catch (_) {}
     applyHide();
+    // The server decides what Search/Domain and the domain list may match.
+    refresh();
   });
   $('more').addEventListener('click', loadMore);
   window.addEventListener('scroll', checkSentinel, { passive: true });

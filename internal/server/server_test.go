@@ -280,4 +280,46 @@ func TestCategories(t *testing.T) {
 	if m["flaggedVisits"].(float64) != 2 {
 		t.Fatalf("range: %v", m)
 	}
+
+	// maskFlagged: text and domain filters never match flagged visits.
+	total := func(q string) float64 { _, m := get(t, ts, "/api/timeline?"+q, ""); return m["total"].(float64) }
+	for q, want := range map[string]float64{
+		"q=Bets": 2, "q=bet365": 2, "domain=bet365.com": 2, "q=Plain": 1, "domain=example.com": 1, "q=": 5,
+	} {
+		if got := total(q); got != want {
+			t.Errorf("unmasked %s: %v want %v", q, got, want)
+		}
+	}
+	for q, want := range map[string]float64{
+		"q=Bets": 0, "q=bet365": 0, "q=Both": 0, "domain=bet365.com": 0, "domain=bbc.co.uk": 0,
+		"q=Plain": 1, "domain=example.com": 1, "q=&maskFlagged=true": 5,
+		"category=gambling": 3, "category=gambling&q=Bets": 0,
+	} {
+		if !strings.Contains(q, "maskFlagged") {
+			q += "&maskFlagged=true"
+		}
+		if got := total(q); got != want {
+			t.Errorf("masked %s: %v want %v", q, got, want)
+		}
+	}
+	if code, _ = get(t, ts, "/api/timeline?maskFlagged=maybe", ""); code != 400 {
+		t.Errorf("bad maskFlagged: %d", code)
+	}
+	_, m = get(t, ts, "/api/summary?maskFlagged=true", "")
+	if m["totalVisits"].(float64) != 5 {
+		t.Errorf("masked summary total: %v", m["totalVisits"])
+	}
+	for _, d := range m["topDomains"].([]any) {
+		if dom := d.(map[string]any)["domain"]; dom != "example.com" {
+			t.Errorf("flagged domain %v in masked topDomains", dom)
+		}
+	}
+	_, m = get(t, ts, "/api/domains?maskFlagged=true", "")
+	if ds := m["domains"].([]any); len(ds) != 1 || ds[0].(map[string]any)["domain"] != "example.com" {
+		t.Errorf("masked domains: %v", ds)
+	}
+	_, m = get(t, ts, "/api/domains", "")
+	if len(m["domains"].([]any)) != 4 {
+		t.Errorf("unmasked domains: %v", m["domains"])
+	}
 }

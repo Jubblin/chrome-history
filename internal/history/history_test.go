@@ -294,3 +294,78 @@ func TestCategoriesFilterAndFlagCounts(t *testing.T) {
 		t.Errorf("after allow: %d", n)
 	}
 }
+
+func TestMaskFlagged(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "History")
+	db := mkDB(t, path, false)
+	rows := [][2]string{
+		{"https://example.com/a", "Plain page"},
+		{"https://www.bet365.com/x", "Secret bets"},
+		{"https://example.org/b", "Other"},
+	}
+	for i, u := range rows {
+		db.Exec(`INSERT INTO urls(id,url,title) VALUES(?,?,?)`, i+1, u[0], u[1])
+		db.Exec(`INSERT INTO visits(id,url,visit_time,from_visit,transition,visit_duration) VALUES(?,?,?,0,0,0)`,
+			i+1, i+1, ToWebKit(base.Add(time.Duration(i)*time.Minute)))
+	}
+	db.Close()
+	r, err := Open(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer r.Close()
+
+	count := func(f Filter) int {
+		n, err := r.Count(f)
+		if err != nil {
+			t.Fatal(err)
+		}
+		vs, err := r.Query(f)
+		if err != nil || len(vs) != n {
+			t.Fatalf("query %d vs count %d (%v)", len(vs), n, err)
+		}
+		return n
+	}
+	for _, f := range []Filter{{Search: "bets"}, {Search: "bet365"}, {Domain: "bet365.com"}, {Domain: "www.bet365.com"}} {
+		if n := count(f); n != 1 {
+			t.Errorf("unmasked %+v = %d, want 1", f, n)
+		}
+		f.MaskFlagged = true
+		if n := count(f); n != 0 {
+			t.Errorf("masked %+v = %d, want 0", f, n)
+		}
+	}
+	if n := count(Filter{Search: "plain", MaskFlagged: true}); n != 1 {
+		t.Errorf("unflagged search masked = %d", n)
+	}
+	if n := count(Filter{Domain: "example.com", MaskFlagged: true}); n != 1 {
+		t.Errorf("unflagged domain masked = %d", n)
+	}
+	// without text/domain filters, flagged visits are still returned
+	if n := count(Filter{MaskFlagged: true}); n != 3 {
+		t.Errorf("masked no filter = %d", n)
+	}
+	if n := count(Filter{MaskFlagged: true, Categories: []string{"gambling"}}); n != 1 {
+		t.Errorf("masked category = %d", n)
+	}
+	if n := count(Filter{MaskFlagged: true, Categories: []string{"gambling"}, Search: "bets"}); n != 0 {
+		t.Errorf("masked category+search = %d", n)
+	}
+	// paging stays consistent with the filter
+	vs, _ := r.Query(Filter{Search: "e", MaskFlagged: true, Limit: 1, Offset: 1, Oldest: true})
+	if len(vs) != 1 || vs[0].ID != 3 {
+		t.Errorf("paged: %+v", vs)
+	}
+	ds, _ := r.TopDomains(Filter{MaskFlagged: true}, 0)
+	if len(ds) != 2 {
+		t.Errorf("masked top domains: %+v", ds)
+	}
+	for _, d := range ds {
+		if d.Domain == "www.bet365.com" {
+			t.Errorf("flagged domain leaked: %+v", ds)
+		}
+	}
+	if ds, _ := r.TopDomains(Filter{}, 0); len(ds) != 3 {
+		t.Errorf("unmasked top domains: %+v", ds)
+	}
+}
