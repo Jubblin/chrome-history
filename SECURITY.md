@@ -33,6 +33,13 @@ This is a hobby project, so these are best-effort targets, not guarantees:
 - `/api/profiles` does not return the account email or directory names; visit counts are cached so the endpoint does not copy every database on each call.
 - The rules file is limited to 1 MiB.
 
+## Automated scanning
+
+- `govulncheck` checks the code and dependencies against the Go vulnerability database on every push, pull request and weekly.
+- CodeQL analyses the Go code and the JavaScript in `web/static` on the same schedule; results appear in the repository's code scanning alerts.
+- Dependabot opens weekly update pull requests for Go modules and GitHub Actions.
+- Workflows use read-only permissions by default, pin actions to commit SHAs, use no secrets and never run untrusted pull request code with write access. Release archives carry build provenance attestations and a `SHA256SUMS` file.
+
 ## Scope
 
 In scope:

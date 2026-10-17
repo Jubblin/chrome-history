@@ -23,12 +23,20 @@ import (
 	"chrome-history/web"
 )
 
+// version is set at release time with -ldflags "-X main.version=...".
+var version = "dev"
+
 func main() {
 	profile := flag.String("profile", "", "path to a profile dir, user-data dir, or History file (default: auto-discover)")
 	port := flag.Int("port", 8080, "TCP port on 127.0.0.1 (0 = random)")
 	noOpen := flag.Bool("no-open", false, "do not open the browser")
 	rules := flag.String("rules", "", "sensitive-site rules file (default: <user config dir>/chrome-history/rules.json, optional)")
+	showVersion := flag.Bool("version", false, "print the version and exit")
 	flag.Parse()
+	if *showVersion {
+		fmt.Println("chrome-history", version)
+		return
+	}
 
 	cls, err := classify.Load(*rules)
 	if err != nil {
