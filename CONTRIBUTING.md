@@ -15,6 +15,10 @@ go run ./cmd/make-fixture -out DIR -days 90 -per-day 40 -seed 1
 
 `fixture/` and `bin/` are git-ignored; keep it that way.
 
+## Reporting security issues
+
+Do not open a public issue for a vulnerability. See [SECURITY.md](SECURITY.md) for how to report one privately.
+
 ## Reporting bugs
 
 Open an issue with your OS, browser and version, how you ran the tool, what you expected and what happened. Error text from the log is fine (logs contain only profile IDs and error messages). If a bug needs data to reproduce, describe it or generate it with `cmd/make-fixture`.
