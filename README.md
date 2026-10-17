@@ -81,7 +81,7 @@ Times are accepted as RFC3339, `YYYY-MM-DD` (UTC; as `end` it includes that whol
 
 | Endpoint | Response |
 |---|---|
-| `/api/profiles` | `{"profiles":[{"id","browser","channel?","name","email?","dir","kind","visit_count?"}]}` (`visit_count` = total visits; omitted if the database cannot be read) |
+| `/api/profiles` | `{"profiles":[{"id","browser","channel?","name","email?","dir","kind","visitCount?"}]}` (`visitCount` = total visits; omitted if the database cannot be read) |
 | `/api/timeline?profile=&start=&end=&q=&domain=&limit=&offset=` | `{"visits":[{"id","time","timeMs","url","title","domain","transition","durationMs","fromVisit"}],"total","limit","offset"}`, newest first; `limit` default 100, max 1000 |
 | `/api/summary?profile=&start=&end=` | `{"totalVisits","perDay":[{"date","visits"}],"topDomains":[{"domain","visits"}],"sessions":[{"start","startMs","end","endMs","visits"}],"sessionGapMinutes"}` (days in UTC, top 20 domains) |
 | `/api/domains?profile=&start=&end=` | `{"domains":[{"domain","visits"}]}` sorted by visits |

@@ -53,7 +53,7 @@ async function loadProfiles() {
   const sel = $('profile');
   for (const p of profiles) {
     const o = el('option', '', [p.browser + (p.channel ? ' ' + p.channel : ''), p.name, p.email,
-      typeof p.visit_count === 'number' ? num(p.visit_count) + ' visits' : ''].filter(Boolean).join(' · '));
+      typeof p.visitCount === 'number' ? num(p.visitCount) + ' visits' : ''].filter(Boolean).join(' · '));
     o.value = p.id;
     sel.appendChild(o);
   }

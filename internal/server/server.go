@@ -204,7 +204,7 @@ type profileJSON struct {
 	Dir     string `json:"dir"`
 	Kind    string `json:"kind"`
 	// VisitCount is omitted when the history database cannot be read.
-	VisitCount *int `json:"visit_count,omitempty"`
+	VisitCount *int `json:"visitCount,omitempty"`
 }
 
 func visitCount(p history.Profile) *int {
