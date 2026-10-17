@@ -109,3 +109,9 @@ Edit the rules with a JSON file at `<user config dir>/chrome-history/rules.json`
 ```
 
 `domains` match the domain and its subdomains. `keywords` (3+ characters) match anywhere in the host or path, not the query (unlike the bundled keywords, which must be whole words). `allow` removes matches from a category and wins over bundled rules and your own `add` rules.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).
+
+The SQLite driver, `modernc.org/sqlite`, is licensed under BSD-3-Clause.
