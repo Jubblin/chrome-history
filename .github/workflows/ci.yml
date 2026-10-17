@@ -51,6 +51,8 @@ jobs:
           # the minimum is only checked on Linux.
           - os: ubuntu-latest
             go: oldest
+            gofile: go.mod
+    name: test (${{ matrix.os }}, ${{ matrix.go }})
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -58,8 +60,10 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version: ${{ matrix.go == 'oldest' && '' || matrix.go }}
-          go-version-file: ${{ matrix.go == 'oldest' && 'go.mod' || '' }}
+          # Exactly one of the two inputs is set: oldest uses go.mod, the
+          # others use the go-version from the matrix.
+          go-version: ${{ matrix.gofile == '' && matrix.go || '' }}
+          go-version-file: ${{ matrix.gofile }}
           cache: true
       - name: Build (CGO off)
         run: go build ./...
