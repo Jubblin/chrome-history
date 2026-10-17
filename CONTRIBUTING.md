@@ -47,7 +47,7 @@ Option 2: install Go 1.22 or newer locally and run the commands below directly.
 | `go vet ./...` | must be clean |
 | `go test -race ./...` | must pass |
 
-Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-Chrome-History-Token: <token>"`.
+Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-Chrome-History-Token: <token>"`. The token cookie is `Secure`, so use a Chromium-based browser or Firefox for the UI (Safari does not send Secure cookies over http); the cookie must stay `Secure`.
 
 ## Project layout
 

@@ -95,7 +95,7 @@ func TestTokenURLSetsCookieAndRedirects(t *testing.T) {
 	if c == nil || c.Value != srv.Token() {
 		t.Fatal("cookie not set")
 	}
-	if !c.HttpOnly || c.SameSite != http.SameSiteStrictMode || c.Path != "/" {
+	if !c.HttpOnly || !c.Secure || c.SameSite != http.SameSiteStrictMode || c.Path != "/" {
 		t.Errorf("cookie flags: %+v", c)
 	}
 	if strings.Contains(resp.Header.Get("Location"), srv.Token()) {

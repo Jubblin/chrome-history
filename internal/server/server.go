@@ -173,7 +173,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		http.SetCookie(w, &http.Cookie{Name: TokenCookie, Value: s.token, Path: "/",
-			HttpOnly: true, SameSite: http.SameSiteStrictMode})
+			HttpOnly: true, Secure: true, SameSite: http.SameSiteStrictMode})
 		q.Del("token")
 		target := url.URL{Path: "/" + strings.TrimPrefix(r.URL.Path, "/"), RawQuery: q.Encode()}
 		dest := target.String()
