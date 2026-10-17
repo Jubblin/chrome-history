@@ -91,6 +91,9 @@ func TestAPI(t *testing.T) {
 	if len(ps) != 1 || strings.Contains(id, "/") {
 		t.Fatalf("profiles %v", ps)
 	}
+	if vc, ok := ps[0].(map[string]any)["visit_count"].(float64); !ok || vc != 5 {
+		t.Fatalf("visit_count %v", ps[0])
+	}
 	if _, leaked := ps[0].(map[string]any)["path"]; leaked {
 		t.Fatal("path leaked")
 	}

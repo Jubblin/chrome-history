@@ -203,13 +203,28 @@ type profileJSON struct {
 	Email   string `json:"email,omitempty"`
 	Dir     string `json:"dir"`
 	Kind    string `json:"kind"`
+	// VisitCount is omitted when the history database cannot be read.
+	VisitCount *int `json:"visit_count,omitempty"`
+}
+
+func visitCount(p history.Profile) *int {
+	rd, err := history.OpenProfile(p)
+	if err != nil {
+		return nil
+	}
+	defer rd.Close()
+	n, err := rd.Count(history.Filter{})
+	if err != nil {
+		return nil
+	}
+	return &n
 }
 
 func (s *Server) handleProfiles(w http.ResponseWriter, r *http.Request) {
 	out := make([]profileJSON, 0, len(s.order))
 	for _, id := range s.order {
 		p := s.profiles[id]
-		out = append(out, profileJSON{id, p.Browser, p.Channel, p.Name, p.Email, p.Dir, p.Kind})
+		out = append(out, profileJSON{id, p.Browser, p.Channel, p.Name, p.Email, p.Dir, p.Kind, visitCount(p)})
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"profiles": out})
 }

@@ -52,7 +52,8 @@ async function loadProfiles() {
   const { profiles } = await api('profiles');
   const sel = $('profile');
   for (const p of profiles) {
-    const o = el('option', '', [p.browser + (p.channel ? ' ' + p.channel : ''), p.name, p.email].filter(Boolean).join(' · '));
+    const o = el('option', '', [p.browser + (p.channel ? ' ' + p.channel : ''), p.name, p.email,
+      typeof p.visit_count === 'number' ? num(p.visit_count) + ' visits' : ''].filter(Boolean).join(' · '));
     o.value = p.id;
     sel.appendChild(o);
   }
@@ -96,6 +97,7 @@ async function loadSummary() {
     const n = bins.get(k);
     const b = el('button', 'bar');
     b.type = 'button';
+    b.tabIndex = chart.childElementCount === 0 ? 0 : -1;
     b.title = `${k}: ${num(n)} visits`;
     b.setAttribute('aria-label', `${k}: ${num(n)} visits`);
     const i = el('i');
@@ -107,6 +109,24 @@ async function loadSummary() {
       refresh();
     });
     chart.appendChild(b);
+  }
+  if (!chart.dataset.keys) {
+    chart.dataset.keys = '1';
+    chart.addEventListener('keydown', e => {
+      const bars = [...chart.querySelectorAll('.bar')];
+      const i = bars.indexOf(document.activeElement);
+      if (i < 0) return;
+      const j = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: bars.length - 1 }[e.key];
+      if (j == null) return;
+      e.preventDefault();
+      const t = bars[Math.max(0, Math.min(bars.length - 1, j))];
+      bars[i].tabIndex = -1; t.tabIndex = 0; t.focus();
+    });
+    chart.addEventListener('focusin', e => {
+      const t = e.target.closest && e.target.closest('.bar');
+      if (!t) return;
+      for (const b of chart.querySelectorAll('.bar')) b.tabIndex = b === t ? 0 : -1;
+    });
   }
   const dl = $('domains');
   dl.replaceChildren();

@@ -56,3 +56,4 @@ a.vtitle:hover{text-decoration:underline;color:var(--accent)}
 .sentinel{height:40px;text-align:center}
 .empty{color:var(--muted);text-align:center;padding:30px}
 @media (max-width:700px){.visit{grid-template-columns:48px 1fr}.vmeta{grid-column:2;text-align:left}.badge{max-width:100%}}
+.skip + .skip:focus{left:150px}

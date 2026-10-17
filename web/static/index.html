@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>chrome-history</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <a class="skip" href="#timeline">Skip to timeline</a>
+<a class="skip" href="#filters">Skip to filters</a>
 <header class="top">
   <h1>History</h1>
   <label class="profile">Profile
@@ -21,7 +23,7 @@
   <section class="overview" aria-label="Overview">
     <div class="chart-wrap">
       <h2>Activity <small id="chart-unit"></small></h2>
-      <div id="chart" class="chart" role="group" aria-label="Visits per period. Activate a bar to zoom to that period."></div>
+      <div id="chart" class="chart" role="group" aria-label="Visits per period. Use left and right arrow keys to move between bars, Enter to zoom to that period."></div>
     </div>
     <div class="domains-wrap">
       <h2>Top domains</h2>
@@ -29,7 +31,7 @@
     </div>
   </section>
 
-  <form id="filters" class="filters" autocomplete="off">
+  <form id="filters" class="filters" tabindex="-1" autocomplete="off">
     <label>From <input type="date" id="f-start"></label>
     <label>To <input type="date" id="f-end"></label>
     <label class="grow">Search <input type="search" id="f-q" placeholder="title or URL"></label>
