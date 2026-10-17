@@ -94,6 +94,12 @@ func TestRemoveAllTemp(t *testing.T) {
 		t.Fatal(err)
 	}
 	RemoveAllTemp()
+	// The databases must be closed first: Windows cannot delete open files.
+	for _, r := range []*Reader{r1, r2} {
+		if err := r.db.Ping(); err == nil {
+			t.Fatal("database still open after RemoveAllTemp")
+		}
+	}
 	for _, d := range []string{r1.tmpDir, r2.tmpDir} {
 		if _, err := os.Stat(d); !os.IsNotExist(err) {
 			t.Fatalf("%s survived RemoveAllTemp", d)

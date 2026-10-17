@@ -3,6 +3,7 @@ package history
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
@@ -12,13 +13,24 @@ import (
 const TempPrefix = "chrome-history-"
 
 var (
-	liveMu   sync.Mutex
-	liveTemp = map[string]struct{}{}
+	liveMu sync.Mutex
+	// liveTemp maps each live temp dir to a function that closes the database
+	// opened on it (nil until the database exists). Windows cannot delete
+	// files that are still open, so RemoveAllTemp must close them first.
+	liveTemp = map[string]func(){}
 )
 
 func trackTemp(dir string) {
 	liveMu.Lock()
-	liveTemp[dir] = struct{}{}
+	liveTemp[dir] = nil
+	liveMu.Unlock()
+}
+
+func setTempCloser(dir string, closeDB func()) {
+	liveMu.Lock()
+	if _, ok := liveTemp[dir]; ok {
+		liveTemp[dir] = closeDB
+	}
 	liveMu.Unlock()
 }
 
@@ -26,7 +38,21 @@ func removeTemp(dir string) error {
 	liveMu.Lock()
 	delete(liveTemp, dir)
 	liveMu.Unlock()
-	return os.RemoveAll(dir)
+	return removeAllRetry(dir)
+}
+
+// removeAllRetry is os.RemoveAll with a few short retries on Windows, where
+// deletion can transiently fail while a handle is being released.
+func removeAllRetry(dir string) error {
+	err := os.RemoveAll(dir)
+	if runtime.GOOS != "windows" {
+		return err
+	}
+	for i := 0; err != nil && i < 10; i++ {
+		time.Sleep(20 * time.Millisecond)
+		err = os.RemoveAll(dir)
+	}
+	return err
 }
 
 // RemoveAllTemp deletes every temp copy still owned by this process. Call it
@@ -34,10 +60,17 @@ func removeTemp(dir string) error {
 func RemoveAllTemp() {
 	liveMu.Lock()
 	dirs := make([]string, 0, len(liveTemp))
-	for d := range liveTemp {
+	closers := make([]func(), 0, len(liveTemp))
+	for d, c := range liveTemp {
 		dirs = append(dirs, d)
+		if c != nil {
+			closers = append(closers, c)
+		}
 	}
 	liveMu.Unlock()
+	for _, c := range closers {
+		c()
+	}
 	for _, d := range dirs {
 		removeTemp(d)
 	}

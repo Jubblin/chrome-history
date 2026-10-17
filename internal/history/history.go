@@ -168,6 +168,7 @@ func Open(historyPath string) (*Reader, error) {
 		return fail(err)
 	}
 	db.SetMaxOpenConns(1)
+	setTempCloser(tmp, func() { db.Close() })
 	clsMu.RLock()
 	cls := defaultCls
 	clsMu.RUnlock()
