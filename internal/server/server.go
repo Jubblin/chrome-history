@@ -2,7 +2,9 @@
 package server
 
 import (
+	"crypto/rand"
 	"crypto/sha256"
+	"crypto/subtle"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
@@ -10,8 +12,10 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"chrome-history/internal/classify"
@@ -29,11 +33,31 @@ type Server struct {
 	profiles map[string]history.Profile
 	order    []string
 	mux      *http.ServeMux
+	token    string
+
+	countMu sync.Mutex
+	counts  map[string]countEntry
 }
+
+// countEntry caches a profile's visit count for one state of its files.
+type countEntry struct {
+	fingerprint string
+	n           *int
+}
+
+const (
+	// TokenCookie is the cookie that carries the access token after the
+	// first visit to the ?token=... URL.
+	TokenCookie = "chrome_history_token"
+	// TokenHeader is the header API clients can use instead of the cookie
+	// (Authorization: Bearer <token> works too).
+	TokenHeader = "X-Chrome-History-Token"
+)
 
 // New builds a Server for the given profiles. static may be nil (API only).
 func New(profiles []history.Profile, static fs.FS) *Server {
-	s := &Server{profiles: map[string]history.Profile{}, mux: http.NewServeMux()}
+	s := &Server{profiles: map[string]history.Profile{}, mux: http.NewServeMux(),
+		token: newToken(), counts: map[string]countEntry{}}
 	for _, p := range profiles {
 		id := ProfileID(p)
 		if _, dup := s.profiles[id]; dup {
@@ -56,14 +80,70 @@ func New(profiles []history.Profile, static fs.FS) *Server {
 	return s
 }
 
+func newToken() string {
+	b := make([]byte, 32)
+	if _, err := rand.Read(b); err != nil {
+		panic("server: no secure randomness: " + err.Error())
+	}
+	return hex.EncodeToString(b)
+}
+
+// Token returns this run's access token. Every request must present it.
+func (s *Server) Token() string { return s.token }
+
+// tokenEqual compares in constant time (over fixed-length digests, so the
+// length of the guess does not leak either).
+func tokenEqual(got, want string) bool {
+	a, b := sha256.Sum256([]byte(got)), sha256.Sum256([]byte(want))
+	return subtle.ConstantTimeCompare(a[:], b[:]) == 1
+}
+
 // ProfileID returns the opaque token for a profile (hash of its History path).
 func ProfileID(p history.Profile) string {
 	sum := sha256.Sum256([]byte(p.HistoryPath))
 	return hex.EncodeToString(sum[:])[:12]
 }
 
-// ServeHTTP implements http.Handler with Host and method checks.
+// securityHeaders are set on every response, errors included.
+func securityHeaders(h http.Header) {
+	h.Set("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+	h.Set("X-Frame-Options", "DENY")
+	h.Set("Referrer-Policy", "no-referrer")
+	h.Set("Cross-Origin-Resource-Policy", "same-origin")
+	h.Set("X-Content-Type-Options", "nosniff")
+	h.Set("Cache-Control", "no-store")
+}
+
+// crossSite reports whether the browser says the request comes from another
+// site, or carries an Origin other than this server's own.
+func crossSite(r *http.Request) bool {
+	if r.Header.Get("Sec-Fetch-Site") == "cross-site" {
+		return true
+	}
+	if origin := r.Header.Get("Origin"); origin != "" {
+		return !strings.EqualFold(origin, "http://"+r.Host)
+	}
+	return false
+}
+
+// authorized reports whether the request carries the token in a header or cookie.
+func (s *Server) authorized(r *http.Request) bool {
+	if v := r.Header.Get(TokenHeader); v != "" && tokenEqual(v, s.token) {
+		return true
+	}
+	if v, ok := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer "); ok && tokenEqual(v, s.token) {
+		return true
+	}
+	if c, err := r.Cookie(TokenCookie); err == nil && tokenEqual(c.Value, s.token) {
+		return true
+	}
+	return false
+}
+
+// ServeHTTP implements http.Handler: security headers, Host, method,
+// cross-site and token checks, then the routes.
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	securityHeaders(w.Header())
 	if !localHost(r.Host) {
 		writeError(w, http.StatusForbidden, "forbidden host")
 		return
@@ -73,8 +153,31 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusMethodNotAllowed, "method not allowed")
 		return
 	}
-	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Header().Set("Cache-Control", "no-store")
+	if crossSite(r) {
+		writeError(w, http.StatusForbidden, "cross-site request refused")
+		return
+	}
+	q := r.URL.Query()
+	if qt, ok := q["token"]; ok {
+		// First visit: trade the URL token for a cookie, then drop it from the URL.
+		if len(qt) != 1 || !tokenEqual(qt[0], s.token) {
+			writeError(w, http.StatusUnauthorized, "missing or invalid access token")
+			return
+		}
+		http.SetCookie(w, &http.Cookie{Name: TokenCookie, Value: s.token, Path: "/",
+			HttpOnly: true, SameSite: http.SameSiteStrictMode})
+		q.Del("token")
+		dest := "/" + strings.TrimLeft(r.URL.Path, "/")
+		if enc := q.Encode(); enc != "" {
+			dest += "?" + enc
+		}
+		http.Redirect(w, r, dest, http.StatusFound)
+		return
+	}
+	if !s.authorized(r) {
+		writeError(w, http.StatusUnauthorized, "missing or invalid access token")
+		return
+	}
 	s.mux.ServeHTTP(w, r)
 }
 
@@ -223,19 +326,33 @@ func (s *Server) withReader(w http.ResponseWriter, r *http.Request, fn func(*his
 	writeJSON(w, http.StatusOK, out)
 }
 
+// profileJSON deliberately omits the account email and directory names.
 type profileJSON struct {
 	ID      string `json:"id"`
 	Browser string `json:"browser"`
 	Channel string `json:"channel,omitempty"`
 	Name    string `json:"name"`
-	Email   string `json:"email,omitempty"`
-	Dir     string `json:"dir"`
 	Kind    string `json:"kind"`
 	// VisitCount is omitted when the history database cannot be read.
 	VisitCount *int `json:"visitCount,omitempty"`
 }
 
-func visitCount(p history.Profile) *int {
+// fingerprint identifies the state of a profile's History files by size and
+// modification time, so the cached visit count is reused until they change.
+func fingerprint(p history.Profile) string {
+	var b strings.Builder
+	for _, suf := range []string{"", "-wal", "-journal"} {
+		fi, err := os.Lstat(p.HistoryPath + suf)
+		if err != nil {
+			b.WriteString("-;")
+			continue
+		}
+		b.WriteString(strconv.FormatInt(fi.Size(), 10) + "@" + strconv.FormatInt(fi.ModTime().UnixNano(), 10) + ";")
+	}
+	return b.String()
+}
+
+func countVisits(p history.Profile) *int {
 	rd, err := history.OpenProfile(p)
 	if err != nil {
 		return nil
@@ -248,11 +365,25 @@ func visitCount(p history.Profile) *int {
 	return &n
 }
 
+// visitCount returns the profile's total visits, copying the database only
+// the first time and again after the files change. Failures are cached too.
+func (s *Server) visitCount(id string, p history.Profile) *int {
+	fp := fingerprint(p)
+	s.countMu.Lock()
+	defer s.countMu.Unlock()
+	if e, ok := s.counts[id]; ok && e.fingerprint == fp {
+		return e.n
+	}
+	n := countVisits(p)
+	s.counts[id] = countEntry{fp, n}
+	return n
+}
+
 func (s *Server) handleProfiles(w http.ResponseWriter, r *http.Request) {
 	out := make([]profileJSON, 0, len(s.order))
 	for _, id := range s.order {
 		p := s.profiles[id]
-		out = append(out, profileJSON{id, p.Browser, p.Channel, p.Name, p.Email, p.Dir, p.Kind, visitCount(p)})
+		out = append(out, profileJSON{id, p.Browser, p.Channel, p.Name, p.Kind, s.visitCount(id, p)})
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"profiles": out})
 }

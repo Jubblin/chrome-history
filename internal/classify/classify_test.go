@@ -331,3 +331,24 @@ func TestConcurrentUse(t *testing.T) {
 		<-done
 	}
 }
+
+func TestLoadSizeLimit(t *testing.T) {
+	dir := t.TempDir()
+	body := `{"add":{"adult":{"domains":["x.example"]}}}`
+	mk := func(name string, size int) string {
+		p := filepath.Join(dir, name)
+		pad := strings.Repeat(" ", size-len(body))
+		if err := os.WriteFile(p, []byte(body+pad), 0o600); err != nil {
+			t.Fatal(err)
+		}
+		return p
+	}
+	if _, err := Load(mk("ok.json", MaxRulesFileSize)); err != nil {
+		t.Fatalf("file of exactly the limit must load: %v", err)
+	}
+	big := mk("big.json", MaxRulesFileSize+1)
+	_, err := Load(big)
+	if err == nil || !strings.Contains(err.Error(), "1 MiB limit") || !strings.Contains(err.Error(), big) {
+		t.Fatalf("oversize file: %v", err)
+	}
+}

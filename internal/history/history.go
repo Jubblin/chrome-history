@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -104,6 +105,10 @@ func (f Filter) keep(v Visit) bool {
 	return true
 }
 
+// ErrNotRegular is returned (wrapped) when a database file is a symlink or
+// anything other than a regular file.
+var ErrNotRegular = errors.New("history: not a regular file")
+
 // Reader reads a private copy of a History database.
 type Reader struct {
 	db     *sql.DB
@@ -147,7 +152,8 @@ func Open(historyPath string) (*Reader, error) {
 	if err != nil {
 		return nil, err
 	}
-	fail := func(err error) (*Reader, error) { os.RemoveAll(tmp); return nil, err }
+	trackTemp(tmp)
+	fail := func(err error) (*Reader, error) { removeTemp(tmp); return nil, err }
 	dst := filepath.Join(tmp, "History")
 	if err := copyFile(historyPath, dst); err != nil {
 		return fail(fmt.Errorf("history: copy database: %w", err))
@@ -170,24 +176,44 @@ func Open(historyPath string) (*Reader, error) {
 		r.Close()
 		return nil, err
 	}
+	if runtime.GOOS != "windows" {
+		// The open connection keeps the unlinked files alive; a crash from
+		// here on leaves no copy of the history on disk. Windows cannot
+		// unlink open files, so there the copy is removed on Close.
+		for _, name := range []string{dst, dst + "-wal", dst + "-journal"} {
+			os.Remove(name)
+		}
+	}
 	return r, nil
 }
 
 // Close closes the DB and removes the temp copy.
 func (r *Reader) Close() error {
 	err := r.db.Close()
-	if e := os.RemoveAll(r.tmpDir); err == nil {
+	if e := removeTemp(r.tmpDir); err == nil {
 		err = e
 	}
 	return err
 }
 
+// copyFile copies a regular file. Symlinks and other non-regular files are
+// refused with ErrNotRegular (a missing file returns the os.Open error).
 func copyFile(src, dst string) error {
+	li, err := os.Lstat(src)
+	if err != nil {
+		return err
+	}
+	if !li.Mode().IsRegular() {
+		return fmt.Errorf("%w: %s is a symlink or not a regular file, refusing to read it", ErrNotRegular, filepath.Base(src))
+	}
 	in, err := os.Open(src)
 	if err != nil {
 		return err
 	}
 	defer in.Close()
+	if fi, err := in.Stat(); err != nil || !os.SameFile(li, fi) || !fi.Mode().IsRegular() {
+		return fmt.Errorf("%w: %s changed while opening, refusing to read it", ErrNotRegular, filepath.Base(src))
+	}
 	out, err := os.OpenFile(dst, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o600)
 	if err != nil {
 		return err

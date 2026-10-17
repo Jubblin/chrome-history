@@ -369,6 +369,9 @@ func ParseUserRules(r io.Reader) (*UserRules, error) {
 	return &u, nil
 }
 
+// MaxRulesFileSize is the largest user rules file Load will read (1 MiB).
+const MaxRulesFileSize = 1 << 20
+
 // Load builds a classifier from the bundled rules plus the rules file at path.
 // With path == "" the default location is used and a missing file is fine.
 // An explicit path must exist. Any invalid file returns an error naming the
@@ -390,7 +393,14 @@ func Load(path string) (*Classifier, error) {
 		return nil, fmt.Errorf("rules file %s: %w", path, err)
 	}
 	defer f.Close()
-	u, err := ParseUserRules(f)
+	data, err := io.ReadAll(io.LimitReader(f, MaxRulesFileSize+1))
+	if err != nil {
+		return nil, fmt.Errorf("rules file %s: %w", path, err)
+	}
+	if len(data) > MaxRulesFileSize {
+		return nil, fmt.Errorf("rules file %s: larger than the %d MiB limit", path, MaxRulesFileSize>>20)
+	}
+	u, err := ParseUserRules(bytes.NewReader(data))
 	if err != nil {
 		return nil, fmt.Errorf("rules file %s: %w", path, err)
 	}

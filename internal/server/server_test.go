@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"testing/fstest"
 	"time"
@@ -57,9 +58,24 @@ func fixture(t *testing.T) history.Profile {
 	return ps[0]
 }
 
+var tokens sync.Map // *httptest.Server -> token
+
+func newTS(srv *Server) *httptest.Server {
+	ts := httptest.NewServer(srv)
+	tokens.Store(ts, srv.Token())
+	return ts
+}
+
+func testToken(ts *httptest.Server) string {
+	v, _ := tokens.Load(ts)
+	s, _ := v.(string)
+	return s
+}
+
 func get(t *testing.T, ts *httptest.Server, path string, host string) (int, map[string]any) {
 	t.Helper()
 	req, _ := http.NewRequest("GET", ts.URL+path, nil)
+	req.Header.Set(TokenHeader, testToken(ts))
 	if host != "" {
 		req.Host = host
 	}
@@ -79,7 +95,7 @@ func get(t *testing.T, ts *httptest.Server, path string, host string) (int, map[
 
 func TestAPI(t *testing.T) {
 	p := fixture(t)
-	ts := httptest.NewServer(New([]history.Profile{p}, fstest.MapFS{"index.html": {Data: []byte("hi")}}))
+	ts := newTS(New([]history.Profile{p}, fstest.MapFS{"index.html": {Data: []byte("hi")}}))
 	defer ts.Close()
 
 	code, m := get(t, ts, "/api/profiles", "")
@@ -131,16 +147,14 @@ func TestAPI(t *testing.T) {
 		t.Fatal(code, m)
 	}
 
-	resp, err := http.Get(ts.URL + "/")
-	if err != nil || resp.StatusCode != 200 {
-		t.Fatal(err, resp)
+	if code, _ := get(t, ts, "/", ""); code != 200 {
+		t.Fatal("static index", code)
 	}
-	resp.Body.Close()
 }
 
 func TestErrors(t *testing.T) {
 	p := fixture(t)
-	ts := httptest.NewServer(New([]history.Profile{p, {HistoryPath: "/nonexistent/x/History", Dir: "x"}}, nil))
+	ts := newTS(New([]history.Profile{p, {HistoryPath: "/nonexistent/x/History", Dir: "x"}}, nil))
 	defer ts.Close()
 	id := ProfileID(p)
 
@@ -169,7 +183,9 @@ func TestErrors(t *testing.T) {
 			t.Errorf("%s: error not JSON", c.path)
 		}
 	}
-	resp, _ := http.Post(ts.URL+"/api/profiles", "text/plain", nil)
+	req, _ := http.NewRequest("POST", ts.URL+"/api/profiles", nil)
+	req.Header.Set(TokenHeader, testToken(ts))
+	resp, _ := http.DefaultClient.Do(req)
 	if resp.StatusCode != 405 {
 		t.Errorf("POST: %d", resp.StatusCode)
 	}
@@ -205,7 +221,7 @@ func TestCategories(t *testing.T) {
 	if err != nil || len(ps) != 1 {
 		t.Fatal(ps, err)
 	}
-	ts := httptest.NewServer(New(ps, nil))
+	ts := newTS(New(ps, nil))
 	defer ts.Close()
 
 	code, m := get(t, ts, "/api/timeline", "")

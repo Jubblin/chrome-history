@@ -60,7 +60,7 @@ async function loadProfiles() {
   const { profiles } = await api('profiles');
   const sel = $('profile');
   for (const p of profiles) {
-    const o = el('option', '', [p.browser + (p.channel ? ' ' + p.channel : ''), p.name, p.email,
+    const o = el('option', '', [p.browser + (p.channel ? ' ' + p.channel : ''), p.name,
       typeof p.visitCount === 'number' ? num(p.visitCount) + ' visits' : ''].filter(Boolean).join(' · '));
     o.value = p.id;
     sel.appendChild(o);

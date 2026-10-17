@@ -2,6 +2,8 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -9,8 +11,10 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"os/signal"
 	"runtime"
 	"strconv"
+	"syscall"
 	"time"
 
 	"chrome-history/internal/classify"
@@ -45,20 +49,40 @@ func main() {
 		log.Fatal("no browser profiles found; use --profile PATH")
 	}
 
+	history.SweepStale(10 * time.Minute)
+
 	ln, err := net.Listen("tcp", net.JoinHostPort("127.0.0.1", strconv.Itoa(*port)))
 	if err != nil {
 		log.Fatalf("listen: %v", err)
 	}
-	addr := "http://" + ln.Addr().String() + "/"
+	api := server.New(profiles, web.FS)
+	// The only place the token is ever printed or logged.
+	addr := "http://" + ln.Addr().String() + "/?token=" + api.Token()
 	fmt.Printf("serving %d profile(s) at %s\n", len(profiles), addr)
 	if !*noOpen {
 		go openBrowser(addr)
 	}
-	srv := &http.Server{Handler: server.New(profiles, web.FS), ReadHeaderTimeout: 10 * time.Second}
-	if err := srv.Serve(ln); err != nil {
+	srv := &http.Server{Handler: api, ReadHeaderTimeout: 10 * time.Second}
+
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		<-ctx.Done()
+		sctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := srv.Shutdown(sctx); err != nil {
+			srv.Close()
+		}
+		history.RemoveAllTemp()
+	}()
+	if err := srv.Serve(ln); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		fmt.Fprintln(os.Stderr, err)
+		history.RemoveAllTemp()
 		os.Exit(1)
 	}
+	<-done
 }
 
 func openBrowser(u string) {
