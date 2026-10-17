@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "categories": {
+    "adult": {
+      "domains": ["pornhub.com", "xvideos.com", "xnxx.com", "xhamster.com", "redtube.com", "youporn.com", "onlyfans.com", "chaturbate.com", "stripchat.com", "playboy.com"],
+      "keywords": ["porn", "xxx"]
+    },
+    "gambling": {
+      "domains": ["bet365.com", "williamhill.com", "paddypower.com", "ladbrokes.com", "coral.co.uk", "betfair.com", "draftkings.com", "fanduel.com", "pokerstars.com", "888casino.com", "betway.com", "skybet.com", "unibet.com", "bovada.lv"],
+      "keywords": ["casino", "sportsbook", "poker"]
+    },
+    "health": {
+      "domains": ["nhs.uk", "webmd.com", "mayoclinic.org", "healthline.com", "medlineplus.gov", "drugs.com", "patient.info", "cdc.gov", "nih.gov", "clevelandclinic.org", "samaritans.org", "mind.org.uk", "betterhelp.com", "goodrx.com"],
+      "keywords": ["symptom", "telehealth"]
+    },
+    "finance": {
+      "domains": ["paypal.com", "wise.com", "revolut.com", "monzo.com", "starlingbank.com", "chase.com", "bankofamerica.com", "wellsfargo.com", "citi.com", "barclays.co.uk", "hsbc.com", "lloydsbank.com", "natwest.com", "santander.co.uk", "americanexpress.com", "fidelity.com", "vanguard.com", "schwab.com", "robinhood.com", "coinbase.com", "binance.com", "kraken.com", "etoro.com", "experian.com", "equifax.com", "transunion.com"],
+      "keywords": ["onlinebanking", "online-banking", "internetbanking"]
+    },
+    "privacy": {
+      "domains": ["torproject.org", "nordvpn.com", "expressvpn.com", "protonvpn.com", "surfshark.com", "mullvad.net", "privateinternetaccess.com", "cyberghostvpn.com", "windscribe.com", "tunnelbear.com", "ipvanish.com", "hide.me", "hidemyass.com", "vyprvpn.com", "purevpn.com", "torguard.net", "ivpn.net", "riseup.net", "tails.net", "kproxy.com", "proxysite.com", "hidester.com", "croxyproxy.com"],
+      "keywords": ["vpn", "anonymizer"]
+    },
+    "news_politics": {
+      "domains": ["bbc.co.uk", "bbc.com", "theguardian.com", "telegraph.co.uk", "independent.co.uk", "dailymail.co.uk", "thesun.co.uk", "mirror.co.uk", "nytimes.com", "washingtonpost.com", "wsj.com", "cnn.com", "foxnews.com", "msnbc.com", "reuters.com", "apnews.com", "bloomberg.com", "politico.com", "politico.eu", "huffpost.com", "breitbart.com", "aljazeera.com", "npr.org", "skynews.com", "news.sky.com", "gbnews.com", "spiked-online.com", "labour.org.uk", "conservatives.com", "libdems.org.uk", "greenparty.org.uk", "snp.org", "reformuk.com", "democrats.org", "gop.com", "rnc.org", "dnc.org", "whitehouse.gov", "parliament.uk", "greenpeace.org", "amnesty.org", "change.org", "actionnetwork.org", "moveon.org", "aclu.org"],
+      "keywords": []
+    }
+  }
+}

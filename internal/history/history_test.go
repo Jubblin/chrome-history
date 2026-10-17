@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 	"time"
+
+	"chrome-history/internal/classify"
 )
 
 func mkDB(t *testing.T, path string, wal bool) *sql.DB {
@@ -137,7 +139,7 @@ func TestQueryAndAggregation(t *testing.T) {
 	}
 
 	days, _ := r.VisitsPerDay(Filter{}, time.UTC)
-	if len(days) != 2 || days[0] != (DayCount{"2024-03-05", 4}) || days[1].Visits != 1 {
+	if len(days) != 2 || days[0].Date != "2024-03-05" || days[0].Visits != 4 || days[1].Visits != 1 {
 		t.Fatalf("days %+v", days)
 	}
 	top, _ := r.TopDomains(Filter{}, 1)
@@ -209,5 +211,86 @@ func TestSchemaErrors(t *testing.T) {
 	}
 	if _, err := Open(filepath.Join(t.TempDir(), "missing")); err == nil {
 		t.Fatal("expected error")
+	}
+}
+
+func TestCategoriesFilterAndFlagCounts(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "History")
+	db := mkDB(t, path, false)
+	urls := []string{
+		"https://example.com/a",       // 1 none
+		"https://www.bet365.com/x",    // 2 gambling
+		"https://casino-vpn.example/", // 3 gambling+privacy
+		"https://www.bbc.co.uk/news",  // 4 news_politics
+		"https://example.org/b",       // 5 none
+	}
+	for i, u := range urls {
+		db.Exec(`INSERT INTO urls(id,url,title) VALUES(?,?,?)`, i+1, u, "t")
+		day := time.Duration(0)
+		if i >= 3 {
+			day = 24 * time.Hour
+		}
+		db.Exec(`INSERT INTO visits(id,url,visit_time,from_visit,transition,visit_duration) VALUES(?,?,?,0,0,0)`,
+			i+1, i+1, ToWebKit(base.Add(day+time.Duration(i)*time.Minute)))
+	}
+	db.Close()
+
+	r, err := Open(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer r.Close()
+
+	all, _ := r.Query(Filter{Oldest: true})
+	wantCats := [][]string{nil, {"gambling"}, {"gambling", "privacy"}, {"news_politics"}, nil}
+	for i, v := range all {
+		if len(v.Categories) != len(wantCats[i]) {
+			t.Errorf("visit %d: %v want %v", i, v.Categories, wantCats[i])
+		}
+	}
+
+	f := Filter{Categories: []string{"gambling"}, Oldest: true}
+	got, _ := r.Query(f)
+	if len(got) != 2 || got[0].ID != 2 || got[1].ID != 3 {
+		t.Errorf("gambling filter: %+v", got)
+	}
+	if n, _ := r.Count(f); n != 2 {
+		t.Errorf("count = %d", n)
+	}
+	f.Limit, f.Offset = 1, 1
+	if got, _ := r.Query(f); len(got) != 1 || got[0].ID != 3 {
+		t.Errorf("paged: %+v", got)
+	}
+	f.Offset = 5
+	if got, _ := r.Query(f); len(got) != 0 {
+		t.Errorf("offset past end: %+v", got)
+	}
+	// multiple categories are OR'd
+	if n, _ := r.Count(Filter{Categories: []string{"privacy", "news_politics"}}); n != 2 {
+		t.Errorf("or count = %d", n)
+	}
+	// combines with SQL filters
+	if n, _ := r.Count(Filter{Categories: []string{"gambling"}, Search: "casino"}); n != 1 {
+		t.Errorf("combined count = %d", n)
+	}
+
+	days, err := r.VisitsPerDay(Filter{}, nil)
+	if err != nil || len(days) != 2 {
+		t.Fatalf("%v %v", days, err)
+	}
+	d1, d2 := days[0], days[1]
+	if d1.Visits != 3 || d1.FlaggedVisits != 2 || d1.Flagged["gambling"] != 2 || d1.Flagged["privacy"] != 1 {
+		t.Errorf("day1: %+v", d1)
+	}
+	if d2.Visits != 2 || d2.FlaggedVisits != 1 || d2.Flagged["news_politics"] != 1 || len(d2.Flagged) != 1 {
+		t.Errorf("day2: %+v", d2)
+	}
+
+	// per-reader classifier override with an allow rule
+	c, _ := classify.New(&classify.UserRules{Allow: map[string]classify.CategoryRules{"gambling": {Domains: []string{"bet365.com"}}}})
+	r.SetClassifier(c)
+	if n, _ := r.Count(Filter{Categories: []string{"gambling"}}); n != 1 {
+		t.Errorf("after allow: %d", n)
 	}
 }

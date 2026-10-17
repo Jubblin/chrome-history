@@ -10,7 +10,10 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"sync"
 	"time"
+
+	"chrome-history/internal/classify"
 
 	_ "modernc.org/sqlite" // pure-Go SQLite driver (no CGO)
 )
@@ -61,6 +64,9 @@ type Visit struct {
 	Transition string        `json:"transition"`
 	Duration   time.Duration `json:"duration"` // nanoseconds in JSON
 	FromVisit  int64         `json:"fromVisit"`
+	// Categories are the sensitive-site categories of the URL (sorted); empty
+	// when unflagged. See package classify.
+	Categories []string `json:"categories"`
 }
 
 // Filter narrows a query. Zero values mean "no constraint".
@@ -72,6 +78,9 @@ type Filter struct {
 	Limit  int       `json:"limit,omitempty"`
 	Offset int       `json:"offset,omitempty"`
 	Oldest bool      `json:"oldest,omitempty"` // default is newest first
+	// Categories keeps only visits with at least one of these categories
+	// (names from package classify). Applied after the SQL query.
+	Categories []string `json:"categories,omitempty"`
 }
 
 // Reader reads a private copy of a History database.
@@ -79,6 +88,32 @@ type Reader struct {
 	db     *sql.DB
 	tmpDir string
 	hasDur bool
+	cls    *classify.Classifier
+}
+
+var (
+	clsMu      sync.RWMutex
+	defaultCls = classify.Default()
+)
+
+// SetDefaultClassifier sets the classifier used by readers opened afterwards
+// (e.g. one built from the user's rules file at startup). nil restores the
+// bundled-rules classifier.
+func SetDefaultClassifier(c *classify.Classifier) {
+	if c == nil {
+		c = classify.Default()
+	}
+	clsMu.Lock()
+	defaultCls = c
+	clsMu.Unlock()
+}
+
+// SetClassifier overrides the classifier for this reader.
+func (r *Reader) SetClassifier(c *classify.Classifier) {
+	if c == nil {
+		c = classify.Default()
+	}
+	r.cls = c
 }
 
 // OpenProfile opens the profile's History DB via a temp copy.
@@ -106,7 +141,10 @@ func Open(historyPath string) (*Reader, error) {
 		return fail(err)
 	}
 	db.SetMaxOpenConns(1)
-	r := &Reader{db: db, tmpDir: tmp}
+	clsMu.RLock()
+	cls := defaultCls
+	clsMu.RUnlock()
+	r := &Reader{db: db, tmpDir: tmp, cls: cls}
 	if err := r.checkSchema(); err != nil {
 		r.Close()
 		return nil, err
@@ -227,6 +265,11 @@ func (r *Reader) Query(f Filter) ([]Visit, error) {
 
 // Count returns the number of visits matching f (Limit/Offset ignored).
 func (r *Reader) Count(f Filter) (int, error) {
+	if len(f.Categories) > 0 {
+		n := 0
+		err := r.each(f, 0, 0, func(Visit) { n++ })
+		return n, err
+	}
 	w, args := f.where()
 	var n int
 	err := r.db.QueryRow("SELECT COUNT(*)"+fromClause+w, args...).Scan(&n)
@@ -234,6 +277,35 @@ func (r *Reader) Count(f Filter) (int, error) {
 }
 
 func (r *Reader) each(f Filter, limit, offset int, fn func(Visit)) error {
+	if len(f.Categories) == 0 {
+		return r.scan(f, limit, offset, func(v Visit) error { fn(v); return nil })
+	}
+	skipped, taken := 0, 0
+	stop := errStop
+	err := r.scan(f, 0, 0, func(v Visit) error {
+		if !classify.HasAny(v.Categories, f.Categories) {
+			return nil
+		}
+		if skipped < offset {
+			skipped++
+			return nil
+		}
+		if limit > 0 && taken >= limit {
+			return stop
+		}
+		taken++
+		fn(v)
+		return nil
+	})
+	if err == stop {
+		err = nil
+	}
+	return err
+}
+
+var errStop = errors.New("stop")
+
+func (r *Reader) scan(f Filter, limit, offset int, fn func(Visit) error) error {
 	dur := "0"
 	if r.hasDur {
 		dur = "COALESCE(v.visit_duration,0)"
@@ -271,7 +343,10 @@ func (r *Reader) each(f Filter, limit, offset int, fn func(Visit)) error {
 		v.Transition = TransitionName(tr)
 		v.Duration = time.Duration(du) * time.Microsecond
 		v.Domain = DomainOf(v.URL)
-		fn(v)
+		v.Categories = r.cls.Classify(v.URL)
+		if err := fn(v); err != nil {
+			return err
+		}
 	}
 	return rows.Err()
 }
@@ -289,6 +364,11 @@ func DomainOf(rawURL string) string {
 type DayCount struct {
 	Date   string `json:"date"` // YYYY-MM-DD in the requested location
 	Visits int    `json:"visits"`
+	// Flagged counts visits per sensitive category on that day (a visit with
+	// several categories counts once in each). Omitted when there are none.
+	Flagged map[string]int `json:"flagged,omitempty"`
+	// FlaggedVisits is the number of visits with at least one category.
+	FlaggedVisits int `json:"flaggedVisits"`
 }
 
 // VisitsPerDay aggregates visits per day in loc (nil = UTC), ascending by date.
@@ -297,13 +377,30 @@ func (r *Reader) VisitsPerDay(f Filter, loc *time.Location) ([]DayCount, error) 
 		loc = time.UTC
 	}
 	f.Limit, f.Offset = 0, 0
-	m := map[string]int{}
-	if err := r.each(f, 0, 0, func(v Visit) { m[v.Time.In(loc).Format("2006-01-02")]++ }); err != nil {
+	m := map[string]*DayCount{}
+	if err := r.each(f, 0, 0, func(v Visit) {
+		d := v.Time.In(loc).Format("2006-01-02")
+		dc := m[d]
+		if dc == nil {
+			dc = &DayCount{Date: d}
+			m[d] = dc
+		}
+		dc.Visits++
+		if len(v.Categories) > 0 {
+			dc.FlaggedVisits++
+			if dc.Flagged == nil {
+				dc.Flagged = map[string]int{}
+			}
+			for _, c := range v.Categories {
+				dc.Flagged[c]++
+			}
+		}
+	}); err != nil {
 		return nil, err
 	}
 	out := make([]DayCount, 0, len(m))
-	for d, n := range m {
-		out = append(out, DayCount{d, n})
+	for _, dc := range m {
+		out = append(out, *dc)
 	}
 	sort.Slice(out, func(i, j int) bool { return out[i].Date < out[j].Date })
 	return out, nil

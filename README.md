@@ -87,3 +87,18 @@ Times are accepted as RFC3339, `YYYY-MM-DD` (UTC; as `end` it includes that whol
 | `/api/domains?profile=&start=&end=` | `{"domains":[{"domain","visits"}]}` sorted by visits |
 
 `time`, `start`, `end` in responses are ISO-8601 UTC; the `*Ms` fields are epoch milliseconds.
+
+## Sensitive-site flags
+
+Visits are tagged locally with up to six categories: `adult`, `gambling`, `health`, `finance`, `privacy` (VPN, proxy and Tor sites; not incognito mode, which Chrome does not record) and `news_politics`. This is a **heuristic**: the bundled starter list (`internal/classify/rules.json`) is short and conservative, so it misses sites and can occasionally be wrong. `news_politics` is the broadest and most subjective category (news outlets, parties, campaigns, advocacy groups). Classification uses only the URL, makes no network requests and logs no URLs.
+
+Edit the rules with a JSON file at `<user config dir>/chrome-history/rules.json` (or `--rules PATH`). A broken file stops startup with an error naming the file and the problem.
+
+```json
+{
+  "add":   {"gambling": {"domains": ["lucky.example"], "keywords": ["lotto"]}},
+  "allow": {"news_politics": {"domains": ["bbc.co.uk"]}}
+}
+```
+
+`domains` match the domain and its subdomains. `keywords` (3+ characters) match anywhere in the host or path, not the query. `allow` removes matches from a category and wins over bundled rules and your own `add` rules.

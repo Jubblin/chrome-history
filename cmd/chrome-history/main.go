@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"time"
 
+	"chrome-history/internal/classify"
 	"chrome-history/internal/history"
 	"chrome-history/internal/server"
 	"chrome-history/web"
@@ -22,10 +23,16 @@ func main() {
 	profile := flag.String("profile", "", "path to a profile dir, user-data dir, or History file (default: auto-discover)")
 	port := flag.Int("port", 8080, "TCP port on 127.0.0.1 (0 = random)")
 	noOpen := flag.Bool("no-open", false, "do not open the browser")
+	rules := flag.String("rules", "", "sensitive-site rules file (default: <user config dir>/chrome-history/rules.json, optional)")
 	flag.Parse()
 
+	cls, err := classify.Load(*rules)
+	if err != nil {
+		log.Fatalf("rules: %v", err)
+	}
+	history.SetDefaultClassifier(cls)
+
 	var profiles []history.Profile
-	var err error
 	if *profile != "" {
 		profiles, err = history.ResolvePath(*profile)
 	} else {
