@@ -112,6 +112,6 @@ Edit the rules with a JSON file at `<user config dir>/chrome-history/rules.json`
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE). Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 The SQLite driver, `modernc.org/sqlite`, is licensed under BSD-3-Clause.
