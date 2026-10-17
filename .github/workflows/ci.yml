@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version-file: go.mod
+          go-version: stable
           cache: true
       - name: gofmt
         run: |
@@ -44,6 +44,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        go: [stable]
+        include:
+          # Proves the minimum Go version in go.mod still builds and tests.
+          # Older toolchains cannot run -race binaries on current macOS, so
+          # the minimum is only checked on Linux.
+          - os: ubuntu-latest
+            go: oldest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -51,7 +58,8 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version-file: go.mod
+          go-version: ${{ matrix.go == 'oldest' && '' || matrix.go }}
+          go-version-file: ${{ matrix.go == 'oldest' && 'go.mod' || '' }}
           cache: true
       - name: Build (CGO off)
         run: go build ./...
@@ -80,7 +88,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version-file: go.mod
+          go-version: stable
           cache: true
       - name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
         run: go build -trimpath -ldflags "-s -w" -o /dev/null ./cmd/chrome-history
