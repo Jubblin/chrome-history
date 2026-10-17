@@ -23,6 +23,16 @@ This is a hobby project, so these are best-effort targets, not guarantees:
 - coordinated disclosure: please give us a reasonable chance to fix the problem before publishing details, and we will agree a disclosure date with you;
 - credit in the fix or advisory if you would like it.
 
+## Built-in protections
+
+- Binds `127.0.0.1` only and rejects other `Host` headers (DNS rebinding).
+- A random per-run access token is required on every request. It is printed once at startup, exchanged for an `HttpOnly`, `SameSite=Strict` cookie, compared in constant time, and cannot be disabled. API clients may send `X-Chrome-History-Token` or `Authorization: Bearer`.
+- Cross-site requests (`Sec-Fetch-Site: cross-site` or a foreign `Origin`) are refused.
+- Every response sets a strict `Content-Security-Policy` (no inline script or style), `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, `Cross-Origin-Resource-Policy: same-origin`, `nosniff` and `no-store`.
+- The database is read from a private temporary copy, unlinked right after opening on Linux and macOS, removed on exit (`SIGINT`/`SIGTERM`), with stale `chrome-history-*` directories swept at startup. Symlinked or non-regular History files are refused.
+- `/api/profiles` does not return the account email or directory names; visit counts are cached so the endpoint does not copy every database on each call.
+- The rules file is limited to 1 MiB.
+
 ## Scope
 
 In scope:

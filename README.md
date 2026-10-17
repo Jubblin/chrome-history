@@ -9,11 +9,11 @@ Requires Go 1.22+.
 
 ```
 make fixture      # writes fake history to ./fixture (no real data)
-make run-fixture  # builds bin/chrome-history and serves the fixture at http://127.0.0.1:8080/
+make run-fixture  # builds bin/chrome-history and serves the fixture on 127.0.0.1:8080
 ```
 
 `make run-fixture` builds the binary and generates the fixture if missing, so on a fresh clone `make run-fixture` alone also works.
-Open http://127.0.0.1:8080/.
+Open the URL the server prints (it ends in `/?token=...`; the token is random per run). Without it every request gets `401`.
 
 ## Build
 
@@ -37,9 +37,12 @@ between profiles; it shows each profile's visit count.
 ## Privacy
 
 - Read-only: the original `History` database is never opened for writing. It is copied (with its `-wal`/`-journal`) to a
-  private temporary directory for each request, queried there, and the copy is deleted afterwards. This also works while the browser is running.
+  private temporary directory for each request and queried there. On Linux and macOS the copy is unlinked as soon as it is open, so a crash leaves no copy of your history on disk; it is always removed when the request ends, on `Ctrl-C`/`SIGTERM` (the server shuts down gracefully), and leftover `chrome-history-*` directories older than 10 minutes in the temp dir are swept at startup. Symlinks and other non-regular files are refused. This also works while the browser is running.
 - Local-only: the server binds to `127.0.0.1` and rejects requests whose `Host` is not `localhost`, `127.0.0.1` or `::1`.
   The UI makes no external requests.
+- Access token: each run generates a random token that must accompany every request. The URL printed at startup (and opened in your browser unless `--no-open`) carries it once; the server turns it into an `HttpOnly`, `SameSite=Strict` cookie and redirects to the plain URL. API clients can send `X-Chrome-History-Token: <token>` or `Authorization: Bearer <token>`. There is no way to turn it off. Other web pages and other local users cannot read your history without it; treat the printed URL as secret (it also appears in the browser-launch command line while the browser starts).
+- Cross-site requests (`Sec-Fetch-Site: cross-site`, or an `Origin` other than the server's own) are refused with `403`. Responses carry a strict `Content-Security-Policy` (no inline script or style), `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer` and `Cross-Origin-Resource-Policy: same-origin`.
+- The rules file is limited to 1 MiB.
 - Logs contain only profile IDs and error text, never URLs, titles or paths.
 - Do not commit real browser history to this repo; `fixture/` and `bin/` are git-ignored.
 
@@ -72,16 +75,16 @@ The UI in `web/static/` is embedded into the binary.
 
 ## JSON API
 
-All endpoints are `GET`. Requests whose `Host` is not `localhost`, `127.0.0.1` or `::1` get `403`.
+All endpoints are `GET`. Every request needs the access token (cookie, `X-Chrome-History-Token` or `Authorization: Bearer`); without it the answer is JSON `401`. Requests whose `Host` is not `localhost`, `127.0.0.1` or `::1`, and cross-site requests, get `403`.
 Errors are JSON: `{"error": "message", "status": 400}` (400 bad parameter, 404 unknown profile/endpoint,
-405 wrong method, 422 unsupported DB schema, 500 other).
+401 missing or wrong token, 403 bad Host or cross-site, 405 wrong method, 422 unsupported DB schema, 500 other).
 Profile IDs are opaque tokens from `/api/profiles`; `profile` may be omitted when only one profile exists.
 Times are accepted as RFC3339, `YYYY-MM-DD` (UTC; as `end` it includes that whole day) or epoch ms.
 `end` is exclusive otherwise.
 
 | Endpoint | Response |
 |---|---|
-| `/api/profiles` | `{"profiles":[{"id","browser","channel?","name","email?","dir","kind","visitCount?"}]}` (`visitCount` = total visits; omitted if the database cannot be read) |
+| `/api/profiles` | `{"profiles":[{"id","browser","channel?","name","kind","visitCount?"}]}` (`visitCount` = total visits, cached until the History files change; omitted if the database cannot be read). The account email and directory names are not returned |
 | `/api/timeline?profile=&start=&end=&q=&domain=&category=&limit=&offset=` | `{"visits":[{"id","time","timeMs","url","title","domain","transition","durationMs","fromVisit","categories"}],"total","limit","offset"}`, newest first; `limit` default 100, max 1000; `categories` is an array (empty if unflagged) |
 | `/api/summary?profile=&start=&end=&category=&maskFlagged=` | `{"totalVisits","perDay":[{"date","visits","flagged?","flaggedVisits"}],"topDomains":[{"domain","visits","categories"}],"sessions":[{"start","startMs","end","endMs","visits"}],"sessionGapMinutes"}` (days in UTC, top 20 domains) |
 | `/api/domains?profile=&start=&end=&maskFlagged=` | `{"domains":[{"domain","visits"}]}` sorted by visits |

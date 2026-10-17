@@ -47,7 +47,7 @@ Option 2: install Go 1.22 or newer locally and run the commands below directly.
 | `go vet ./...` | must be clean |
 | `go test -race ./...` | must pass |
 
-Try the UI with `make run-fixture` and open http://127.0.0.1:8080/.
+Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-Chrome-History-Token: <token>"`.
 
 ## Project layout
 
@@ -60,8 +60,8 @@ Try the UI with `make run-fixture` and open http://127.0.0.1:8080/.
 
 ## Design principles
 
-- Read-only: never open or modify the original `History` database; work on a temporary copy that is deleted afterwards.
-- Localhost only: bind `127.0.0.1` and reject other `Host` headers. No external requests from the server or the UI.
+- Read-only: never open or modify the original `History` database; work on a temporary copy that is deleted afterwards (and unlinked right after opening where the OS allows). Refuse symlinks.
+- Localhost only: bind `127.0.0.1` and reject other `Host` headers and cross-site requests, and require the per-run access token on every request (it must stay impossible to disable). Keep the strict CSP: no inline script or style, no `unsafe-inline`. No external requests from the server or the UI.
 - Classification is offline and uses only the URL. Do not add network calls, and never log URLs, titles or paths.
 - Dependencies: the Go standard library plus the single SQLite driver (`modernc.org/sqlite`). Discuss before adding another.
 - UI: render history data with `textContent` only (never `innerHTML`); history titles and URLs are untrusted input.
