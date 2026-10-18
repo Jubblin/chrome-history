@@ -18,6 +18,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	_ "time/tzdata" // IANA zones for the tz parameter on static builds
 
 	"chrome-history/internal/classify"
 	"chrome-history/internal/history"
@@ -212,16 +213,29 @@ type badRequest string
 
 func (b badRequest) Error() string { return string(b) }
 
-// parseTime accepts RFC3339, YYYY-MM-DD (UTC midnight) or epoch milliseconds.
-func parseTime(s string) (t time.Time, dateOnly bool, err error) {
+// tzParam reads the optional IANA `tz` parameter (absent = UTC).
+func tzParam(r *http.Request) (*time.Location, error) {
+	name := r.URL.Query().Get("tz")
+	if name == "" {
+		return time.UTC, nil
+	}
+	loc, err := time.LoadLocation(name)
+	if err != nil {
+		return nil, badRequest("invalid tz")
+	}
+	return loc, nil
+}
+
+// parseTime accepts RFC3339, YYYY-MM-DD (midnight in loc) or epoch milliseconds.
+func parseTime(s string, loc *time.Location) (t time.Time, dateOnly bool, err error) {
 	if s == "" {
 		return time.Time{}, false, nil
 	}
 	if t, err := time.Parse(time.RFC3339, s); err == nil {
 		return t.UTC(), false, nil
 	}
-	if t, err := time.Parse("2006-01-02", s); err == nil {
-		return t, true, nil
+	if t, err := time.ParseInLocation("2006-01-02", s, loc); err == nil {
+		return t.UTC(), true, nil
 	}
 	if ms, err := strconv.ParseInt(s, 10, 64); err == nil {
 		return time.UnixMilli(ms).UTC(), false, nil
@@ -248,16 +262,19 @@ func intParam(r *http.Request, name string, def, min, max int) (int, error) {
 func rangeFilter(r *http.Request) (history.Filter, error) {
 	var f history.Filter
 	q := r.URL.Query()
-	var err error
-	if f.From, _, err = parseTime(q.Get("start")); err != nil {
+	loc, err := tzParam(r)
+	if err != nil {
+		return f, err
+	}
+	if f.From, _, err = parseTime(q.Get("start"), loc); err != nil {
 		return f, badRequest("invalid start")
 	}
-	to, dateOnly, err := parseTime(q.Get("end"))
+	to, dateOnly, err := parseTime(q.Get("end"), loc)
 	if err != nil {
 		return f, badRequest("invalid end")
 	}
 	if dateOnly {
-		to = to.AddDate(0, 0, 1)
+		to = to.In(loc).AddDate(0, 0, 1).UTC()
 	}
 	f.To = to
 	if !f.From.IsZero() && !f.To.IsZero() && !f.To.After(f.From) {
@@ -465,12 +482,13 @@ func (s *Server) handleSummary(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
+	loc, _ := tzParam(r) // already validated by rangeFilter
 	s.withReader(w, r, func(rd *history.Reader) (any, error) {
 		total, err := rd.Count(f)
 		if err != nil {
 			return nil, err
 		}
-		days, err := rd.VisitsPerDay(f, time.UTC)
+		days, err := rd.VisitsPerDay(f, loc)
 		if err != nil {
 			return nil, err
 		}
@@ -546,8 +564,9 @@ func (s *Server) handleCategories(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
+	loc, _ := tzParam(r) // already validated by rangeFilter
 	s.withReader(w, r, func(rd *history.Reader) (any, error) {
-		days, err := rd.VisitsPerDay(f, time.UTC)
+		days, err := rd.VisitsPerDay(f, loc)
 		if err != nil {
 			return nil, err
 		}

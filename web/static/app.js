@@ -24,9 +24,11 @@ function el(tag, cls, text) {
   return e;
 }
 const pad = n => String(n).padStart(2, '0');
-const utcDate = ms => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; };
-const utcTime = ms => { const d = new Date(ms); return `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`; };
-const fmtDay = ms => new Date(ms).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+const calDate = ms => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; };
+const localDate = ms => { const d = new Date(ms); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const localTime = ms => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+const fmtDay = ms => new Date(ms).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
 const fmtDur = ms => {
   if (!ms || ms < 1000) return '';
   const s = Math.round(ms / 1000);
@@ -37,7 +39,7 @@ const fmtDur = ms => {
 const num = n => n.toLocaleString();
 
 async function api(path, params) {
-  const q = new URLSearchParams();
+  const q = new URLSearchParams({ tz: TZ });
   for (const [k, v] of Object.entries(params || {})) if (v !== '' && v != null) q.set(k, v);
   const r = await fetch(`/api/${path}?${q}`);
   if (!r.ok) {
@@ -76,16 +78,16 @@ function binOf(dateStr, unit) {
   if (unit === 'month') return `${y}-${pad(m)}`;
   const t = Date.UTC(y, m - 1, d);
   const dow = (new Date(t).getUTCDay() + 6) % 7; // Monday start
-  return utcDate(t - dow * 86400000);
+  return calDate(t - dow * 86400000);
 }
 function binRange(key, unit) {
   if (unit === 'day') return [key, key];
   if (unit === 'month') {
     const [y, m] = key.split('-').map(Number);
-    return [`${key}-01`, utcDate(Date.UTC(y, m, 0))];
+    return [`${key}-01`, calDate(Date.UTC(y, m, 0))];
   }
   const [y, m, d] = key.split('-').map(Number);
-  return [key, utcDate(Date.UTC(y, m - 1, d) + 6 * 86400000)];
+  return [key, calDate(Date.UTC(y, m - 1, d) + 6 * 86400000)];
 }
 
 async function loadSummary() {
@@ -103,7 +105,7 @@ async function loadSummary() {
   }
   const keys = [...bins.keys()].sort();
   const max = Math.max(1, ...bins.values());
-  $('chart-unit').textContent = `(visits per ${unit}, UTC)`;
+  $('chart-unit').textContent = `(visits per ${unit}, ${TZ})`;
   const chart = $('chart');
   chart.replaceChildren();
   for (const k of keys) {
@@ -221,8 +223,8 @@ function sessionHead(sess) {
 function updateSessionHead(sess) {
   const vs = sess.querySelectorAll('.visit').length;
   const first = Number(sess.dataset.first), last = Number(sess.dataset.last);
-  const span = first === last ? utcTime(first) : `${utcTime(last)}–${utcTime(first)}`;
-  sessionHead(sess).textContent = `Session ${span} UTC · ${vs} visit${vs === 1 ? '' : 's'} loaded`;
+  const span = first === last ? localTime(first) : `${localTime(last)}–${localTime(first)}`;
+  sessionHead(sess).textContent = `Session ${span} · ${vs} visit${vs === 1 ? '' : 's'} loaded`;
 }
 
 function catBadge(c) {
@@ -240,7 +242,7 @@ function isMasked(v) { return st.hide && v.categories.length > 0 && !st.revealed
 function fillRow(row, v) {
   const masked = isMasked(v);
   row.classList.toggle('masked', masked);
-  const t = el('time', '', utcTime(v.timeMs));
+  const t = el('time', '', localTime(v.timeMs));
   t.dateTime = v.time;
   const badge = el('span', 'badge', masked ? MASK : (v.domain || '(none)'));
   if (masked) badge.classList.add('domain-hidden');
@@ -268,7 +270,7 @@ function fillRow(row, v) {
   if (st.hide && v.categories.length) {
     const rb = el('button', 'reveal', masked ? 'Reveal' : 'Hide');
     rb.type = 'button';
-    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${utcTime(v.timeMs)} visit`);
+    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${localTime(v.timeMs)} visit`);
     rb.addEventListener('click', () => {
       if (masked) st.revealed.add(v.id); else st.revealed.delete(v.id);
       fillRow(row, v);
@@ -303,7 +305,7 @@ function appendVisits(visits) {
   const tl = $('timeline');
   let touched = null;
   for (const v of visits) {
-    const day = utcDate(v.timeMs);
+    const day = localDate(v.timeMs);
     if (day !== st.day) {
       st.day = day;
       st.dayEl = el('section', 'day');

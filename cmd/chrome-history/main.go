@@ -31,6 +31,7 @@ func main() {
 	port := flag.Int("port", 8080, "TCP port on 127.0.0.1 (0 = random)")
 	noOpen := flag.Bool("no-open", false, "do not open the browser")
 	rules := flag.String("rules", "", "sensitive-site rules file (default: <user config dir>/chrome-history/rules.json, optional)")
+	list := flag.Bool("list-profiles", false, "print the discovered profiles (browser, name, visit count) and the directories searched, then exit")
 	showVersion := flag.Bool("version", false, "print the version and exit")
 	flag.Parse()
 	if *showVersion {
@@ -45,16 +46,24 @@ func main() {
 	history.SetDefaultClassifier(cls)
 
 	var profiles []history.Profile
+	var report history.Report
 	if *profile != "" {
 		profiles, err = history.ResolvePath(*profile)
+		if err != nil {
+			log.Fatalf("profiles: %v", err)
+		}
+		report.Profiles = profiles
 	} else {
-		profiles, err = history.DiscoverProfiles()
+		report = history.DiscoverReport()
+		profiles = report.Profiles
 	}
-	if err != nil {
-		log.Fatalf("profiles: %v", err)
+	if *list {
+		listProfiles(report)
+		return
 	}
 	if len(profiles) == 0 {
-		log.Fatal("no browser profiles found; use --profile PATH")
+		fmt.Fprint(os.Stderr, "no browser profiles found; use --profile PATH\n"+report.Explain())
+		os.Exit(1)
 	}
 
 	history.SweepStale(10 * time.Minute)
@@ -106,4 +115,32 @@ func openBrowser(u string) {
 	if err := cmd.Start(); err != nil {
 		log.Printf("could not open browser: %v (open %s manually)", err, u)
 	}
+}
+
+// listProfiles prints one line per profile (no URLs, titles or emails) and the
+// directories that were searched.
+func listProfiles(rep history.Report) {
+	if len(rep.Profiles) == 0 {
+		fmt.Println("no profiles found")
+	}
+	for _, p := range rep.Profiles {
+		count := "unreadable"
+		if r, err := history.OpenProfile(p); err == nil {
+			if n, err := r.Count(history.Filter{}); err == nil {
+				count = strconv.Itoa(n) + " visits"
+			}
+			r.Close()
+		} else if errors.Is(err, os.ErrPermission) {
+			count = "permission denied"
+		}
+		label := p.Browser
+		if p.Channel != "" {
+			label += " " + p.Channel
+		}
+		fmt.Printf("%s / %s (%s): %s\n", label, p.Name, p.Kind, count)
+	}
+	if len(rep.Searched) > 0 {
+		fmt.Print(rep.Explain())
+	}
+	history.RemoveAllTemp()
 }
