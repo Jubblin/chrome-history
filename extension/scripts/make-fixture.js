@@ -21,6 +21,6 @@ export function makeFixtureEntries({ visits = 12000, endTime = Date.UTC(2025, 5,
   return [...byUrl.values()];
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv[1]}`) {
   process.stdout.write(JSON.stringify(makeFixtureEntries({ visits: Number(process.argv[2]) || 12000 })));
 }
