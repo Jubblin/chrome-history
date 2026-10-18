@@ -46,6 +46,15 @@ Alternative without Full Disk Access: quit the browser, copy only the profile's 
 
 The tool only reads the `History` database (see [Privacy](#privacy)), so you can turn Full Disk Access off again afterwards. The web UI works in Chromium-based browsers and Firefox but not in Safari, because the access cookie is `Secure` and Safari does not send it over plain http.
 
+## Chromebook (ChromeOS)
+
+Not tested on a Chromebook; this is based on how ChromeOS's Linux support is documented to work.
+
+- **Works:** ChromeOS can run Linux apps in a container (Settings > Advanced > Developers > Linux development environment). Inside it, use the `linux_amd64` release archive, or `linux_arm64` on ARM models (`uname -m` prints `x86_64` or `aarch64`). It can audit a Chrome or other Chromium browser installed inside that container, or a `History` file you copy into the container and open with `--profile PATH`.
+- **Does not work:** the history of the Chrome you use on ChromeOS itself. ChromeOS keeps that profile in encrypted per-user storage that the Linux container cannot read, and the Files app does not expose it. The same goes for Chrome on Android on a Chromebook. Don't weaken device security (for example with developer mode) to get at it.
+- **Opening the UI:** the container has no browser, so run `./chrome-history --no-open` and open the printed URL, which contains the access token, in ChromeOS Chrome. ChromeOS normally forwards `localhost` ports from the container, so `http://localhost:8080/?token=...` should work. The server listens on `127.0.0.1` only and accepts only the hosts `localhost`, `127.0.0.1` and `[::1]`, so a container hostname such as `penguin.linux.test` is rejected. If forwarding misbehaves, keep a fixed port with `--port` (default 8080; `--port 0` picks a random one).
+- **Google Takeout:** its Chrome history export is JSON, which this tool does not import.
+
 ## Use it on your real history
 
 ```
