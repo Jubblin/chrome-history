@@ -38,7 +38,7 @@ test('user-rule vectors match the Go classifier 100%', () => {
 
 test('user rules are invalid when malformed', () => {
   const bad = {
-    'not json': '{', empty: '', array: '[]', null: 'null', 'unknown field': '{"adds":{}}',
+    'not json': '{', empty: '', array: '[]', 'unknown field': '{"adds":{}}',
     'unknown category': '{"add":{"weather":{"domains":["x.example"]}}}',
     'unknown cat allow': '{"allow":{"Gambling":{"domains":["x.example"]}}}',
     'bad domain url': '{"add":{"adult":{"domains":["https://x.example/"]}}}',
@@ -60,6 +60,15 @@ test('user rules are invalid when malformed', () => {
   assert.throws(() => parseUserRules('{', bundled), /invalid JSON/);
 });
 
+test('null is accepted like the Go loader; error messages stay short', () => {
+  assert.deepEqual(parseUserRules('null', bundled), { add: {}, allow: {} });
+  assert.deepEqual(parseUserRules('{"add":{"adult":null}}', bundled), { add: { adult: null }, allow: {} });
+  const long = 'x'.repeat(5000);
+  for (const js of [`{"add":{"adult":{"keywords":["${long}/"]}}}`, `{"add":{"adult":{"domains":["${long}"]}}}`, `{"${long}":1}`]) {
+    assert.throws(() => parseUserRules(js, bundled), (e) => e.message.length < 200);
+  }
+});
+
 test('valid user rules and the 1 MiB limit', () => {
   assert.deepEqual(parseUserRules('{}', bundled), { add: {}, allow: {} });
   const big = `{"add":{"adult":{"keywords":["${'a'.repeat(MAX_RULES_BYTES)}"]}}}`;
@@ -77,8 +86,10 @@ test('classifier is a pure function: no network, no logging', () => {
     globalThis.fetch = origFetch;
     console.log = origLog;
   }
-  const src = readFileSync(new URL('../src/classify/classify.js', import.meta.url), 'utf8');
-  assert.ok(!/\b(fetch|XMLHttpRequest|WebSocket|console|eval)\b|new Function/.test(src));
+  for (const f of ['classify.js', 'index.js', 'storage.js']) {
+    const src = readFileSync(new URL(`../src/classify/${f}`, import.meta.url), 'utf8');
+    assert.ok(!/\b(fetch|XMLHttpRequest|WebSocket|console|eval|importScripts|RegExp)\b|new Function|\bimport\s*\(/.test(src), f);
+  }
 });
 
 test('performance: 100k URLs', () => {

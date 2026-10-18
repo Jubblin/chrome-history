@@ -9,6 +9,12 @@ const MIN_KEYWORD_LEN = 3;
 const BIT = new Map(CATEGORIES.map((c, i) => [c, 1 << i]));
 const enc = new TextEncoder();
 
+/** Quotes a user-supplied value for an error message, truncated so messages stay short. */
+function show(s) {
+  const str = String(s);
+  return JSON.stringify(str.length > 40 ? `${str.slice(0, 40)}...` : str);
+}
+
 function isObject(v) {
   return v !== null && typeof v === 'object' && !Array.isArray(v);
 }
@@ -18,14 +24,15 @@ function normDomain(d) {
   if (n.startsWith('*.')) n = n.slice(2);
   n = n.replace(/^\.+|\.+$/g, '');
   if (n === '' || /[ \t/:?#@*]/.test(n) || !n.includes('.')) {
-    throw new Error(`invalid domain ${JSON.stringify(d)} (use a bare domain such as example.com)`);
+    throw new Error(`invalid domain ${show(d)} (use a bare domain such as example.com)`);
   }
   return n;
 }
 
 function addRules(cat, r, doms, kws, bundled) {
   const m = BIT.get(cat);
-  if (!m) throw new Error(`unknown category ${JSON.stringify(cat)} (valid: ${CATEGORIES.join(', ')})`);
+  if (!m) throw new Error(`unknown category ${show(cat)} (valid: ${CATEGORIES.join(', ')})`);
+  if (r === null) return;
   for (const d of r.domains ?? []) {
     const n = normDomain(d);
     doms.set(n, (doms.get(n) ?? 0) | m);
@@ -33,10 +40,10 @@ function addRules(cat, r, doms, kws, bundled) {
   for (const raw of r.keywords ?? []) {
     const k = raw.trim().toLowerCase();
     if (enc.encode(k).length < MIN_KEYWORD_LEN) {
-      throw new Error(`category ${JSON.stringify(cat)}: keyword ${JSON.stringify(k)} is shorter than ${MIN_KEYWORD_LEN} characters`);
+      throw new Error(`category ${JSON.stringify(cat)}: keyword ${show(k)} is shorter than ${MIN_KEYWORD_LEN} characters`);
     }
     if (/[ \t/?#]/.test(k)) {
-      throw new Error(`category ${JSON.stringify(cat)}: keyword ${JSON.stringify(k)} must not contain spaces or any of / ? #`);
+      throw new Error(`category ${JSON.stringify(cat)}: keyword ${show(k)} must not contain spaces or any of / ? #`);
     }
     kws.push({ kw: k, mask: m, bundled });
   }
@@ -146,9 +153,10 @@ function checkCategoryMap(where, v) {
   if (v === undefined || v === null) return;
   if (!isObject(v)) throw new Error(`${where} must be an object of categories`);
   for (const [cat, r] of Object.entries(v)) {
+    if (r === null) continue; // Go decodes null as an empty rule set
     if (!isObject(r)) throw new Error(`${where}.${cat} must be an object with "domains" and/or "keywords"`);
     for (const [f, list] of Object.entries(r)) {
-      if (f !== 'domains' && f !== 'keywords') throw new Error(`${where}.${cat}: unknown field ${JSON.stringify(f)}`);
+      if (f !== 'domains' && f !== 'keywords') throw new Error(`${where}.${cat}: unknown field ${show(f)}`);
       if (list === null) continue;
       if (!Array.isArray(list) || list.some((s) => typeof s !== 'string')) {
         throw new Error(`${where}.${cat}.${f} must be an array of strings`);
@@ -173,9 +181,10 @@ export function parseUserRules(text, bundled) {
   } catch (e) {
     throw new Error(`invalid JSON: ${e.message}`);
   }
+  if (v === null) v = {}; // Go accepts a bare null as empty rules
   if (!isObject(v)) throw new Error('rules must be a JSON object');
   for (const k of Object.keys(v)) {
-    if (k !== 'add' && k !== 'allow') throw new Error(`unknown field ${JSON.stringify(k)} (valid: add, allow)`);
+    if (k !== 'add' && k !== 'allow') throw new Error(`unknown field ${show(k)} (valid: add, allow)`);
   }
   checkCategoryMap('add', v.add);
   checkCategoryMap('allow', v.allow);
