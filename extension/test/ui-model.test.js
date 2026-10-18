@@ -78,3 +78,12 @@ test('stub parseUserRules sanity', () => {
   assert.ok(parseUserRules('{').error);
   assert.ok(!parseUserRules('{"add":{"nope":{}}}').rules);
 });
+
+test('date range is half-open at the next local midnight', async () => {
+  const vs = await data();
+  const day2 = '2025-06-11';
+  const mid = new Date(2025, 5, 11).getTime();
+  const edge = [{ ...vs[0], visitId: 'e1', time: mid - 1 }, { ...vs[0], visitId: 'e2', time: mid }];
+  assert.deepEqual(applyFilters(edge, { start: '2025-06-10', end: '2025-06-10' }, false).map((v) => v.visitId), ['e1']);
+  assert.equal(applyFilters(edge, { start: day2, end: day2 }, false).map((v) => v.visitId)[0], 'e2');
+});

@@ -9,7 +9,8 @@ export function isMasked(v, hide, revealed) { return hide && isFlagged(v) && !(r
 
 // Local-time bounds from <input type=date> values ('' = open).
 export function dayStart(s) { if (!s) return null; const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).getTime(); }
-export function dayEnd(s) { if (!s) return null; const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d + 1).getTime() - 1; }
+// Exclusive upper bound: local midnight after the given day (half-open ranges).
+export function dayEnd(s) { if (!s) return null; const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d + 1).getTime(); }
 
 export function annotate(visits, classifier) {
   for (const v of visits) v.categories = classifier.classify(v.url);
@@ -21,9 +22,11 @@ export function annotate(visits, classifier) {
 // reveal what a hidden title, URL or domain contains.
 export function applyFilters(visits, f, hide, { ignoreTextDomain = false, ignoreTransitions = false } = {}) {
   let out = filterVisits(visits, {
-    startTime: dayStart(f.start) ?? undefined, endTime: dayEnd(f.end) ?? undefined,
+    startTime: dayStart(f.start) ?? undefined,
     transitions: ignoreTransitions ? undefined : f.transitions ?? undefined,
   });
+  const endEx = dayEnd(f.end);
+  if (endEx != null) out = out.filter((v) => v.time < endEx);
   if (f.cats && f.cats.size) out = out.filter((v) => v.categories.some((c) => f.cats.has(c)));
   const text = (f.text ?? '').trim(), domain = (f.domain ?? '').trim();
   if (!ignoreTextDomain && (text || domain)) {

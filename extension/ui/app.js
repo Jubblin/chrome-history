@@ -296,6 +296,7 @@ function initSettings(savedText) {
     $('rules-status').textContent = '';
     if (r.error) { $('rules-error').textContent = r.error; $('rules-text').setAttribute('aria-invalid', 'true'); return; }
     $('rules-error').textContent = '';
+    $('rules-notice').textContent = '';
     $('rules-text').removeAttribute('aria-invalid');
     try {
       if (text.trim()) await store.set(RULES_KEY, text); else await store.remove(RULES_KEY);
@@ -387,7 +388,11 @@ async function init() {
     const r = userRulesFromText(typeof text === 'string' ? text : '');
     st.classifier = createClassifier({ bundledRules: st.bundled, userRules: r.rules ?? null });
     initSettings(typeof text === 'string' ? text : '');
-    if (r.error) $('rules-error').textContent = 'Saved rules are invalid and were ignored: ' + r.error;
+    if (r.error) {
+      const msg = 'Saved rules are invalid and were ignored (built-in rules only): ' + r.error;
+      $('rules-error').textContent = msg;
+      $('rules-notice').textContent = msg + ' Open Settings to fix them; the saved text is kept until you save a valid replacement.';
+    }
   } catch (e) { setStatus('Error starting: ' + (e && e.message ? e.message : 'unknown error')); return; }
   refresh();
   await loadAll(history);
