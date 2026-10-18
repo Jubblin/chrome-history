@@ -96,9 +96,10 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          # gh release view does not find drafts by tag, so list instead.
+          # List rather than view: older gh versions cannot find drafts by tag.
+          # The tag is read via env.TAG inside jq, never spliced into the program.
           state=$(gh release list --limit 1000 --json tagName,isDraft \
-            --jq ".[] | select(.tagName == \"$TAG\") | if .isDraft then \"draft\" else \"published\" end")
+            --jq '[.[] | select(.tagName == env.TAG)] | if length == 0 then "" elif any(.[]; .isDraft | not) then "published" else "draft" end')
           case "$state" in
             "")
               gh release create "$TAG" dist/* --draft --verify-tag --generate-notes --title "$TAG"
