@@ -22,7 +22,7 @@ Status: scaffold, data layer and timeline UI. The classifier and packaging come 
   - `visitsPerDay`, `topDomains`, `groupSessions` (default gap 30 minutes, inclusive) match the Go app.
     **Days use the browser's local time zone.**
   - `filterVisits` (date range, end exclusive, text in url/title, domain or parent domain, transition types).
-  - `createMockHistory(entries)` in-memory `chrome.history` for tests and offline/fixture mode.
+  - `createMockHistory(entries)` (ui/test-support/mock-history.js, not shipped) in-memory `chrome.history` for tests and offline/fixture mode.
 - `scripts/make-fixture.js` deterministic synthetic history generator (10k+ visits).
 
 ## Tests

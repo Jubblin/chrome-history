@@ -1,8 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  loadVisits, createMockHistory, visitsPerDay, topDomains, groupSessions, filterVisits, dayKey, normalizeTransition, domainOf,
+  loadVisits, visitsPerDay, topDomains, groupSessions, filterVisits, dayKey, normalizeTransition, domainOf,
 } from '../src/history/index.js';
+import { createMockHistory } from '../ui/test-support/mock-history.js';
 import { makeFixtureEntries } from '../scripts/make-fixture.js';
 
 const T0 = Date.UTC(2025, 0, 10, 12);
