@@ -5,7 +5,7 @@
 //   node scripts/build-zip.mjs [--out DIR] [--tag vX.Y.Z]   build (default out: ../dist)
 //   node scripts/build-zip.mjs --lint                        manifest lint only
 import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
-import { deflateRawSync, crc32 } from 'node:zlib';
+import { crc32 } from 'node:zlib';
 import { join, resolve, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -54,17 +54,17 @@ export function buildZip(files) {
   let offset = 0;
   for (const f of files) {
     const data = readFileSync(join(root, f));
-    const comp = deflateRawSync(data, { level: 9 });
+    const comp = data; // stored, not deflated: output must not depend on the zlib version
     const name = Buffer.from(f, 'utf8');
     const crc = crc32(data);
     const lh = Buffer.alloc(30);
-    lh.writeUInt32LE(0x04034b50, 0); lh.writeUInt16LE(20, 4); lh.writeUInt16LE(0x0800, 6); lh.writeUInt16LE(8, 8);
+    lh.writeUInt32LE(0x04034b50, 0); lh.writeUInt16LE(20, 4); lh.writeUInt16LE(0x0800, 6); lh.writeUInt16LE(0, 8);
     lh.writeUInt16LE(DOS_TIME, 10); lh.writeUInt16LE(DOS_DATE, 12); lh.writeUInt32LE(crc, 14);
     lh.writeUInt32LE(comp.length, 18); lh.writeUInt32LE(data.length, 22); lh.writeUInt16LE(name.length, 26);
     locals.push(lh, name, comp);
     const ch = Buffer.alloc(46);
     ch.writeUInt32LE(0x02014b50, 0); ch.writeUInt16LE((3 << 8) | 20, 4); ch.writeUInt16LE(20, 6); ch.writeUInt16LE(0x0800, 8);
-    ch.writeUInt16LE(8, 10); ch.writeUInt16LE(DOS_TIME, 12); ch.writeUInt16LE(DOS_DATE, 14); ch.writeUInt32LE(crc, 16);
+    ch.writeUInt16LE(0, 10); ch.writeUInt16LE(DOS_TIME, 12); ch.writeUInt16LE(DOS_DATE, 14); ch.writeUInt32LE(crc, 16);
     ch.writeUInt32LE(comp.length, 20); ch.writeUInt32LE(data.length, 24); ch.writeUInt16LE(name.length, 28);
     ch.writeUInt32LE((0o100644 << 16) >>> 0, 38); ch.writeUInt32LE(offset, 42);
     centrals.push(ch, name);

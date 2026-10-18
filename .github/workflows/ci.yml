@@ -100,3 +100,33 @@ jobs:
           CGO_ENABLED: "0"
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
+
+  extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Extension tests
+        run: make extension-test
+      - name: Extension rules are in sync with internal/classify/rules.json
+        run: make extension-check
+      - name: Build the zip twice and require identical bytes
+        run: |
+          set -euo pipefail
+          make extension-zip
+          first="$(sha256sum dist/chrome-history-extension_v*.zip)"
+          make extension-zip
+          second="$(sha256sum dist/chrome-history-extension_v*.zip)"
+          [ "$first" = "$second" ] || { echo "::error::zip build is not reproducible"; exit 1; }
+          cd dist && sha256sum -- chrome-history-extension_v*.zip | tee SHA256SUMS-extension
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: extension-zip
+          path: |
+            dist/chrome-history-extension_v*.zip
+            dist/SHA256SUMS-extension
+          if-no-files-found: error
