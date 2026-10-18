@@ -182,3 +182,35 @@ func TestReportPermissionDenied(t *testing.T) {
 		t.Fatal("macOS hint on linux")
 	}
 }
+
+func TestCanaryRootsAndPartialDenial(t *testing.T) {
+	has := func(goos string, want string) bool {
+		for _, r := range rootsFor(goos, "/h", "/h/L", "/h/R") {
+			if r.Browser+" "+r.Channel == want {
+				return true
+			}
+		}
+		return false
+	}
+	for _, c := range []struct{ goos, want string }{
+		{"darwin", "Chrome canary"}, {"darwin", "Edge canary"}, {"darwin", "Opera gx"},
+		{"windows", "Chrome canary"}, {"windows", "Edge canary"},
+	} {
+		if !has(c.goos, c.want) {
+			t.Errorf("%s: missing %s", c.goos, c.want)
+		}
+	}
+	if os.Getuid() == 0 || runtime.GOOS == "windows" {
+		return
+	}
+	home := t.TempDir()
+	ud := filepath.Join(home, "Library", "Application Support", "Google", "Chrome")
+	writeProfile(t, ud, "Default")
+	writeProfile(t, ud, "Profile 1")
+	os.Chmod(filepath.Join(ud, "Profile 1"), 0)
+	t.Cleanup(func() { os.Chmod(filepath.Join(ud, "Profile 1"), 0o755) })
+	rep := DiscoverFor("darwin", home, "", "")
+	if len(rep.Profiles) != 1 || !rep.PermissionDenied() || !strings.Contains(rep.Explain(), "permission denied") {
+		t.Fatalf("%+v", rep.Searched)
+	}
+}

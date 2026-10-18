@@ -86,16 +86,19 @@ func rootsFor(goos, home, localAppData, appData string) []Root {
 		add("Chrome", "stable", j(as, "Google", "Chrome"))
 		add("Chrome", "beta", j(as, "Google", "Chrome Beta"))
 		add("Chrome", "dev", j(as, "Google", "Chrome Dev"))
+		add("Chrome", "canary", j(as, "Google", "Chrome Canary"))
 		add("Chromium", "", j(as, "Chromium"))
 		add("Edge", "stable", j(as, "Microsoft Edge"))
 		add("Edge", "beta", j(as, "Microsoft Edge Beta"))
 		add("Edge", "dev", j(as, "Microsoft Edge Dev"))
+		add("Edge", "canary", j(as, "Microsoft Edge Canary"))
 		add("Brave", "stable", j(as, "BraveSoftware", "Brave-Browser"))
 		add("Brave", "beta", j(as, "BraveSoftware", "Brave-Browser-Beta"))
 		add("Brave", "nightly", j(as, "BraveSoftware", "Brave-Browser-Nightly"))
 		add("Vivaldi", "stable", j(as, "Vivaldi"))
 		add("Opera", "stable", j(as, "com.operasoftware.Opera"))
 		add("Opera", "developer", j(as, "com.operasoftware.OperaDeveloper"))
+		add("Opera", "gx", j(as, "com.operasoftware.OperaGX"))
 	case "windows":
 		if localAppData == "" {
 			localAppData = j(home, "AppData", "Local")
@@ -106,10 +109,12 @@ func rootsFor(goos, home, localAppData, appData string) []Root {
 		add("Chrome", "stable", j(localAppData, "Google", "Chrome", "User Data"))
 		add("Chrome", "beta", j(localAppData, "Google", "Chrome Beta", "User Data"))
 		add("Chrome", "dev", j(localAppData, "Google", "Chrome Dev", "User Data"))
+		add("Chrome", "canary", j(localAppData, "Google", "Chrome SxS", "User Data"))
 		add("Chromium", "", j(localAppData, "Chromium", "User Data"))
 		add("Edge", "stable", j(localAppData, "Microsoft", "Edge", "User Data"))
 		add("Edge", "beta", j(localAppData, "Microsoft", "Edge Beta", "User Data"))
 		add("Edge", "dev", j(localAppData, "Microsoft", "Edge Dev", "User Data"))
+		add("Edge", "canary", j(localAppData, "Microsoft", "Edge SxS", "User Data"))
 		add("Brave", "stable", j(localAppData, "BraveSoftware", "Brave-Browser", "User Data"))
 		add("Brave", "beta", j(localAppData, "BraveSoftware", "Brave-Browser-Beta", "User Data"))
 		add("Vivaldi", "stable", j(localAppData, "Vivaldi", "User Data"))
@@ -134,6 +139,7 @@ type RootResult struct {
 	Reason   string // one of the Reason* constants
 	Detail   string // extra context, e.g. which entry was denied; never URLs or titles
 	Profiles int
+	Denied   int // profile folders skipped because of permissions, even when others were found
 }
 
 // Report is the outcome of a discovery run: the profiles found and every
@@ -147,7 +153,7 @@ type Report struct {
 // PermissionDenied reports whether any searched directory was refused.
 func (r Report) PermissionDenied() bool {
 	for _, s := range r.Searched {
-		if s.Reason == ReasonPermission {
+		if s.Reason == ReasonPermission || s.Denied > 0 {
 			return true
 		}
 	}
@@ -303,9 +309,13 @@ func scanUserDataDir(r Root) ([]Profile, RootResult) {
 		add(e.Name(), filepath.Join(r.Path, e.Name()))
 	}
 	sort.Slice(out, func(i, j int) bool { return out[i].Dir < out[j].Dir })
+	res.Denied = denied
 	switch {
 	case len(out) > 0:
 		res.Reason = ReasonFound
+		if denied > 0 {
+			res.Detail = fmt.Sprintf("%d other profile folder(s) permission denied", denied)
+		}
 	case denied > 0:
 		res.Reason = ReasonPermission
 		res.Detail = fmt.Sprintf("%d profile folder(s) could not be read", denied)
