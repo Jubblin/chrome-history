@@ -62,7 +62,7 @@ const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
     check(/^\d+ visits in the last 7 days$/.test(status), `timeline page rendered: "${status}"`);
     check(errors.length === 0, `no console errors/warnings on timeline page${errors.length ? ': ' + errors.join(' | ') : ''}`);
     const manifest = await tl.evaluate(() => chrome.runtime.getManifest());
-    check(JSON.stringify(manifest.permissions) === '["history"]' && !manifest.host_permissions, 'only the history permission, no host permissions');
+    check(JSON.stringify(manifest.permissions) === '["history","storage"]' && !manifest.host_permissions, 'only the history and storage permissions, no host permissions');
   } catch (e) {
     check(false, 'exception: ' + e.message);
   } finally {

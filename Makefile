@@ -9,7 +9,7 @@ BIN ?= bin/chrome-history
 export CGO_ENABLED ?= 0
 LDFLAGS := -s -w
 
-.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test
+.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check
 
 build:
 	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/chrome-history
@@ -27,6 +27,14 @@ cross:
 # Chrome extension tests: Node >= 22 on the host, no dependencies.
 extension-test:
 	cd extension && node --test "test/*.test.js"
+
+# Copy internal/classify/rules.json (source of truth) into the extension.
+extension-sync:
+	node extension/scripts/sync-rules.mjs
+
+# Fail if the extension's copy of the rules is out of date.
+extension-check:
+	node extension/scripts/sync-rules.mjs --check
 
 fixture:
 	go run ./cmd/make-fixture -out fixture
