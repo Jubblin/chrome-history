@@ -27,6 +27,34 @@ Open the URL the server prints (it ends in `/?token=...`; the token is random pe
 | `make cross` | binaries for linux/amd64, darwin/arm64, darwin/amd64, windows/amd64 in `dist/` |
 | `make fixture` | generates `./fixture` (flags: `go run ./cmd/make-fixture -out DIR -days 90 -per-day 40 -seed 1`) |
 
+## macOS setup
+
+macOS denies terminal apps access to other apps' data under `~/Library/Application Support` until you grant it, so a first run against real profiles can fail with `permission denied`. These steps use the release archives (the exact menu names may differ between macOS versions; System Settings was reorganised in macOS 13).
+
+1. Download the `darwin_arm64` (Apple Silicon) or `darwin_amd64` (Intel) archive and `SHA256SUMS` from the Releases page, then check and unpack it:
+   ```
+   grep darwin_arm64 SHA256SUMS | shasum -a 256 -c   # or darwin_amd64
+   tar -xzf chrome-history_*_darwin_arm64.tar.gz   # or darwin_amd64
+   cd chrome-history_*_darwin_*
+   ```
+   The `grep` limits the check to the archive you downloaded. Alternatively run `gh attestation verify <archive> --repo Jubblin/chrome-history`.
+2. The binaries are unsigned and not notarised, so Gatekeeper may block the first run. Control-click the file and choose Open, or run `xattr -d com.apple.quarantine ./chrome-history`. The checksum or attestation from step 1 is how you know the file is genuine.
+3. Run `./chrome-history --list-profiles` to see which profiles are found and why any directory was skipped.
+4. If it reports `permission denied`, open System Settings > Privacy & Security > Full Disk Access, enable your terminal app (Terminal, iTerm, ...), quit it completely (Cmd-Q) and reopen it, then run again.
+
+Alternative without Full Disk Access: quit the browser, copy only the profile's `History` file (and `History-wal` if it exists) into a folder you can read, and run `./chrome-history --profile /path/to/that/folder`. The profile folder is named `Default`, `Profile 1`, and so on; `chrome://version` shows the exact Profile Path.
+
+The tool only reads the `History` database (see [Privacy](#privacy)), so you can turn Full Disk Access off again afterwards. The web UI works in Chromium-based browsers and Firefox but not in Safari, because the access cookie is `Secure` and Safari does not send it over plain http.
+
+## Chromebook (ChromeOS)
+
+Not tested on a Chromebook; this is based on how ChromeOS's Linux support is documented to work.
+
+- **Works:** ChromeOS can run Linux apps in a container (Settings > Advanced > Developers > Linux development environment). Inside it, use the `linux_amd64` release archive, or `linux_arm64` on ARM models (`uname -m` prints `x86_64` or `aarch64`). It can audit a Chrome or other Chromium browser installed inside that container, or a `History` file you copy into the container and open with `--profile PATH`.
+- **Does not work:** the history of the Chrome you use on ChromeOS itself. ChromeOS keeps that profile in encrypted per-user storage that the Linux container cannot read, and the Files app does not expose it. The same goes for Chrome on Android on a Chromebook. Don't weaken device security (for example with developer mode) to get at it.
+- **Opening the UI:** the container has no browser, so run `./chrome-history --no-open` and open the printed URL, which contains the access token, in ChromeOS Chrome. ChromeOS normally forwards `localhost` ports from the container, so `http://localhost:8080/?token=...` should work. The server listens on `127.0.0.1` only and accepts only the hosts `localhost`, `127.0.0.1` and `[::1]`, so a container hostname such as `penguin.linux.test` is rejected. If forwarding misbehaves, keep a fixed port with `--port` (default 8080; `--port 0` picks a random one).
+- **Google Takeout:** its Chrome history export is JSON, which this tool does not import.
+
 ## Use it on your real history
 
 ```
@@ -43,9 +71,7 @@ Run `chrome-history --list-profiles`. It prints each profile (browser, name, vis
 and every directory searched with the reason it was skipped (`not found`, `no History file`, `permission denied`),
 then exits. If nothing is found, the normal start-up error prints the same list.
 
-- **macOS: `permission denied`.** macOS can block a terminal app from reading `~/Library/Application Support/...`.
-  Open System Settings > Privacy & Security > Full Disk Access, enable your terminal app (Terminal, iTerm, ...), quit
-  and reopen it, and run again. Or copy the profile folder somewhere readable and use `--profile PATH`.
+- **macOS: `permission denied`.** Grant your terminal Full Disk Access or copy the `History` file; see [macOS setup](#macos-setup).
 - **`not found` for every browser:** the browser may use a custom profile location, a different `$HOME`, or a
   sandboxed/packaged install. Pass the profile (or its `History` file) with `--profile PATH`.
 - Browsers are searched in the standard locations for the OS (macOS: `~/Library/Application Support/<browser>`).
