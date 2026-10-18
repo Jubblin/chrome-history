@@ -5,9 +5,9 @@ import { readFileSync, existsSync } from 'node:fs';
 const root = new URL('../', import.meta.url);
 const m = JSON.parse(readFileSync(new URL('manifest.json', root), 'utf8'));
 
-test('manifest is MV3 with only the history permission', () => {
+test('manifest is MV3 with only the history and storage permissions', () => {
   assert.equal(m.manifest_version, 3);
-  assert.deepEqual(m.permissions, ['history']);
+  assert.deepEqual(m.permissions, ['history', 'storage']);
   for (const k of ['host_permissions', 'optional_permissions', 'optional_host_permissions', 'content_scripts', 'externally_connectable', 'web_accessible_resources', 'incognito']) {
     assert.ok(!(k in m), `${k} must be absent`);
   }
@@ -29,7 +29,7 @@ test('strict extension-page CSP', () => {
 });
 
 test('no network, eval or remote code in source', () => {
-  const files = ['src/background.js', 'src/timeline.js', 'src/history/load.js', 'src/history/index.js', 'timeline.html'];
+  const files = ['src/background.js', 'src/timeline.js', 'src/history/load.js', 'src/history/index.js', 'src/classify/storage.js', 'src/classify/index.js', 'timeline.html'];
   for (const f of files) {
     const s = readFileSync(new URL(f, root), 'utf8');
     assert.ok(!/\b(fetch|XMLHttpRequest|WebSocket|eval|importScripts)\b|new Function|https?:\/\/[^'"\s]*\.js/.test(s), f);
