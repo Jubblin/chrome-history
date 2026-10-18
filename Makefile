@@ -9,7 +9,7 @@ BIN ?= bin/chrome-history
 export CGO_ENABLED ?= 0
 LDFLAGS := -s -w
 
-.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down
+.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test
 
 build:
 	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/chrome-history
@@ -23,6 +23,10 @@ cross:
 	GOOS=darwin  GOARCH=arm64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-darwin-arm64 ./cmd/chrome-history
 	GOOS=darwin  GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-darwin-amd64 ./cmd/chrome-history
 	GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-windows-amd64.exe ./cmd/chrome-history
+
+# Chrome extension tests: Node >= 22 on the host, no dependencies.
+extension-test:
+	cd extension && node --test "test/*.test.js"
 
 fixture:
 	go run ./cmd/make-fixture -out fixture
