@@ -2,6 +2,6 @@
 import { loadVisits } from './history/index.js';
 
 const status = document.getElementById('status');
-const end = Date.now();
+const end = Date.now() + 1; // endTime is exclusive
 const visits = await loadVisits(chrome.history, { startTime: end - 7 * 864e5, endTime: end });
 status.textContent = `${visits.length} visits in the last 7 days`;

@@ -30,7 +30,10 @@ async function pool(items, limit, signal, fn) {
 }
 
 /**
- * Load every visit in [startTime, endTime] (ms since epoch).
+ * Load every visit in the half-open window [startTime, endTime) (ms since epoch):
+ * startTime is inclusive, endTime is exclusive, like chrome.history.search and
+ * the Go app's `to`, so adjacent windows [a,b) and [b,c) return every visit
+ * exactly once. endTime defaults to Date.now() + 1 (so "now" is included).
  *
  * chrome.history.search returns one item per URL, newest first, so the window
  * is paged by time: each page asks for the newest `pageSize` URLs ending at the
@@ -48,7 +51,7 @@ export async function loadVisits(history, opts = {}) {
   const o = { ...DEFAULTS, ...opts };
   const startTime = o.startTime ?? 0;
   const { signal } = o;
-  let curEnd = o.endTime ?? Date.now();
+  let curEnd = o.endTime ?? Date.now() + 1; // exclusive
   const endTime = curEnd;
   let pageSize = o.pageSize;
   const seenUrls = new Set();
@@ -60,7 +63,7 @@ export async function loadVisits(history, opts = {}) {
 
   for (;;) {
     if (signal?.aborted) throw abortError(finish());
-    const items = await history.search({ text: '', startTime, endTime: curEnd + 1, maxResults: pageSize });
+    const items = await history.search({ text: '', startTime, endTime: curEnd, maxResults: pageSize });
     const fresh = items.filter((it) => it.url && !seenUrls.has(it.url));
     fresh.forEach((it) => seenUrls.add(it.url));
     const batch = [];
@@ -68,7 +71,7 @@ export async function loadVisits(history, opts = {}) {
       const vs = await history.getVisits({ url: it.url });
       urls++;
       for (const v of vs) {
-        if (v.visitTime < startTime || v.visitTime > endTime) continue;
+        if (v.visitTime < startTime || v.visitTime >= endTime) continue;
         if (seenVisits.has(v.visitId)) continue;
         seenVisits.add(v.visitId);
         batch.push({
@@ -89,8 +92,9 @@ export async function loadVisits(history, opts = {}) {
     if (signal?.aborted) throw abortError(finish());
     if (items.length < pageSize) break;
     const oldest = Math.min(...items.map((it) => it.lastVisitTime));
-    if (oldest < curEnd) {
-      curEnd = oldest;
+    // Next window must still contain `oldest` (unseen ties), hence +1 (exclusive).
+    if (oldest + 1 < curEnd) {
+      curEnd = oldest + 1;
     } else if (pageSize < o.maxPageSize) {
       pageSize = Math.min(pageSize * 2, o.maxPageSize);
     } else {

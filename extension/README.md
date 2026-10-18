@@ -13,13 +13,15 @@ Status: scaffold and data layer. The timeline UI, classifier and packaging come 
 - `manifest.json` MV3 manifest, strict CSP (`default-src 'none'; script-src 'self'; ...; connect-src 'none'`).
 - `src/background.js` minimal service worker (opens the timeline tab).
 - `src/history/` data layer (ES modules, no dependencies):
+  - Time ranges are half-open everywhere: `startTime` inclusive, `endTime` exclusive (same as `chrome.history.search` and the Go app's `to`),
+    so adjacent windows `[a,b)` and `[b,c)` never count a visit twice. `endTime` defaults to `Date.now() + 1`.
   - `loadVisits(chrome.history, {startTime, endTime, pageSize, concurrency, signal, onBatch, onProgress})`
     pages `history.search` by time and calls `getVisits` per URL with bounded concurrency. Returns visits
     `{visitId, time, url, title, domain, transition, referringVisitId, isLocal}`, newest first. Cancel with an
     `AbortSignal`; the rejection is an `AbortError` whose `.visits` holds what was loaded. There is no visit duration in the API.
   - `visitsPerDay`, `topDomains`, `groupSessions` (default gap 30 minutes, inclusive) match the Go app.
     **Days use the browser's local time zone.**
-  - `filterVisits` (date range, text in url/title, domain or parent domain, transition types).
+  - `filterVisits` (date range, end exclusive, text in url/title, domain or parent domain, transition types).
   - `createMockHistory(entries)` in-memory `chrome.history` for tests and offline/fixture mode.
 - `scripts/make-fixture.js` deterministic synthetic history generator (10k+ visits).
 

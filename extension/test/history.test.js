@@ -60,10 +60,57 @@ test('duplicate URL visits are all kept, outside-window visits dropped', async (
   assert.equal(vs.length, 3);
 });
 
-test('window boundaries: start inclusive, end inclusive of endTime', async () => {
-  const h = createMockHistory([e('https://b.test/', [T0 - MIN, T0, T0 + MIN])]);
-  const vs = await loadVisits(h, { startTime: T0 - MIN, endTime: T0 });
-  assert.deepEqual(vs.map((v) => v.time), [T0, T0 - MIN]);
+test('window boundaries: start inclusive, end exclusive (visits at start-1, start, end-1, end, end+1)', async () => {
+  const S = T0, E = T0 + 10;
+  const h = createMockHistory([e('https://b.test/', [S - 1, S, E - 1, E, E + 1]), e('https://c.test/', [S - 1, S, E - 1, E, E + 1])]);
+  const vs = await loadVisits(h, { startTime: S, endTime: E });
+  assert.deepEqual(vs.map((v) => v.time).sort((a, b) => a - b), [S, S, E - 1, E - 1]);
+  assert.deepEqual(await loadVisits(h, { startTime: S, endTime: S }), []);
+  assert.equal(filterVisits(vs.concat([{ time: E, url: 'u', title: '', domain: '' }]), { startTime: S, endTime: E }).length, 4);
+});
+
+function rng(seed) { let x = seed; return () => (x = (x * 1664525 + 1013904223) >>> 0) / 2 ** 32; }
+
+test('adjacent windows [a,b) and [b,c) return every visit exactly once (many duplicate timestamps)', async () => {
+  for (const seed of [1, 2, 3]) {
+    const r = rng(seed);
+    const entries = Array.from({ length: 40 }, (_, i) => e(`https://p${i}.test/`, Array.from({ length: 1 + Math.floor(r() * 8) }, () => T0 + Math.floor(r() * 6) * 5)));
+    const total = entries.reduce((n, x) => n + x.visits.length, 0);
+    const h = createMockHistory(entries);
+    for (const pageSize of [1, 3, 7, 1000]) {
+      const a = T0 - 5, c = T0 + 40;
+      for (const b of [a, T0, T0 + 5, T0 + 15, T0 + 16, c]) {
+        const w1 = await loadVisits(h, { startTime: a, endTime: b, pageSize });
+        const w2 = await loadVisits(h, { startTime: b, endTime: c, pageSize });
+        const ids = [...w1, ...w2].map((v) => v.visitId);
+        assert.equal(ids.length, total, `seed ${seed} page ${pageSize} b ${b - T0}`);
+        assert.equal(new Set(ids).size, total);
+        assert.ok(w1.every((v) => v.time < b) && w2.every((v) => v.time >= b));
+      }
+    }
+  }
+});
+
+test('paging with many visits at one timestamp, exclusive end', async () => {
+  const entries = Array.from({ length: 200 }, (_, i) => e(`https://q${i}.test/`, [T0, T0 + 1]));
+  const h = createMockHistory(entries);
+  const vs = await loadVisits(h, { startTime: T0, endTime: T0 + 1, pageSize: 10 });
+  assert.equal(vs.length, 200);
+  assert.ok(vs.every((v) => v.time === T0));
+});
+
+test('day windows [midnight, next midnight) are exact in several time zones incl. DST changes', () => {
+  // Day keys and windows follow the process TZ; verify with explicit local-midnight arithmetic.
+  for (const [y, m, d] of [[2025, 2, 9], [2025, 9, 26], [2025, 10, 2], [2025, 3, 6], [2025, 5, 15]]) {
+    const start = new Date(y, m, d).getTime();
+    const end = new Date(y, m, d + 1).getTime();
+    const inDay = [start, start + 1, end - 1].map((time) => ({ time }));
+    const out = [start - 1, end, end + 1].map((time) => ({ time }));
+    const got = filterVisits(inDay.concat(out), { startTime: start, endTime: end });
+    assert.equal(got.length, 3);
+    assert.equal(new Set(got.map((v) => dayKey(v.time))).size, 1);
+    assert.notEqual(dayKey(end), dayKey(end - 1));
+  }
 });
 
 test('huge counts (12k visits) load and report progress', async () => {
@@ -147,7 +194,8 @@ test('filters: range, text, domain, transition', () => {
     { time: 3, url: 'https://notexample.test/', title: '', domain: 'notexample.test', transition: 'link' },
   ];
   assert.equal(filterVisits(vs, {}).length, 3);
-  assert.equal(filterVisits(vs, { startTime: 2, endTime: 2 }).length, 1);
+  assert.equal(filterVisits(vs, { startTime: 2, endTime: 3 }).length, 1);
+  assert.equal(filterVisits(vs, { startTime: 2, endTime: 2 }).length, 0);
   assert.equal(filterVisits(vs, { text: 'HELLO' }).length, 1);
   assert.equal(filterVisits(vs, { text: '/a' }).length, 1);
   assert.deepEqual(filterVisits(vs, { domain: 'example.test' }).map((v) => v.time), [1]);

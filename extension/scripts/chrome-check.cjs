@@ -51,10 +51,17 @@ const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
 
     const got = await tl.evaluate(async () => {
       const { loadVisits, groupSessions, topDomains } = await import('./src/history/index.js');
-      const vs = await loadVisits(chrome.history, { startTime: 0, endTime: Date.now() });
-      return { vs: vs.map((v) => ({ ...v })), sessions: groupSessions(vs).length, top: topDomains(vs, 3) };
+      const vs = await loadVisits(chrome.history, { startTime: 0, endTime: Date.now() + 1 });
+      const t = vs[0].time;
+      const edge = {
+        atEndExcluded: (await loadVisits(chrome.history, { startTime: 0, endTime: t })).every((v) => v.time < t),
+        startIncluded: (await loadVisits(chrome.history, { startTime: t, endTime: t + 1 })).some((v) => v.time === t),
+        emptyWindow: (await loadVisits(chrome.history, { startTime: t, endTime: t })).length,
+      };
+      return { edge, vs: vs.map((v) => ({ ...v })), sessions: groupSessions(vs).length, top: topDomains(vs, 3) };
     });
     const local = got.vs.filter((v) => v.url.startsWith(base));
+    check(got.edge.atEndExcluded && got.edge.startIncluded && got.edge.emptyWindow === 0, `real Chromium: endTime exclusive, startTime inclusive (${JSON.stringify(got.edge)})`);
     check(local.length === expected.length, `data layer returned ${local.length} visits for ${expected.length} navigations to the local server`);
     check(local.every((v) => v.domain === '127.0.0.1' && v.time > 0 && v.title.startsWith('Local page') && typeof v.isLocal === 'boolean'), 'visit fields populated (domain, time, title, isLocal)');
     check(new Set(local.map((v) => v.transition)).has('typed') || new Set(local.map((v) => v.transition)).has('link'), `transitions: ${[...new Set(local.map((v) => v.transition))].join(', ')}`);
