@@ -115,3 +115,21 @@ test('storage round trip, rejects invalid rules without saving', async () => {
   await clearUserRules(area);
   assert.deepEqual((await loadClassifier(area)).classify('https://lucky.example/'), []);
 });
+
+test('index.js interface contract', async () => {
+  const m = await import('../src/classify/index.js');
+  assert.deepEqual(m.CATEGORIES.map((c) => c.id), ['adult', 'gambling', 'health', 'finance', 'privacy', 'news_politics']);
+  assert.equal(m.CATEGORIES[4].label, 'Privacy tools');
+  assert.equal(m.CATEGORIES[5].label, 'News & politics');
+  const b = await m.loadBundledRules();
+  const r = m.parseUserRules('{"add":{"gambling":{"domains":["lucky.example"]}}}');
+  assert.ok(r.rules && !r.error);
+  const c = m.createClassifier({ bundledRules: b, userRules: r.rules });
+  assert.deepEqual(c.classify('https://lucky.example/'), ['gambling']);
+  assert.deepEqual(c.classify('::not a url'), []);
+  assert.deepEqual(m.createClassifier({ bundledRules: b, userRules: null }).classify('https://www.bet365.com/'), ['gambling']);
+  const e = m.parseUserRules('{"add":{"x":1}}');
+  assert.equal(typeof e.error, 'string');
+  assert.ok(!e.rules);
+  assert.ok(m.parseUserRules('x'.repeat(2 << 20)).error.includes('1 MiB'));
+});

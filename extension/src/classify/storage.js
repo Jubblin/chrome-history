@@ -3,7 +3,7 @@
 import { parseUserRules, Classifier } from './classify.js';
 import bundled from './rules.js';
 
-const KEY = 'userRules';
+const KEY = 'userRulesText';
 
 export async function saveUserRules(area, text) {
   parseUserRules(text, bundled);

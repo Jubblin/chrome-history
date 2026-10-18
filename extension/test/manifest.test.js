@@ -29,7 +29,7 @@ test('strict extension-page CSP', () => {
 });
 
 test('no network, eval or remote code in source', () => {
-  const files = ['src/background.js', 'src/timeline.js', 'src/history/load.js', 'src/history/index.js', 'src/classify/storage.js', 'timeline.html'];
+  const files = ['src/background.js', 'src/timeline.js', 'src/history/load.js', 'src/history/index.js', 'src/classify/storage.js', 'src/classify/index.js', 'timeline.html'];
   for (const f of files) {
     const s = readFileSync(new URL(f, root), 'utf8');
     assert.ok(!/\b(fetch|XMLHttpRequest|WebSocket|eval|importScripts)\b|new Function|https?:\/\/[^'"\s]*\.js/.test(s), f);
