@@ -46,7 +46,7 @@ const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
     tl.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errors.push(m.text()); });
     tl.on('pageerror', (e) => errors.push('pageerror ' + e.message));
     await tl.goto(`chrome-extension://${id}/timeline.html`);
-    await tl.waitForFunction(() => /visits in the last 7 days/.test(document.getElementById('status').textContent), null, { timeout: 15000 });
+    await tl.waitForFunction(() => /visits loaded/.test(document.getElementById("status").textContent), null, { timeout: 15000 });
     const status = await tl.textContent('#status');
 
     const got = await tl.evaluate(async () => {
@@ -59,7 +59,7 @@ const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
     check(local.every((v) => v.domain === '127.0.0.1' && v.time > 0 && v.title.startsWith('Local page') && typeof v.isLocal === 'boolean'), 'visit fields populated (domain, time, title, isLocal)');
     check(new Set(local.map((v) => v.transition)).has('typed') || new Set(local.map((v) => v.transition)).has('link'), `transitions: ${[...new Set(local.map((v) => v.transition))].join(', ')}`);
     check(got.sessions >= 1 && got.top[0].domain === '127.0.0.1', `aggregations ok (sessions=${got.sessions}, top=${got.top[0].domain})`);
-    check(/^\d+ visits in the last 7 days$/.test(status), `timeline page rendered: "${status}"`);
+    check(/^[\d,]+ visits loaded$/.test(status), `timeline page rendered: "${status}"`);
     check(errors.length === 0, `no console errors/warnings on timeline page${errors.length ? ': ' + errors.join(' | ') : ''}`);
     const manifest = await tl.evaluate(() => chrome.runtime.getManifest());
     check(JSON.stringify(manifest.permissions) === '["history"]' && !manifest.host_permissions, 'only the history permission, no host permissions');

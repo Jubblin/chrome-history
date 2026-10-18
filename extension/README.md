@@ -2,7 +2,7 @@
 
 An audit timeline for the browsing history of the profile it is installed in. It reads history through `chrome.history`, makes no network requests, and requests only the `history` permission. Incognito browsing is not recorded by Chrome and is not accessible to the extension.
 
-Status: scaffold and data layer. The timeline UI, classifier and packaging come in later changes; `timeline.html` is a placeholder.
+Status: scaffold, data layer and timeline UI. The classifier and packaging come in separate changes.
 
 ## Load unpacked
 1. Open `chrome://extensions`, enable Developer mode.
@@ -30,3 +30,10 @@ Status: scaffold and data layer. The timeline UI, classifier and packaging come 
   create real history, and checks the service worker and data layer. Needs `playwright-core` and its Chromium
   (branded Chrome ignores `--load-extension`):
   `PLAYWRIGHT_BROWSERS_PATH=<dir> NODE_PATH=<dir>/node_modules node scripts/chrome-check.cjs`.
+
+## Timeline UI (`ui/`)
+- `timeline.html` + `ui/app.js` (view) + `ui/model.js` (pure, unit-tested filtering/layout/CSV) + `ui/timeline.css` (copied from `web/static/app.css`, plus extension additions).
+- Loads all history progressively via `loadVisits`, classifies each visit with the classifier (single integration point: `ui/classify-import.js`, which re-exports `src/classify/index.js`), and renders day/session groups 200 rows at a time.
+- User rules are edited in the Settings panel and stored as raw text in `chrome.storage.local` under `userRulesText` (needs the `storage` permission; without it they only last for the page's lifetime).
+- Fixture mode: open `timeline.html?fixture=1` to run against a synthetic 12k-visit mock history (`ui/test-support/`, test-only, must be excluded from the shipped zip; without those files the page reports fixture mode is unavailable).
+- `scripts/ui-check.cjs` drives the UI in headless Chromium (fixture mode, then real history from local pages), writes screenshots of synthetic data, and checks masking, CSV, rules, keyboard, CSP and network. Same Playwright setup as `chrome-check.cjs`.

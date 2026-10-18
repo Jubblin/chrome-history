@@ -29,9 +29,14 @@ test('strict extension-page CSP', () => {
 });
 
 test('no network, eval or remote code in source', () => {
-  const files = ['src/background.js', 'src/timeline.js', 'src/history/load.js', 'src/history/index.js', 'timeline.html'];
+  const files = ['src/background.js', 'ui/app.js', 'ui/model.js', 'ui/classify-import.js', 'src/history/load.js', 'src/history/index.js', 'timeline.html'];
   for (const f of files) {
     const s = readFileSync(new URL(f, root), 'utf8');
     assert.ok(!/\b(fetch|XMLHttpRequest|WebSocket|eval|importScripts)\b|new Function|https?:\/\/[^'"\s]*\.js/.test(s), f);
   }
+});
+
+test('timeline.html has no inline script, style or handlers (CSP)', () => {
+  const s = readFileSync(new URL('timeline.html', root), 'utf8');
+  assert.ok(!/<script(?![^>]*\bsrc=)/i.test(s) && !/<style/i.test(s) && !/\son\w+=|style=/i.test(s));
 });
