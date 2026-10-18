@@ -86,7 +86,14 @@ git tag -a v1.2.3 -m "v1.2.3"
 git push origin v1.2.3
 ```
 
-The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It writes a `SHA256SUMS` file, adds build provenance attestations, and publishes a GitHub Release with generated notes. The tag is injected as the version, so `chrome-history --version` prints it. Check a download with `sha256sum -c SHA256SUMS` or `gh attestation verify <file> --repo Jubblin/chrome-history`.
+The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It writes a `SHA256SUMS` file, adds build provenance attestations, and creates a **draft** GitHub Release with generated notes, which you publish by hand. The tag is injected as the version, so `chrome-history --version` prints it.
+
+Once the workflow succeeds:
+
+1. Open the draft under Releases and check that all archives and `SHA256SUMS` are attached and the generated notes read well.
+2. Click **Publish release** in the GitHub UI, or run `gh release edit v1.2.3 --draft=false`.
+
+Re-running the workflow for a tag whose release is still a draft replaces the draft's assets; if the release is already published the job fails with a clear message and changes nothing. Attestations are created at build time for the archives and `SHA256SUMS`, so the draft state does not affect them. Check a download with `sha256sum -c SHA256SUMS` or `gh attestation verify <file> --repo Jubblin/chrome-history`.
 
 CI (`ci.yml`) and the security scans (`security.yml`) run on every pull request. Workflow actions are pinned to full commit SHAs and updated by Dependabot.
 

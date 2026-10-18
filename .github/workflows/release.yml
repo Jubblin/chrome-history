@@ -89,10 +89,27 @@ jobs:
             dist/*.tar.gz
             dist/*.zip
             dist/SHA256SUMS
-      - name: Publish GitHub Release
+      - name: Create draft GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$TAG" dist/* --verify-tag --generate-notes --title "$TAG"
+          set -euo pipefail
+          # List rather than view: older gh versions cannot find drafts by tag.
+          # The tag is read via env.TAG inside jq, never spliced into the program.
+          state=$(gh release list --limit 1000 --json tagName,isDraft \
+            --jq '[.[] | select(.tagName == env.TAG)] | if length == 0 then "" elif any(.[]; .isDraft | not) then "published" else "draft" end')
+          case "$state" in
+            "")
+              gh release create "$TAG" dist/* --draft --verify-tag --generate-notes --title "$TAG"
+              ;;
+            draft)
+              echo "Draft release for $TAG already exists; replacing its assets."
+              gh release upload "$TAG" dist/* --clobber
+              ;;
+            *)
+              echo "::error::Release $TAG is already published; refusing to modify it. Delete the release and re-run, or use a new tag."
+              exit 1
+              ;;
+          esac
