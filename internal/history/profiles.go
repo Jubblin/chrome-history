@@ -119,56 +119,167 @@ func rootsFor(goos, home, localAppData, appData string) []Root {
 	return r
 }
 
+// Skip reasons reported for each searched directory.
+const (
+	ReasonFound      = "found"
+	ReasonNotFound   = "not found"
+	ReasonNoHistory  = "no History file"
+	ReasonPermission = "permission denied"
+	ReasonUnreadable = "unreadable"
+)
+
+// RootResult records what happened when one candidate directory was searched.
+type RootResult struct {
+	Root
+	Reason   string // one of the Reason* constants
+	Detail   string // extra context, e.g. which entry was denied; never URLs or titles
+	Profiles int
+}
+
+// Report is the outcome of a discovery run: the profiles found and every
+// directory that was searched.
+type Report struct {
+	GOOS     string
+	Profiles []Profile
+	Searched []RootResult
+}
+
+// PermissionDenied reports whether any searched directory was refused.
+func (r Report) PermissionDenied() bool {
+	for _, s := range r.Searched {
+		if s.Reason == ReasonPermission {
+			return true
+		}
+	}
+	return false
+}
+
+// Explain describes which directories were searched and why none (or each)
+// was used. It contains paths and reasons only.
+func (r Report) Explain() string {
+	var b strings.Builder
+	b.WriteString("searched:\n")
+	for _, s := range r.Searched {
+		label := s.Browser
+		if s.Channel != "" {
+			label += " " + s.Channel
+		}
+		fmt.Fprintf(&b, "  %s: %s: %s", label, s.Path, s.Reason)
+		if s.Detail != "" {
+			fmt.Fprintf(&b, " (%s)", s.Detail)
+		}
+		b.WriteByte('\n')
+	}
+	if r.PermissionDenied() {
+		b.WriteString(permissionHelp(r.GOOS))
+	}
+	return b.String()
+}
+
+func permissionHelp(goos string) string {
+	if goos == "darwin" {
+		return "\nmacOS blocked access to a browser folder. Give your terminal app (Terminal, iTerm, ...) access in\n" +
+			"System Settings > Privacy & Security > Full Disk Access, then quit and reopen the terminal and run this again.\n" +
+			"Alternatively copy the profile folder somewhere readable and pass it with --profile PATH.\n"
+	}
+	return "\nA browser folder could not be read because of its permissions. Fix the permissions, or copy the profile\nand pass it with --profile PATH.\n"
+}
+
 // DiscoverProfiles scans the default roots for the current OS.
 func DiscoverProfiles() ([]Profile, error) {
 	return DiscoverIn(DefaultRoots())
 }
 
+// DiscoverReport scans the default roots for the current OS and reports on
+// every directory searched.
+func DiscoverReport() Report {
+	home, _ := os.UserHomeDir()
+	return DiscoverFor(runtime.GOOS, home, os.Getenv("LOCALAPPDATA"), os.Getenv("APPDATA"))
+}
+
+// DiscoverFor is DiscoverReport with the OS name and directories injected.
+func DiscoverFor(goos, home, localAppData, appData string) Report {
+	rep := ReportIn(rootsFor(goos, home, localAppData, appData))
+	rep.GOOS = goos
+	return rep
+}
+
 // DiscoverIn scans the given roots; roots that do not exist are skipped.
 func DiscoverIn(roots []Root) ([]Profile, error) {
-	var out []Profile
+	return ReportIn(roots).Profiles, nil
+}
+
+// ReportIn scans the given roots and records the outcome for each.
+func ReportIn(roots []Root) Report {
+	var rep Report
 	seen := map[string]bool{}
 	for _, r := range roots {
-		ps, err := scanUserDataDir(r)
-		if err != nil {
-			continue
-		}
+		ps, res := scanUserDataDir(r)
+		n := 0
 		for _, p := range ps {
 			if !seen[p.HistoryPath] {
 				seen[p.HistoryPath] = true
-				out = append(out, p)
+				rep.Profiles = append(rep.Profiles, p)
+				n++
 			}
 		}
+		res.Profiles = n
+		rep.Searched = append(rep.Searched, res)
 	}
-	return out, nil
+	return rep
 }
 
-// scanUserDataDir reads Local State (if any) and falls back to scanning
-// subdirectories for a History file.
-func scanUserDataDir(r Root) ([]Profile, error) {
+func classifyErr(err error) string {
+	switch {
+	case errors.Is(err, os.ErrNotExist):
+		return ReasonNotFound
+	case errors.Is(err, os.ErrPermission):
+		return ReasonPermission
+	default:
+		return ReasonUnreadable
+	}
+}
+
+// scanUserDataDir reads Local State (if any) and scans the directory and its
+// subdirectories for History files. Opera keeps History directly in the
+// user-data directory, so that is checked too.
+func scanUserDataDir(r Root) ([]Profile, RootResult) {
+	res := RootResult{Root: r}
 	entries, err := os.ReadDir(r.Path)
 	if err != nil {
-		return nil, err
+		res.Reason = classifyErr(err)
+		if res.Reason == ReasonUnreadable {
+			res.Detail = err.Error()
+		}
+		return nil, res
 	}
 	var ls localState
 	if b, err := os.ReadFile(filepath.Join(r.Path, "Local State")); err == nil {
 		_ = json.Unmarshal(b, &ls)
 	}
 	var out []Profile
-	for _, e := range entries {
-		if !e.IsDir() {
-			continue
+	denied, other := 0, 0
+	add := func(dir, profPath string) {
+		hp := filepath.Join(profPath, "History")
+		st, err := os.Stat(hp)
+		if err != nil {
+			switch classifyErr(err) {
+			case ReasonPermission:
+				denied++
+			case ReasonUnreadable:
+				other++
+			}
+			return
 		}
-		hp := filepath.Join(r.Path, e.Name(), "History")
-		if st, err := os.Stat(hp); err != nil || st.IsDir() {
-			continue
+		if st.IsDir() {
+			return
 		}
 		p := Profile{
 			Browser: r.Browser, Channel: r.Channel, UserDataDir: r.Path,
-			Dir: e.Name(), Path: filepath.Join(r.Path, e.Name()), HistoryPath: hp,
-			Kind: profileKind(e.Name()),
+			Dir: dir, Path: profPath, HistoryPath: hp,
+			Kind: profileKind(dir),
 		}
-		if info, ok := ls.Profile.InfoCache[e.Name()]; ok {
+		if info, ok := ls.Profile.InfoCache[dir]; ok {
 			p.Name = info.Name
 			p.Email = info.UserName
 			if p.Name == "" {
@@ -176,12 +287,35 @@ func scanUserDataDir(r Root) ([]Profile, error) {
 			}
 		}
 		if p.Name == "" {
-			p.Name = e.Name()
+			p.Name = dir
 		}
 		out = append(out, p)
 	}
+	add(filepath.Base(r.Path), r.Path)
+	if len(out) > 0 {
+		out[0].Kind = "normal"
+	}
+	for _, e := range entries {
+		// Follow symlinked profile dirs too (e.Type() would not).
+		if st, err := os.Stat(filepath.Join(r.Path, e.Name())); err != nil || !st.IsDir() {
+			continue
+		}
+		add(e.Name(), filepath.Join(r.Path, e.Name()))
+	}
 	sort.Slice(out, func(i, j int) bool { return out[i].Dir < out[j].Dir })
-	return out, nil
+	switch {
+	case len(out) > 0:
+		res.Reason = ReasonFound
+	case denied > 0:
+		res.Reason = ReasonPermission
+		res.Detail = fmt.Sprintf("%d profile folder(s) could not be read", denied)
+	case other > 0:
+		res.Reason = ReasonUnreadable
+		res.Detail = fmt.Sprintf("%d profile folder(s) could not be read", other)
+	default:
+		res.Reason = ReasonNoHistory
+	}
+	return out, res
 }
 
 func profileKind(dir string) string {
@@ -218,21 +352,20 @@ func ResolvePath(path string) ([]Profile, error) {
 			Name: filepath.Base(abs), Kind: "custom",
 		}
 		parent := filepath.Dir(abs)
-		if ps, err := scanUserDataDir(Root{Browser: "Unknown", Path: parent}); err == nil {
-			for _, q := range ps {
-				if q.Dir == p.Dir {
-					p = q
-					break
-				}
+		ps, _ := scanUserDataDir(Root{Browser: "Unknown", Path: parent})
+		for _, q := range ps {
+			if q.Dir == p.Dir {
+				p = q
+				break
 			}
 		}
 		return []Profile{p}, nil
 	}
-	ps, err := scanUserDataDir(Root{Browser: "Unknown", Path: abs})
-	if err != nil {
-		return nil, err
-	}
+	ps, res := scanUserDataDir(Root{Browser: "Unknown", Path: abs})
 	if len(ps) == 0 {
+		if res.Reason == ReasonPermission {
+			return nil, errors.New("history: permission denied reading " + abs + "\n" + permissionHelp(runtime.GOOS))
+		}
 		return nil, errors.New("history: no History file found under " + abs)
 	}
 	return ps, nil

@@ -37,6 +37,19 @@ Profiles are auto-discovered from the default locations for your OS. Use `--prof
 directory, a user-data directory, or a `History` file (for example a copy). Use the profile picker in the UI to switch
 between profiles; it shows each profile's visit count.
 
+### Profiles not found?
+
+Run `chrome-history --list-profiles`. It prints each profile (browser, name, visit count; no emails, URLs or titles)
+and every directory searched with the reason it was skipped (`not found`, `no History file`, `permission denied`),
+then exits. If nothing is found, the normal start-up error prints the same list.
+
+- **macOS: `permission denied`.** macOS can block a terminal app from reading `~/Library/Application Support/...`.
+  Open System Settings > Privacy & Security > Full Disk Access, enable your terminal app (Terminal, iTerm, ...), quit
+  and reopen it, and run again. Or copy the profile folder somewhere readable and use `--profile PATH`.
+- **`not found` for every browser:** the browser may use a custom profile location, a different `$HOME`, or a
+  sandboxed/packaged install. Pass the profile (or its `History` file) with `--profile PATH`.
+- Browsers are searched in the standard locations for the OS (macOS: `~/Library/Application Support/<browser>`).
+
 ## Privacy
 
 - Read-only: the original `History` database is never opened for writing. It is copied (with its `-wal`/`-journal`) to a

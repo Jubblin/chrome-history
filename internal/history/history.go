@@ -156,6 +156,9 @@ func Open(historyPath string) (*Reader, error) {
 	fail := func(err error) (*Reader, error) { removeTemp(tmp); return nil, err }
 	dst := filepath.Join(tmp, "History")
 	if err := copyFile(historyPath, dst); err != nil {
+		if errors.Is(err, os.ErrPermission) && runtime.GOOS == "darwin" {
+			return fail(fmt.Errorf("history: copy database: %w (macOS blocked access: grant your terminal Full Disk Access in System Settings > Privacy & Security, or use --profile PATH with a copy)", err))
+		}
 		return fail(fmt.Errorf("history: copy database: %w", err))
 	}
 	for _, suf := range []string{"-wal", "-journal"} {
