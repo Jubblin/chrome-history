@@ -339,3 +339,21 @@ func TestCategories(t *testing.T) {
 		t.Errorf("unmasked domains: %v", m["domains"])
 	}
 }
+
+func TestTimezoneParam(t *testing.T) {
+	ts := newTS(New([]history.Profile{fixture(t)}, fstest.MapFS{"index.html": {Data: []byte("hi")}}))
+	defer ts.Close()
+	// Auckland is UTC+13 in March: local 2024-03-05 holds only the first three visits.
+	_, m := get(t, ts, "/api/timeline?start=2024-03-05&end=2024-03-05&tz=Pacific/Auckland", "")
+	if m["total"].(float64) != 3 {
+		t.Fatalf("local-day filter: %v", m)
+	}
+	_, m = get(t, ts, "/api/summary?tz=Pacific/Auckland", "")
+	days := m["perDay"].([]any)
+	if d := days[0].(map[string]any); d["date"] != "2024-03-05" || d["visits"].(float64) != 3 {
+		t.Fatalf("local per-day buckets: %v", days)
+	}
+	if code, _ := get(t, ts, "/api/timeline?tz=Nope/Nowhere", ""); code != 400 {
+		t.Errorf("bad tz: %d", code)
+	}
+}
