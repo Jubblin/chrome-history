@@ -1,6 +1,8 @@
 // In-memory stand-in for chrome.history (search + getVisits) that mimics
 // Chrome: one item per URL, newest first, startTime inclusive / endTime
-// exclusive, lastVisitTime = newest visit inside the window. Used by tests and
+// exclusive, items ordered by their newest visit inside the window, but
+// lastVisitTime is the URL's newest visit overall (as in real Chrome, verified
+// in headless Chromium). Used by tests and
 // for offline/fixture mode in the UI.
 // entries: [{url, title, visits: [{visitTime, transition?, referringVisitId?, isLocal?}]}]
 export function createMockHistory(entries) {
@@ -28,12 +30,13 @@ export function createMockHistory(entries) {
         if (!inWin.length) continue;
         items.push({
           id: String(data.indexOf(e) + 1), url: e.url, title: e.title,
-          lastVisitTime: Math.max(...inWin.map((v) => v.visitTime)),
+          lastVisitTime: Math.max(...e.visits.map((v) => v.visitTime)),
+          windowTime: Math.max(...inWin.map((v) => v.visitTime)),
           visitCount: e.visits.length, typedCount: 0,
         });
       }
-      items.sort((a, b) => b.lastVisitTime - a.lastVisitTime);
-      return items.slice(0, maxResults);
+      items.sort((a, b) => b.windowTime - a.windowTime);
+      return items.slice(0, maxResults).map(({ windowTime, ...item }) => item);
     },
     async getVisits({ url }) {
       this.calls.getVisits++;

@@ -15,8 +15,16 @@ const tick = () => new Promise((r) => setTimeout(r, 0));
 
 async function pool(items, limit, signal, fn) {
   let next = 0;
+  let failed = false;
   const worker = async () => {
-    while (next < items.length && !signal?.aborted) await fn(items[next++]);
+    while (next < items.length && !signal?.aborted && !failed) {
+      try {
+        await fn(items[next++]);
+      } catch (e) {
+        failed = true; // stop the other workers; Promise.all rejects with the first error
+        throw e;
+      }
+    }
   };
   await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
 }

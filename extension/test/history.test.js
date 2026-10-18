@@ -156,3 +156,27 @@ test('filters: range, text, domain, transition', () => {
   assert.equal(filterVisits(vs, { transitions: [] }).length, 3);
   assert.equal(filterVisits(vs, { transitions: ['link'], text: 'world' }).length, 1);
 });
+
+test('domainOf strips IPv6 brackets like Go and handles non-host URLs', () => {
+  assert.equal(domainOf('http://[::1]:8080/x'), '::1');
+  assert.equal(domainOf('https://Example.COM:8443/a'), 'example.com');
+  for (const u of ['file:///a/b', 'about:blank', 'data:text/plain,hi', 'not a url']) assert.equal(domainOf(u), '');
+});
+
+test('revisited URLs (lastVisitTime newer than the window) are all loaded exactly once', async () => {
+  const entries = Array.from({ length: 60 }, (_, i) => e(`https://r.test/${i}`, [T0 - i * MIN, T0 + 1000 * MIN + i]));
+  const vs = await loadVisits(createMockHistory(entries), { startTime: 0, endTime: T0 + 2000 * MIN, pageSize: 7 });
+  assert.equal(vs.length, 120);
+  assert.equal(new Set(vs.map((v) => v.visitId)).size, 120);
+});
+
+test('a failing getVisits rejects and stops the other workers', async () => {
+  const h = createMockHistory(Array.from({ length: 100 }, (_, i) => e(`https://f.test/${i}`, [T0 - i])));
+  let n = 0;
+  const orig = h.getVisits.bind(h);
+  h.getVisits = async (a) => { if (++n === 5) throw new Error('boom'); await new Promise((r) => setTimeout(r, 1)); return orig(a); };
+  await assert.rejects(loadVisits(h, { endTime: T0 + 1, concurrency: 4 }), /boom/);
+  const at = n;
+  await new Promise((r) => setTimeout(r, 100));
+  assert.ok(n - at <= 4, `kept working: ${n - at} more calls`);
+});
