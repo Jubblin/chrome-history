@@ -10,7 +10,7 @@ import (
 )
 
 // TempPrefix is the name prefix of the private temp directories.
-const TempPrefix = "chrome-history-"
+const TempPrefix = "history-timeline-"
 
 var (
 	liveMu sync.Mutex
@@ -76,7 +76,7 @@ func RemoveAllTemp() {
 	}
 }
 
-// SweepStale removes chrome-history-* directories in the system temp dir that
+// SweepStale removes history-timeline-* directories in the system temp dir that
 // were last modified more than maxAge ago and belong to the current user
 // (left behind by a crash). It returns how many were removed.
 func SweepStale(maxAge time.Duration) int {

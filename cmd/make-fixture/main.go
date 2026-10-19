@@ -1,5 +1,5 @@
 // Command make-fixture writes a synthetic Chromium user-data dir (fake data only)
-// so chrome-history can be tried without touching a real browser profile.
+// so history-timeline can be tried without touching a real browser profile.
 package main
 
 import (
@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"chrome-history/internal/history"
+	"history-timeline/internal/history"
 
 	_ "modernc.org/sqlite"
 )

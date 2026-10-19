@@ -20,8 +20,8 @@ import (
 	"time"
 	_ "time/tzdata" // IANA zones for the tz parameter on static builds
 
-	"chrome-history/internal/classify"
-	"chrome-history/internal/history"
+	"history-timeline/internal/classify"
+	"history-timeline/internal/history"
 )
 
 const (
@@ -50,10 +50,10 @@ type countEntry struct {
 const (
 	// TokenCookie is the cookie that carries the access token after the
 	// first visit to the ?token=... URL.
-	TokenCookie = "chrome_history_token"
+	TokenCookie = "history_timeline_token"
 	// TokenHeader is the header API clients can use instead of the cookie
 	// (Authorization: Bearer <token> works too).
-	TokenHeader = "X-Chrome-History-Token"
+	TokenHeader = "X-History-Timeline-Token"
 )
 
 // New builds a Server for the given profiles. static may be nil (API only).

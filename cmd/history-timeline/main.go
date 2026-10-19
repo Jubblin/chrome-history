@@ -1,4 +1,4 @@
-// Command chrome-history is a browsing history audit tool: it serves a local timeline UI for Chromium-family browser history.
+// Command history-timeline is a browsing history audit tool: it serves a local timeline UI for Chromium-family browser history.
 package main
 
 import (
@@ -17,10 +17,10 @@ import (
 	"syscall"
 	"time"
 
-	"chrome-history/internal/classify"
-	"chrome-history/internal/history"
-	"chrome-history/internal/server"
-	"chrome-history/web"
+	"history-timeline/internal/classify"
+	"history-timeline/internal/history"
+	"history-timeline/internal/server"
+	"history-timeline/web"
 )
 
 // version is set at release time with -ldflags "-X main.version=...".
@@ -30,12 +30,12 @@ func main() {
 	profile := flag.String("profile", "", "path to a profile dir, user-data dir, or History file (default: auto-discover)")
 	port := flag.Int("port", 8080, "TCP port on 127.0.0.1 (0 = random)")
 	noOpen := flag.Bool("no-open", false, "do not open the browser")
-	rules := flag.String("rules", "", "sensitive-site rules file (default: <user config dir>/chrome-history/rules.json, optional)")
+	rules := flag.String("rules", "", "sensitive-site rules file (default: <user config dir>/history-timeline/rules.json, optional)")
 	list := flag.Bool("list-profiles", false, "print the discovered profiles (browser, name, visit count) and the directories searched, then exit")
 	showVersion := flag.Bool("version", false, "print the version and exit")
 	flag.Parse()
 	if *showVersion {
-		fmt.Println("chrome-history", version)
+		fmt.Println("history-timeline", version)
 		return
 	}
 

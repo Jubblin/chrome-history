@@ -30,7 +30,7 @@ check "extension readme only" false false false extension/README.md
 check "nested extension markdown" false false false extension/docs/guide.md
 check "rules.json is shared" true true true internal/classify/rules.json
 check "vectors_test is shared" true true true internal/classify/vectors_test.go
-check "cmd only" true false false cmd/chrome-history/main.go
+check "cmd only" true false false cmd/history-timeline/main.go
 check "internal go only" true false false internal/store/store.go
 check "go.mod" true false false go.mod
 check "go.sum" true false false go.sum

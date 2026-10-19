@@ -1,5 +1,5 @@
 {
-  "name": "chrome-history",
+  "name": "history-timeline",
   "image": "mcr.microsoft.com/devcontainers/go:1.27-bookworm",
   "forwardPorts": [8080],
   "postCreateCommand": "go version"

@@ -40,7 +40,7 @@ Option 2: install Go 1.26 or newer locally and run the commands below directly.
 
 | Command | Purpose |
 |---|---|
-| `make build` | build `bin/chrome-history` (static, `CGO_ENABLED=0`) |
+| `make build` | build `bin/history-timeline` (static, `CGO_ENABLED=0`) |
 | `make test` | `go vet ./...` and `go test -count=1 ./...` |
 | `make cross` | build linux/amd64, darwin/arm64, darwin/amd64 and windows/amd64 binaries into `dist/` |
 | `gofmt -l .` | must print nothing |
@@ -60,7 +60,7 @@ The extension in `extension/` needs Node 22+ on the host and has no npm dependen
 
 Browser checks (`extension/scripts/chrome-check.cjs`, `ui-check.cjs`, `zip-check.cjs`) need `playwright-core` and its full Chromium (branded Chrome ignores `--load-extension`); see `extension/README.md`. They use synthetic fixture data only. Never put real history in extension tests or screenshots. Anything for tests (stub classifier, mock history, fixture page) lives in `extension/ui/test-support/`, which must never be shipped or imported from shipped code; the zip test enforces that.
 
-Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-Chrome-History-Token: <token>"`. The token cookie is `Secure`, so use a Chromium-based browser or Firefox for the UI (Safari does not send Secure cookies over http); the cookie must stay `Secure`.
+Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-History-Timeline-Token: <token>"`. The token cookie is `Secure`, so use a Chromium-based browser or Firefox for the UI (Safari does not send Secure cookies over http); the cookie must stay `Secure`.
 
 ### Which CI jobs run
 
@@ -82,7 +82,7 @@ Scheduled and manual runs, new branches and force pushes run everything. The rel
 
 ## Project layout
 
-- `cmd/chrome-history`: the server binary and its flags.
+- `cmd/history-timeline`: the server binary and its flags.
 - `cmd/make-fixture`: synthetic history generator.
 - `internal/history`: profile discovery, read-only copy of the `History` database, queries and aggregations.
 - `internal/classify`: sensitive-site categories and the bundled rules (`rules.json`).
@@ -117,14 +117,14 @@ git tag -a v1.2.3 -m "v1.2.3"
 git push origin v1.2.3
 ```
 
-The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It also builds the Chrome extension zip (`chrome-history-extension_vX.Y.Z.zip`; the tag must equal the manifest version), writes a `SHA256SUMS` file covering it too, adds build provenance attestations, and creates a **draft** GitHub Release with generated notes, which you publish by hand. The tag is injected as the version, so `chrome-history --version` prints it.
+The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It also builds the Chrome extension zip (`history-timeline-extension_vX.Y.Z.zip`; the tag must equal the manifest version), writes a `SHA256SUMS` file covering it too, adds build provenance attestations, and creates a **draft** GitHub Release with generated notes, which you publish by hand. The tag is injected as the version, so `history-timeline --version` prints it.
 
 Once the workflow succeeds:
 
 1. Open the draft under Releases and check that all archives and `SHA256SUMS` are attached and the generated notes read well.
 2. Click **Publish release** in the GitHub UI, or run `gh release edit v1.2.3 --draft=false`.
 
-Re-running the workflow for a tag whose release is still a draft replaces the draft's assets; if the release is already published the job fails with a clear message and changes nothing. Attestations are created at build time for the archives and `SHA256SUMS`, so the draft state does not affect them. Check a download with `sha256sum -c SHA256SUMS` or `gh attestation verify <file> --repo Jubblin/chrome-history`.
+Re-running the workflow for a tag whose release is still a draft replaces the draft's assets; if the release is already published the job fails with a clear message and changes nothing. Attestations are created at build time for the archives and `SHA256SUMS`, so the draft state does not affect them. Check a download with `sha256sum -c SHA256SUMS` or `gh attestation verify <file> --repo Jubblin/history-timeline`.
 
 CI (`ci.yml`) and the security scans (`security.yml`) run on every pull request. Workflow actions are pinned to full commit SHAs and updated by Dependabot.
 

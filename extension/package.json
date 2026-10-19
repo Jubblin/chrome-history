@@ -1,5 +1,5 @@
 {
-  "name": "chrome-history-extension",
+  "name": "history-timeline-extension",
   "private": true,
   "type": "module",
   "scripts": { "test": "node --test test/*.test.js" }

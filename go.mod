@@ -1,4 +1,4 @@
-module chrome-history
+module history-timeline
 
 go 1.26.0
 

@@ -5,7 +5,7 @@ import { CATEGORIES, createClassifier, parseUserRules, loadBundledRules } from '
 import { MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED, isFlagged, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
 
 const PAGE = 200;
-const HIDE_KEY = 'chrome-history.hideSensitive';
+const HIDE_KEY = 'history-timeline.hideSensitive';
 const RULES_KEY = 'userRulesText';
 const CAT_ICON = { adult: '18+', gambling: '♠', health: '+', finance: '$', privacy: '◍', news_politics: '§' };
 const catLabel = (id) => CATEGORIES.find((c) => c.id === id)?.label ?? id;

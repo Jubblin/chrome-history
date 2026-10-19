@@ -1,10 +1,10 @@
 # Security policy
 
-chrome-history reads browser history, which is personal data, so security and privacy reports are taken seriously.
+history-timeline reads browser history, which is personal data, so security and privacy reports are taken seriously.
 
 ## Reporting a vulnerability
 
-Please report vulnerabilities privately using GitHub private vulnerability reporting: open the **Security** tab of [github.com/Jubblin/chrome-history](https://github.com/Jubblin/chrome-history) and choose **Report a vulnerability**.
+Please report vulnerabilities privately using GitHub private vulnerability reporting: open the **Security** tab of [github.com/Jubblin/history-timeline](https://github.com/Jubblin/history-timeline) and choose **Report a vulnerability**.
 
 - **Never open a public issue, pull request or discussion for a vulnerability.**
 - **Never include real browsing history** in a report: no real URLs, page titles, `History` files, `Local State` files or profile directories. Reproduce the problem with the synthetic fixture generator instead (`make fixture`, see [CONTRIBUTING.md](CONTRIBUTING.md)) and describe the steps.
@@ -26,10 +26,10 @@ This is a hobby project, so these are best-effort targets, not guarantees:
 ## Built-in protections
 
 - Binds `127.0.0.1` only and rejects other `Host` headers (DNS rebinding).
-- A random per-run access token is required on every request. It is printed once at startup, exchanged for an `HttpOnly`, `Secure`, `SameSite=Strict` cookie, compared in constant time, and cannot be disabled. API clients may send `X-Chrome-History-Token` or `Authorization: Bearer`. The cookie is marked `Secure`: Chromium-based browsers (Chrome, Edge) and Firefox accept and send it over plain `http://127.0.0.1` and `http://localhost`, but Safari does not send Secure cookies over http, so the web UI will not authenticate in Safari. Use a Chromium-based browser or Firefox, or call the API with the token header. Your browser's history may keep the one-time `?token=` URL, but the token is only valid for the lifetime of that server run.
+- A random per-run access token is required on every request. It is printed once at startup, exchanged for an `HttpOnly`, `Secure`, `SameSite=Strict` cookie, compared in constant time, and cannot be disabled. API clients may send `X-History-Timeline-Token` or `Authorization: Bearer`. The cookie is marked `Secure`: Chromium-based browsers (Chrome, Edge) and Firefox accept and send it over plain `http://127.0.0.1` and `http://localhost`, but Safari does not send Secure cookies over http, so the web UI will not authenticate in Safari. Use a Chromium-based browser or Firefox, or call the API with the token header. Your browser's history may keep the one-time `?token=` URL, but the token is only valid for the lifetime of that server run.
 - Cross-site requests (`Sec-Fetch-Site: cross-site` or a foreign `Origin`) are refused.
 - Every response sets a strict `Content-Security-Policy` (no inline script or style), `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, `Cross-Origin-Resource-Policy: same-origin`, `nosniff` and `no-store`.
-- The database is read from a private temporary copy, unlinked right after opening on Linux and macOS, removed on exit (`SIGINT`/`SIGTERM`), with stale `chrome-history-*` directories swept at startup. Symlinked or non-regular History files are refused.
+- The database is read from a private temporary copy, unlinked right after opening on Linux and macOS, removed on exit (`SIGINT`/`SIGTERM`), with stale `history-timeline-*` directories swept at startup. Symlinked or non-regular History files are refused.
 - `/api/profiles` does not return the account email or directory names; visit counts are cached so the endpoint does not copy every database on each call.
 - The rules file is limited to 1 MiB.
 

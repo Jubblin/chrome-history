@@ -19,38 +19,38 @@ See [`extension/store/PRIVACY.md`](../extension/store/PRIVACY.md) for the full p
 
 ## 3. Download and verify
 
-1. Open the [v0.2.0 release page](https://github.com/Jubblin/chrome-history/releases/tag/v0.2.0). Under **Assets**, download:
-   - `chrome-history-extension_<version>.zip` (for v0.2.0: `chrome-history-extension_v0.2.0.zip`)
+1. Open the [release page for the version you are installing](https://github.com/Jubblin/history-timeline/releases/tag/vX.Y.Z). Under **Assets**, download:
+   - `history-timeline-extension_<version>.zip` (for example, for v0.3.0: `history-timeline-extension_v0.3.0.zip`)
    - `SHA256SUMS`
 2. Put both files in the same folder (for example Downloads) and check the zip was not damaged or altered. `SHA256SUMS` lists every release file, so only the extension line is checked.
 
    Linux / ChromeOS (Linux terminal):
    ```
-   grep 'chrome-history-extension_v0.2.0.zip' SHA256SUMS | sha256sum -c
+   grep 'history-timeline-extension_vX.Y.Z.zip' SHA256SUMS | sha256sum -c
    ```
    macOS:
    ```
-   grep 'chrome-history-extension_v0.2.0.zip' SHA256SUMS | shasum -a 256 -c
+   grep 'history-timeline-extension_vX.Y.Z.zip' SHA256SUMS | shasum -a 256 -c
    ```
    Windows PowerShell:
    ```
-   Get-FileHash .\chrome-history-extension_v0.2.0.zip -Algorithm SHA256
-   Select-String chrome-history-extension .\SHA256SUMS
+   Get-FileHash .\history-timeline-extension_vX.Y.Z.zip -Algorithm SHA256
+   Select-String history-timeline-extension .\SHA256SUMS
    ```
-   Linux/ChromeOS and macOS print `chrome-history-extension_v0.2.0.zip: OK`. On Windows, compare the two hashes by eye; they must be identical.
+   Linux/ChromeOS and macOS print `history-timeline-extension_vX.Y.Z.zip: OK`. On Windows, compare the two hashes by eye; they must be identical.
 3. Optional, stronger check (GitHub CLI 2.49 or newer; older versions have no `attestation` command). It proves the zip was built by this repository's release workflow for the release tag:
    ```
-   gh attestation verify chrome-history-extension_v0.2.0.zip -R Jubblin/chrome-history --source-ref refs/tags/v0.2.0
+   gh attestation verify history-timeline-extension_vX.Y.Z.zip -R Jubblin/history-timeline --source-ref refs/tags/vX.Y.Z
    ```
 
 ## 4. Unzip into an empty, permanent folder
 
-Chrome runs the extension **directly from this folder**, so choose a place you will keep, such as `Documents/chrome-history-extension`. The files are at the root of the zip, so use a **new, empty** folder.
+Chrome runs the extension **directly from this folder**, so choose a place you will keep, such as `Documents/history-timeline-extension`. The files are at the root of the zip, so use a **new, empty** folder.
 
 - **ChromeOS (Files app):** right-click the zip and choose Extract all (or open the zip and copy its contents into a new folder).
 - **macOS:** double-click the zip, then move the resulting folder somewhere permanent.
 - **Windows:** right-click the zip, choose Extract All and pick a new folder.
-- **Linux:** `mkdir ~/chrome-history-extension && unzip chrome-history-extension_v0.2.0.zip -d ~/chrome-history-extension`
+- **Linux:** `mkdir ~/history-timeline-extension && unzip history-timeline-extension_vX.Y.Z.zip -d ~/history-timeline-extension`
 
 The folder should now contain `manifest.json`, `timeline.html`, and the `icons`, `src` and `ui` folders.
 
@@ -61,7 +61,7 @@ The folder should now contain `manifest.json`, `timeline.html`, and the `icons`,
 1. Go to `chrome://extensions` (type it in the address bar).
 2. Turn on **Developer mode** (toggle at the top right). This is a browser setting on that page that lets you load extensions from a folder. It is unrelated to ChromeOS's own "Developer mode" device setting, which is not needed here and which you should not turn on for this.
 3. Click **Load unpacked** and select the folder that **directly contains `manifest.json`** (not its parent folder).
-4. Success looks like a new card named **Browsing History Timeline**, version **0.2.0**, switched on. The extension asks for access to your browsing history; the exact wording depends on your Chrome version.
+4. Success looks like a new card named **Browsing History Timeline**, the version you downloaded (for example **0.3.0**), switched on. The extension asks for access to your browsing history; the exact wording depends on your Chrome version.
 5. To keep the button handy, click the puzzle-piece (Extensions) icon in the toolbar and use the pin option next to the extension.
 
 ## 6. First use

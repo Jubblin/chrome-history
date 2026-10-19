@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"chrome-history/internal/classify"
+	"history-timeline/internal/classify"
 
 	_ "modernc.org/sqlite" // pure-Go SQLite driver (no CGO)
 )
@@ -148,7 +148,7 @@ func OpenProfile(p Profile) (*Reader, error) { return Open(p.HistoryPath) }
 // Open copies the History file (plus -wal/-journal) into a temp dir and opens
 // the copy. The original is only read, never modified.
 func Open(historyPath string) (*Reader, error) {
-	tmp, err := os.MkdirTemp("", "chrome-history-*")
+	tmp, err := os.MkdirTemp("", "history-timeline-*")
 	if err != nil {
 		return nil, err
 	}

@@ -9,7 +9,7 @@ import (
 	"testing/fstest"
 	"time"
 
-	"chrome-history/internal/history"
+	"history-timeline/internal/history"
 )
 
 func secServer(t *testing.T) (*Server, *httptest.Server) {

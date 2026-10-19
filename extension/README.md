@@ -43,7 +43,7 @@ Full guide for the release zip: [`docs/INSTALL-EXTENSION.md`](../docs/INSTALL-EX
 - `scripts/ui-check.cjs` drives the UI in headless Chromium (fixture mode, then real history from local pages), writes screenshots of synthetic data, and checks masking, CSV, rules, keyboard, CSP and network. Same Playwright setup as `chrome-check.cjs`.
 
 ## Packaging
-- `make extension-zip` (optionally `TAG=vX.Y.Z`, which must equal the manifest version) writes `dist/chrome-history-extension_v<version>.zip`. `make extension-lint` checks the manifest alone.
+- `make extension-zip` (optionally `TAG=vX.Y.Z`, which must equal the manifest version) writes `dist/history-timeline-extension_v<version>.zip`. `make extension-lint` checks the manifest alone.
 - The zip is built from an **allowlist** in `scripts/build-zip.mjs` (`manifest.json`, `timeline.html`, `icons/`, `src/`, `ui/`, minus `ui/test-support/`, the duplicate `src/classify/rules.json` and source maps). Tests, scripts, `store/`, README and `package.json` are never included, so a stray dev file cannot leak in. Entries are sorted with fixed timestamps and modes, so two builds are byte-identical.
 - `test/package.test.js` checks the built zip (reproducible, no excluded files, no fixture code or URL-parameter reads, every import resolves inside the zip). `scripts/zip-check.cjs <zip>` loads the zip contents in Chromium and confirms `?fixture=1` does nothing.
 - Web Store text, privacy policy, icons and screenshots: `store/` (`CHECKLIST.md` lists what is still manual). Regenerate icons with `python3 -I store/make-icons.py icons` and screenshots with `store/make-screenshots.cjs` (needs Playwright's Chromium; loads the unpacked tree in fixture mode).

@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"chrome-history/internal/classify"
+	"history-timeline/internal/classify"
 )
 
 func mkDB(t *testing.T, path string, wal bool) *sql.DB {

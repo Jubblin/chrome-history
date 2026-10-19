@@ -136,7 +136,7 @@ jobs:
           go-version: stable
           cache: true
       - name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
-        run: go build -trimpath -ldflags "-s -w" -o /dev/null ./cmd/chrome-history
+        run: go build -trimpath -ldflags "-s -w" -o /dev/null ./cmd/history-timeline
         env:
           CGO_ENABLED: "0"
           GOOS: ${{ matrix.goos }}
@@ -161,16 +161,16 @@ jobs:
         run: |
           set -euo pipefail
           make extension-zip
-          first="$(sha256sum dist/chrome-history-extension_v*.zip)"
+          first="$(sha256sum dist/history-timeline-extension_v*.zip)"
           make extension-zip
-          second="$(sha256sum dist/chrome-history-extension_v*.zip)"
+          second="$(sha256sum dist/history-timeline-extension_v*.zip)"
           [ "$first" = "$second" ] || { echo "::error::zip build is not reproducible"; exit 1; }
-          cd dist && sha256sum -- chrome-history-extension_v*.zip | tee SHA256SUMS-extension
+          cd dist && sha256sum -- history-timeline-extension_v*.zip | tee SHA256SUMS-extension
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: extension-zip
           path: |
-            dist/chrome-history-extension_v*.zip
+            dist/history-timeline-extension_v*.zip
             dist/SHA256SUMS-extension
           if-no-files-found: error
 
