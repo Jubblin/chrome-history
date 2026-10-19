@@ -9,14 +9,20 @@ const os = require('os');
 const path = require('path');
 
 const ext = path.resolve(__dirname, '..');
+const PAGES = new Map(['/a', '/b', '/c', '/next'].map((p) => [p, `<title>Local page ${p}</title><a id=n href="/next">next</a>`]));
+const handler = (req, res) => {
+  // Fixed bodies for an allowlist of known paths; nothing from the request is echoed.
+  const body = PAGES.get(new URL(req.url, 'http://127.0.0.1').pathname);
+  res.statusCode = body === undefined ? 404 : 200;
+  res.setHeader('content-type', body === undefined ? 'text/plain; charset=utf-8' : 'text/html; charset=utf-8');
+  res.setHeader('x-content-type-options', 'nosniff');
+  res.end(body === undefined ? 'not found' : body);
+};
 const results = [];
 const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
 
 (async () => {
-  const server = http.createServer((req, res) => {
-    res.setHeader('content-type', 'text/html');
-    res.end(`<title>Local page ${req.url}</title><a id=n href="/next">next</a>`);
-  }).listen(0, '127.0.0.1');
+  const server = http.createServer(handler).listen(0, '127.0.0.1');
   await new Promise((r) => server.once('listening', r));
   const base = `http://127.0.0.1:${server.address().port}`;
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'ext-check-'));
@@ -60,7 +66,7 @@ const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
       };
       return { edge, vs: vs.map((v) => ({ ...v })), sessions: groupSessions(vs).length, top: topDomains(vs, 3) };
     });
-    const local = got.vs.filter((v) => v.url.startsWith(base));
+    const local = got.vs.filter((v) => new URL(v.url).origin === base);
     check(got.edge.atEndExcluded && got.edge.startIncluded && got.edge.emptyWindow === 0, `real Chromium: endTime exclusive, startTime inclusive (${JSON.stringify(got.edge)})`);
     check(local.length === expected.length, `data layer returned ${local.length} visits for ${expected.length} navigations to the local server`);
     check(local.every((v) => v.domain === '127.0.0.1' && v.time > 0 && v.title.startsWith('Local page') && typeof v.isLocal === 'boolean'), 'visit fields populated (domain, time, title, isLocal)');

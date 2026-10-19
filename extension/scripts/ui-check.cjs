@@ -18,6 +18,30 @@ fs.writeFileSync(path.join(ext, 'manifest.json'), JSON.stringify(mf));
 const shots = process.env.SHOTS || path.join(tmp, 'shots');
 fs.mkdirSync(shots, { recursive: true });
 
+const PAGES = new Map(['/a', '/b', '/c', '/next'].map((p) => [p, `<title>Local page ${p}</title><a id=n href="/next">next</a>`]));
+const handler = (req, res) => {
+  // Fixed bodies for an allowlist of known paths; nothing from the request is echoed.
+  const body = PAGES.get(new URL(req.url, 'http://127.0.0.1').pathname);
+  res.statusCode = body === undefined ? 404 : 200;
+  res.setHeader('content-type', body === undefined ? 'text/plain; charset=utf-8' : 'text/html; charset=utf-8');
+  res.setHeader('x-content-type-options', 'nosniff');
+  res.end(body === undefined ? 'not found' : body);
+};
+// Minimal RFC 4180 parser (quoted fields, "" escapes, CRLF rows) so assertions look at parsed fields, not substrings.
+function parseCsv(text) {
+  const rows = []; let row = [], f = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(f); f = ''; }
+    else if (c === '\r' && text[i + 1] === '\n') { row.push(f); rows.push(row); row = []; f = ''; i++; }
+    else f += c;
+  }
+  if (f !== '' || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+const hostOf = (u) => { try { return new URL(u).hostname; } catch { return ''; } };
 const results = [];
 const check = (ok, msg) => { results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`); };
 
@@ -150,7 +174,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     await page.waitForTimeout(300);
     [dl] = await Promise.all([page.waitForEvent('download'), page.click('#f-csv')]);
     csv = fs.readFileSync(await dl.path(), 'utf8');
-    check(csv.includes('bet365.com') && csv.includes("'=HYPERLINK") && csv.includes("'@SUM"), 'CSV with hide off: real values; formula-injection guard on "=" and "@" titles');
+    check(parseCsv(csv).some((r) => hostOf(r[1]) === 'bet365.com') && csv.includes("'=HYPERLINK") && csv.includes("'@SUM"), 'CSV with hide off: real values; formula-injection guard on "=" and "@" titles');
 
     // settings
     await page.click('#settings-btn');
@@ -176,7 +200,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     watch(p2, errors, requests);
     await p2.goto(base.replace('timeline.html','ui/test-support/timeline-fixture.html'));
     await loaded(p2);
-    check((await p2.inputValue('#rules-text')).includes('bet365.com'), 'user rules persisted in chrome.storage.local');
+    check(JSON.parse(await p2.inputValue('#rules-text')).allow.gambling.domains.includes('bet365.com'), 'user rules persisted in chrome.storage.local');
     check(await p2.isChecked('#f-hide') === false, 'hide toggle state restored from storage');
     await p2.setViewportSize({ width: 420, height: 800 });
     await p2.waitForTimeout(300);
@@ -220,7 +244,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     await ctx.close();
 
     // real history
-    const server = http.createServer((req, res) => { res.setHeader('content-type', 'text/html'); res.end(`<title>Local page ${req.url}</title><a id=n href="/next">next</a>`); }).listen(0, '127.0.0.1');
+    const server = http.createServer(handler).listen(0, '127.0.0.1');
     await new Promise((r) => server.once('listening', r));
     const sbase = `http://127.0.0.1:${server.address().port}`;
     ctx = await launch(fs.mkdtempSync(path.join(tmp, 'p3-')), 'light');
@@ -241,7 +265,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     await rt.click('#rules-save');
     await rt.waitForFunction(() => document.querySelectorAll('#timeline .cat-privacy').length === 6);
     check(true, 'real history: user rule flags all local visits (privacy badge x6)');
-    check(requests.length === 0 || requests.every((u) => u.startsWith(sbase)), 'no requests other than the local test server');
+    check(requests.length === 0 || requests.every((u) => new URL(u).origin === sbase), 'no requests other than the local test server');
     const csp = errors.filter((e) => /Content Security Policy|CSP|Refused/i.test(e));
     check(errors.length === 0, `zero console errors/warnings and CSP violations${errors.length ? ': ' + errors.slice(0, 3).join(' | ') : ''}`);
     check(csp.length === 0, 'no CSP violations');
