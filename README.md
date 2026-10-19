@@ -8,7 +8,7 @@ It ships as one self-contained binary with the web UI embedded. No data leaves y
 
 ## Quick start (try it on synthetic data)
 
-Requires Go 1.22+.
+Requires Go 1.26+ (developed and tested on 1.27).
 
 ```
 make fixture      # writes fake history to ./fixture (no real data)
@@ -109,7 +109,7 @@ Development runs in a pod on the local k3s cluster through DevPod; see [.devcont
 
 ```
 export KUBECONFIG=$HOME/.kube/config
-make dev-up                 # create/start the pod (Go 1.22)
+make dev-up                 # create/start the pod (Go 1.27)
 devpod ssh chrome-history   # shell in the pod; run make test / make build there
 # serve from the pod and reach it on the host:
 devpod ssh chrome-history --command 'cd /workspaces/chrome-history && make run-fixture'   # port 8080 is forwarded

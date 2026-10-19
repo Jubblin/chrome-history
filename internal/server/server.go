@@ -77,10 +77,31 @@ func New(profiles []history.Profile, static fs.FS) *Server {
 		writeError(w, http.StatusNotFound, "unknown endpoint")
 	})
 	if static != nil {
-		s.mux.Handle("/", http.FileServer(http.FS(static)))
+		s.mux.Handle("/", noStoreOnError(http.FileServer(http.FS(static))))
 	}
 	return s
 }
+
+// noStoreOnError restores Cache-Control: no-store on error responses. Since
+// Go 1.23 http.FileServer strips Cache-Control (and similar headers) from its
+// own errors, which would otherwise drop the header from static 404s.
+func noStoreOnError(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		next.ServeHTTP(&noStoreWriter{ResponseWriter: w}, r)
+	})
+}
+
+type noStoreWriter struct{ http.ResponseWriter }
+
+func (w *noStoreWriter) WriteHeader(code int) {
+	if code >= 400 {
+		w.Header().Set("Cache-Control", "no-store")
+	}
+	w.ResponseWriter.WriteHeader(code)
+}
+
+// Unwrap lets http.ResponseController reach the underlying writer.
+func (w *noStoreWriter) Unwrap() http.ResponseWriter { return w.ResponseWriter }
 
 func newToken() string {
 	b := make([]byte, 32)
