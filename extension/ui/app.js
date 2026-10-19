@@ -254,19 +254,26 @@ function scheduleRefresh() {
 async function loadAll(history) {
   st.loading = true;
   const prog = $('load-progress');
+  const cancel = $('load-cancel');
+  const ac = new AbortController();
   prog.hidden = false;
+  cancel.hidden = false;
+  cancel.onclick = () => ac.abort();
   try {
     await loadVisits(history, {
+      signal: ac.signal,
       startTime: 0, endTime: Date.now() + 1, // endTime is exclusive
       onBatch: (batch) => { annotate(batch, st.classifier); st.all.push(...batch); scheduleRefresh(); },
       onProgress: ({ urls, visits, done }) => { if (!done) setStatus(`Loading… ${num(visits)} visits from ${num(urls)} pages`); },
     });
     setStatus(`${num(st.all.length)} visits loaded`);
   } catch (e) {
-    setStatus('Error loading history: ' + (e && e.message ? e.message : 'unknown error'));
+    if (e && e.name === 'AbortError') setStatus(`Loading cancelled: ${num(st.all.length)} visits loaded (partial)`);
+    else setStatus('Error loading history: ' + (e && e.message ? e.message : 'unknown error'));
   } finally {
     st.loading = false;
     prog.hidden = true;
+    cancel.hidden = true;
     clearTimeout(refreshTimer); refreshTimer = 0;
     refresh({ keepCount: true });
   }
