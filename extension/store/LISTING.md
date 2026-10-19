@@ -31,7 +31,7 @@ Limits: current profile only, no incognito, and no time-on-page durations (Chrom
 
 ## Permission justifications
 - **history**: The whole purpose of the extension is to display the user's own browsing history. It uses `chrome.history.search` and `chrome.history.getVisits` to read URLs, titles, visit times and transition types. The data is shown only to the user on the extension's own page and is never transmitted; the extension has no network access.
-- **storage**: Saves the user's own classification rules (text) and the "Hide sensitive details" preference in `chrome.storage.local`. Nothing else is stored.
+- **storage**: Saves the user's own classification rules (text) in `chrome.storage.local`. Nothing else is stored in it. (The "Hide sensitive details" on/off preference is kept in the extension page's local storage, which needs no permission.)
 
 No host permissions are requested. No remote code is used.
 

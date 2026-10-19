@@ -70,4 +70,4 @@ extension-lint:
 # Reproducible Web Store / release zip in dist/ (allowlist; no tests, scripts or fixtures).
 # Pass TAG=vX.Y.Z to require the manifest version to match.
 extension-zip: extension-check extension-lint
-	node extension/scripts/build-zip.mjs --out dist $(if $(TAG),--tag $(TAG),)
+	node extension/scripts/build-zip.mjs --out dist $(if $(TAG),--tag "$$TAG",)
