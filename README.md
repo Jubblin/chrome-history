@@ -6,7 +6,7 @@
 A local, read-only browsing history audit tool: it shows a timeline of your browser history and flags sensitive visits. It supports Chromium-family browsers (Chrome, Chromium, Edge, Brave, Vivaldi, Opera).
 It ships as one self-contained binary with the web UI embedded. No data leaves your machine.
 
-> **Renamed from chrome-history.** The project, module, binary and release files are now called `history-timeline`. Releases up to v0.2.1 keep the old file names (`chrome-history_*`); verify attestations of those old releases against the old repository name (`gh attestation verify <file> --repo Jubblin/chrome-history`).
+> **Renamed from chrome-history.** The project, module, binary and release files are now called `history-timeline`. Releases up to v0.2.1 keep the old file names (`chrome-history_*`); verify attestations of those old releases against the old repository name (`gh attestation verify <file> --repo Jubblin/chrome-history`). **Upgrading:** the config directory is now `<user config dir>/history-timeline/`, so move any custom `rules.json` from the old `chrome-history` directory or it is silently ignored; the web UI's "hide sensitive" setting is stored under a new browser key and resets to off once; the access cookie and header were renamed (`history_timeline_token`, `X-History-Timeline-Token`), so update any scripts that send the old header.
 
 ## Quick start (try it on synthetic data)
 
