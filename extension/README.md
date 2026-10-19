@@ -5,9 +5,7 @@ An audit timeline for the browsing history of the profile it is installed in. It
 Status: data layer, classifier, timeline UI and packaging. Web Store assets and submission notes are in `store/`.
 
 ## Load unpacked
-1. Open `chrome://extensions`, enable Developer mode.
-2. Choose "Load unpacked" and select this `extension/` folder. To use the release zip instead, unzip it into a new, EMPTY folder first (its files are at the zip root, so they would otherwise mix with other files), then select that folder.
-3. Click the toolbar button to open the timeline in a tab.
+Full guide for the release zip: [`docs/INSTALL-EXTENSION.md`](../docs/INSTALL-EXTENSION.md). In short: in `chrome://extensions` enable Developer mode, choose "Load unpacked" and select this `extension/` folder (or, for the release zip, a new EMPTY folder you unzipped it into), then click the toolbar button to open the timeline.
 
 ## Layout
 - `manifest.json` MV3 manifest, strict CSP (`default-src 'none'; script-src 'self'; ...; connect-src 'none'`).
