@@ -1,9 +1,9 @@
-# Chrome Web Store listing text
+# Web Store listing text
 
 Everything here is draft text to paste into the developer dashboard. Nothing has been submitted.
 
 ## Name
-Chrome History Audit Timeline
+Browsing History Timeline
 
 ## Short description (max 132 characters; also the manifest description)
 A local, read-only audit timeline of this profile's browsing history. Makes no network requests.
@@ -18,9 +18,9 @@ Optional small tile (440x280, `promo-tile-440x280.png`) and marquee (1400x560, `
 Show the user an audit timeline of their own browsing history, flagging potentially sensitive categories, entirely on their device.
 
 ## Detailed description
-See what your Chrome profile has recorded about you.
+See what your browser profile has recorded about you.
 
-Chrome History Audit Timeline turns your browsing history into a readable timeline: visits grouped into days and sessions, an activity chart, top sites, search and filters (date range, site, transition type), and CSV export.
+Browsing History Timeline turns your browsing history into a readable timeline: visits grouped into days and sessions, an activity chart, top sites, search and filters (date range, site, transition type), and CSV export.
 
 Visits that look sensitive (gambling, health, finance, adult content, privacy tools, news and politics) get clear badges, per-day counts and category filters, so you can review what is recorded before you share a screen, hand over a device, or clean up. "Hide sensitive details" masks flagged titles, URLs and sites everywhere, including in the CSV export.
 
@@ -30,11 +30,11 @@ Private by design:
 - The only thing it stores is your optional custom rules (and the hide toggle) in this browser profile.
 - Open source; the category rules are plain lists you can extend with your own "add" and "allow" rules.
 
-Limits: current profile only, no incognito, and no time-on-page durations (Chrome does not provide them). On managed devices an administrator may block the extension.
+Works in Chromium-based browsers. Limits: current profile only, no incognito, and no time-on-page durations (the browser does not provide them). On managed devices an administrator may block the extension.
 
 ## Permission justifications
-- **history**: The whole purpose of the extension is to display the user's own browsing history. It uses `chrome.history.search` and `chrome.history.getVisits` to read URLs, titles, visit times and transition types. The data is shown only to the user on the extension's own page and is never transmitted; the extension has no network access.
-- **storage**: Saves the user's own classification rules (text) in `chrome.storage.local`. Nothing else is stored in it. (The "Hide sensitive details" on/off preference is kept in the extension page's local storage, which needs no permission.)
+- **history**: The whole purpose of the extension is to display the user's own browsing history. It uses the browser's history API to read URLs, titles, visit times and transition types. The data is shown only to the user on the extension's own page and is never transmitted; the extension has no network access.
+- **storage**: Saves the user's own classification rules (text) in the extension's local storage area. Nothing else is stored in it. (The "Hide sensitive details" on/off preference is kept in the extension page's local storage, which needs no permission.)
 
 No host permissions are requested. No remote code is used.
 

@@ -1,4 +1,4 @@
-# Chrome Web Store submission checklist
+# Web Store submission checklist for Browsing History Timeline
 
 Status as of this branch: the package, assets and text are ready; **nothing has been submitted** and nothing below under "You must do" has been done.
 

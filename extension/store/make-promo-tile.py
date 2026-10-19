@@ -24,8 +24,8 @@ def render(W, H, u, path):
     for y in (36, 64, 92): ci(ox + 42 * k, oy + y * k, 11 * k, WHITE)
     for y, w in ((31, 44), (59, 32), (87, 40)): rr(ox + 62 * k, oy + y * k, w * k, 10 * k, 5 * k, WHITE)
     tx = ox + 142 * u
-    for i, line in enumerate(('Chrome History', 'Audit Timeline')):
-        d.text((tx * S, (oy + (4 + i * 34) * u) * S), line, font=font(BOLD, 26), fill=WHITE)
+    for i, line in enumerate(('Browsing History', 'Timeline')):
+        d.text((tx * S, (oy + (4 + i * 34) * u) * S), line, font=font(BOLD, 24), fill=WHITE)
     rr(tx, oy + 76 * u, 56 * u, 4 * u, 2 * u, LINE)
     for i, line in enumerate(('Your own browsing history,', 'on your device only.')):
         d.text((tx * S, (oy + (92 + i * 22) * u) * S), line, font=font(REG, 15), fill=LINE)

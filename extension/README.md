@@ -1,4 +1,4 @@
-# Chrome extension (Manifest V3)
+# Browsing History Timeline extension (Manifest V3)
 
 An audit timeline for the browsing history of the profile it is installed in. It reads history through `chrome.history`, makes no network requests, and requests only the `history` and `storage` permissions (`storage` holds the optional user classification rules in `chrome.storage.local`; nothing leaves the device). Incognito browsing is not recorded by Chrome and is not accessible to the extension.
 
