@@ -61,7 +61,7 @@ The `extension/` folder is a Manifest V3 Chrome extension that shows the same ki
 
 **Install unpacked:** step-by-step guide, with checksum verification, updating and troubleshooting: [`docs/INSTALL-EXTENSION.md`](docs/INSTALL-EXTENSION.md). In short: download and verify the release zip, unzip it into a new, EMPTY, permanent folder, then in `chrome://extensions` turn on Developer mode and choose **Load unpacked**. (From a checkout, `make extension-zip` builds the same zip.)
 
-**ChromeOS:** this is the way to audit ChromeOS's own Chrome, which the Linux app cannot reach. Load it as above in ChromeOS Chrome (Developer mode in `chrome://extensions` is a Chrome setting, not ChromeOS developer mode, and does not weaken device security).
+**ChromeOS:** this is the way to audit ChromeOS's own Chrome, which the Linux app cannot reach. Load it as above in ChromeOS Chrome (the Developer mode toggle in `chrome://extensions` is a browser setting, unrelated to ChromeOS's own "Developer mode" device setting, which is not needed and should not be turned on for this).
 
 **Limits:**
 - Current profile only (install it in each profile you want to audit); incognito visits are not recorded by Chrome and the extension does not run in incognito.
