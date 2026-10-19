@@ -2,7 +2,7 @@
 // they only enter the DOM via textContent / setAttribute, never innerHTML.
 import { loadVisits, TRANSITIONS } from '../src/history/index.js';
 import { CATEGORIES, createClassifier, parseUserRules, loadBundledRules } from './classify-import.js';
-import { MASK, isFlagged, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
+import { MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED, isFlagged, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
 
 const PAGE = 200;
 const HIDE_KEY = 'chrome-history.hideSensitive';
@@ -77,7 +77,7 @@ function renderChart(visits) {
     const e = el('button', 'bar');
     e.type = 'button'; e.dataset.key = b.key;
     e.tabIndex = i === 0 ? 0 : -1;
-    const label = `${b.key}: ${num(b.visits)} visits` + (b.flagged ? `, ${num(b.flagged)} flagged` : '');
+    const label = `${b.key}: ${plural(b.visits, 'visit')}` + (b.flagged ? `, ${num(b.flagged)} flagged` : '');
     e.title = label; e.setAttribute('aria-label', label);
     const bar = el('i'); bar.style.height = Math.max(2, (b.visits / max) * 100) + '%';
     e.appendChild(bar);
@@ -122,7 +122,7 @@ function renderChips(visits) {
     const b = el('button', 'chip cat-' + c.id);
     b.type = 'button'; b.dataset.cat = c.id;
     b.setAttribute('aria-pressed', st.cats.has(c.id) ? 'true' : 'false');
-    b.setAttribute('aria-label', `${c.label}, ${num(n)} visits`);
+    b.setAttribute('aria-label', `${c.label}, ${plural(n, 'visit')}`);
     b.append(el('span', '', c.label), el('span', 'n', num(n)));
     b.addEventListener('click', () => { if (st.cats.has(c.id)) st.cats.delete(c.id); else st.cats.add(c.id); refresh(); });
     box.appendChild(b);
@@ -181,7 +181,7 @@ function renderMore(count) {
       c.dayEl = el('section', 'day');
       const d = days[day];
       const h = el('h3', '', fmtDay(d.ms));
-      const meta = el('span', '', `${num(d.visits)} visit${d.visits === 1 ? '' : 's'}`);
+      const meta = el('span', '', plural(d.visits, 'visit'));
       h.appendChild(meta);
       if (d.flagged) {
         const f = el('span', 'flagn', `⚑ ${num(d.flagged)} flagged`);
@@ -196,7 +196,7 @@ function renderMore(count) {
       c.sessEl = el('div', 'session');
       const s = sessions[sess];
       const span = s.first === s.last ? localTime(s.first) : `${localTime(s.last)}–${localTime(s.first)}`;
-      c.sessEl.appendChild(el('div', 'session-head', `Session ${span} · ${num(s.visits)} visit${s.visits === 1 ? '' : 's'}`));
+      c.sessEl.appendChild(el('div', 'session-head', `Session ${span} · ${plural(s.visits, 'visit')}`));
       c.dayEl.appendChild(c.sessEl);
     }
     const row = el('div', 'visit');
@@ -211,7 +211,7 @@ function renderMore(count) {
 
 function updateSummaryLine() {
   const total = st.filtered.length;
-  $('summary-line').textContent = total ? `${num(total)} visits match · showing ${num(Math.min(st.rendered, total))}` : '';
+  $('summary-line').textContent = total ? `${plural(total, 'visit')} ${total === 1 ? 'matches' : 'match'} · showing ${num(Math.min(st.rendered, total))}` : '';
 }
 
 function checkSentinel() {
@@ -240,7 +240,9 @@ function refresh({ keepCount = false } = {}) {
   st.cur = { day: -1, sess: -1, dayEl: null, sessEl: null };
   $('timeline').replaceChildren();
   renderMore(Math.max(PAGE, prev));
-  $('empty').hidden = st.filtered.length > 0 || st.loading;
+  const empty = $('empty');
+  empty.hidden = st.filtered.length > 0 || st.loading;
+  empty.textContent = st.all.length ? EMPTY_FILTERED : EMPTY_HISTORY;
   checkSentinel();
 }
 
@@ -264,11 +266,11 @@ async function loadAll(history) {
       signal: ac.signal,
       startTime: 0, endTime: Date.now() + 1, // endTime is exclusive
       onBatch: (batch) => { annotate(batch, st.classifier); st.all.push(...batch); scheduleRefresh(); },
-      onProgress: ({ urls, visits, done }) => { if (!done) setStatus(`Loading… ${num(visits)} visits from ${num(urls)} pages`); },
+      onProgress: ({ urls, visits, done }) => { if (!done) setStatus(`Loading… ${plural(visits, 'visit')} from ${plural(urls, 'page')}`); },
     });
-    setStatus(`${num(st.all.length)} visits loaded`);
+    setStatus(`${plural(st.all.length, 'visit')} loaded`);
   } catch (e) {
-    if (e && e.name === 'AbortError') setStatus(`Loading cancelled: ${num(st.all.length)} visits loaded (partial)`);
+    if (e && e.name === 'AbortError') setStatus(`Loading cancelled: ${plural(st.all.length, 'visit')} loaded (partial)`);
     else setStatus('Error loading history: ' + (e && e.message ? e.message : 'unknown error'));
   } finally {
     st.loading = false;

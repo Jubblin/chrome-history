@@ -19,8 +19,8 @@ async function open(scheme) {
   let [sw] = ctx.serviceWorkers();
   if (!sw) sw = await ctx.waitForEvent('serviceworker', { timeout: 15000 });
   const page = await ctx.newPage();
-  await page.goto(`chrome-extension://${new URL(sw.url()).host}/ui/test-support/timeline-fixture.html`);
-  await page.waitForFunction(() => /visits loaded/.test(document.getElementById('status').textContent), null, { timeout: 60000 });
+  await page.goto(`chrome-extension://${new URL(sw.url()).host}/ui/test-support/timeline-fixture.html?clean=1`);
+  await page.waitForFunction(() => /visits? loaded/.test(document.getElementById('status').textContent), null, { timeout: 60000 });
   await page.check('#f-hide');
   await page.waitForTimeout(400);
   return { ctx, page };

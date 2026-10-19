@@ -6,7 +6,7 @@ Status: data layer, classifier, timeline UI and packaging. Web Store assets and 
 
 ## Load unpacked
 1. Open `chrome://extensions`, enable Developer mode.
-2. Choose "Load unpacked" and select this `extension/` folder.
+2. Choose "Load unpacked" and select this `extension/` folder. To use the release zip instead, unzip it into a new, EMPTY folder first (its files are at the zip root, so they would otherwise mix with other files), then select that folder.
 3. Click the toolbar button to open the timeline in a tab.
 
 ## Layout

@@ -59,7 +59,7 @@ Not tested on a Chromebook; this is based on how ChromeOS's Linux support is doc
 
 The `extension/` folder is a Manifest V3 Chrome extension that shows the same kind of audit timeline (days and sessions, activity chart, top sites, filters, sensitive-category flags with a hide toggle, CSV export) for the Chrome profile it is installed in. It reads history with Chrome's `history` permission, makes no network requests (strict CSP, no host permissions) and stores only your optional custom rules in `chrome.storage.local`. Privacy policy: [`extension/store/PRIVACY.md`](extension/store/PRIVACY.md). It has not been published to the Chrome Web Store yet.
 
-**Install unpacked:** run `make extension-zip` (or take the zip from a release), unzip it (or use the `extension/` folder directly), open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the folder. Click the toolbar button to open the timeline.
+**Install unpacked:** run `make extension-zip` (or take the zip from a release), unzip it into a new, EMPTY folder (the files are at the zip root; or use the `extension/` folder directly), open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the folder. Click the toolbar button to open the timeline.
 
 **ChromeOS:** this is the way to audit ChromeOS's own Chrome, which the Linux app cannot reach. Load it as above in ChromeOS Chrome (Developer mode in `chrome://extensions` is a Chrome setting, not ChromeOS developer mode, and does not weaken device security).
 

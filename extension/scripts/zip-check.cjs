@@ -30,7 +30,7 @@ const check = (ok, msg) => results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`);
     page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) errors.push(m.text()); });
     page.on('pageerror', (e) => errors.push('pageerror ' + e.message));
     await page.goto(`${base}/timeline.html`);
-    await page.waitForFunction(() => /visits loaded|No visits|0 visits/i.test(document.getElementById('status').textContent), null, { timeout: 20000 }).catch(() => {});
+    await page.waitForFunction(() => /visits? loaded|No visits|0 visits/i.test(document.getElementById('status').textContent), null, { timeout: 20000 }).catch(() => {});
     check(await page.locator('#timeline').count() === 1, 'shipped timeline page renders from the zip');
     check(errors.length === 0, `no console errors/CSP violations (${errors.join(' | ')})`);
     // ?fixture=1 is ignored: still the real (here: empty) profile history, never synthetic data.
@@ -39,6 +39,18 @@ const check = (ok, msg) => results.push(`${ok ? 'PASS' : 'FAIL'} ${msg}`);
     const nv = await page.locator('#timeline .visit').count();
     const hrefs = await page.locator('#timeline .visit a[href]').evaluateAll((as) => as.map((a) => a.href));
     check(nv < 50 && hrefs.every((h) => h.startsWith('chrome-extension://')), `?fixture=1 shows no synthetic data (${nv} rows, only the profile's own extension-page visits)`);
+    // Cancel loading works in the shipped entry: slow down getVisits, then click the button.
+    const slow = await ctx.newPage();
+    await slow.addInitScript(() => {
+      const g = chrome.history.getVisits.bind(chrome.history);
+      chrome.history.getVisits = (d) => new Promise((r) => setTimeout(() => r(g(d)), 3000));
+    });
+    await slow.goto(`${base}/timeline.html`);
+    await slow.waitForSelector('#load-cancel:not([hidden])', { timeout: 10000 });
+    await slow.click('#load-cancel');
+    await slow.waitForFunction(() => /cancelled/i.test(document.getElementById('status').textContent), null, { timeout: 10000 });
+    check(await slow.locator('#load-cancel').isHidden(), 'Cancel loading works in the shipped page (status says cancelled, button hidden)');
+    await slow.close();
     for (const p of ['ui/test-support/timeline-fixture.html', 'ui/test-support/fixture.js', 'ui/test-support/fixture-main.js', 'scripts/make-fixture.js']) {
       const r = await page.goto(`${base}/${p}`).catch(() => null);
       const body = r ? await page.evaluate(() => document.body.innerText).catch(() => '') : '';

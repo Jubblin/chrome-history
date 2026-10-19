@@ -2,6 +2,9 @@
 import { dayKey, filterVisits, DEFAULT_SESSION_GAP_MS } from '../src/history/index.js';
 
 export const MASK = '[hidden]';
+export const plural = (n, one, many = one + 's') => `${n.toLocaleString()} ${n === 1 ? one : many}`;
+export const EMPTY_HISTORY = 'Chrome has no browsing history for this profile (it may be new, or its history was cleared). Visit some pages, then reload this tab.';
+export const EMPTY_FILTERED = 'No visits match these filters.';
 const pad = (n) => String(n).padStart(2, '0');
 
 export function isFlagged(v) { return v.categories.length > 0; }

@@ -40,7 +40,7 @@ function watch(page, errors, requests) {
   page.on('pageerror', (e) => errors.push('pageerror ' + e.message));
   page.on('request', (r) => { if (!/^(chrome-extension|data|blob):/.test(r.url())) requests.push(r.url()); });
 }
-const loaded = (page) => page.waitForFunction(() => /visits loaded/.test(document.getElementById('status').textContent), null, { timeout: 60000 });
+const loaded = (page) => page.waitForFunction(() => /visits? loaded/.test(document.getElementById('status').textContent), null, { timeout: 60000 });
 const rows = (page) => page.locator('#timeline .visit').count();
 
 (async () => {
@@ -58,7 +58,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     const firstPaint = Date.now() - t0;
     await loaded(page);
     const status = await page.textContent('#status');
-    const total = Number((await page.textContent('#summary-line')).match(/^([\d,]+) visits match/)[1].replace(/,/g, ''));
+    const total = Number((await page.textContent('#summary-line')).match(/^([\d,]+) visits? match(es)?/)[1].replace(/,/g, ''));
     check(total >= 10000, `fixture loaded ${total} visits (${status}); first rows after ${firstPaint} ms`);
     check(await rows(page) === 200, `progressive rendering: ${await rows(page)} rows in DOM initially`);
     await page.screenshot({ path: path.join(shots, 'fixture-light.png') });
@@ -77,7 +77,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     // XSS
     const xss = await page.evaluate(() => ({ imgs: document.querySelectorAll('#timeline img').length, title: document.title, anchors: [...document.querySelectorAll('a.vtitle')].filter((a) => /^javascript:/i.test(a.href)).length }));
     await page.fill('#f-q', 'XSS title');
-    await page.waitForFunction(() => /^[\d,]+ visits match/.test(document.getElementById('summary-line').textContent) && document.querySelectorAll('#timeline .visit').length <= 2);
+    await page.waitForFunction(() => /^[\d,]+ visits? match(es)?/.test(document.getElementById('summary-line').textContent) && document.querySelectorAll('#timeline .visit').length <= 2);
     const shown = await page.locator('#timeline .vtitle').first().textContent();
     check(xss.imgs === 0 && xss.title === 'History timeline' && xss.anchors === 0 && shown.includes('<img'), 'XSS-style titles rendered as text only; javascript: URLs not linked');
     await page.fill('#f-q', '');

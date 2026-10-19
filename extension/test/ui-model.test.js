@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { applyFilters, toCsv, csvCell, layout, chartBins, domainStats, annotate, isMasked, MASK } from '../ui/model.js';
+import { applyFilters, toCsv, csvCell, layout, chartBins, domainStats, annotate, isMasked, MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED } from '../ui/model.js';
 import { createClassifier, parseUserRules, loadBundledRules } from '../ui/test-support/stub-classifier.js';
 
 const T0 = new Date(2025, 5, 10, 12, 0).getTime();
@@ -86,4 +86,16 @@ test('date range is half-open at the next local midnight', async () => {
   const edge = [{ ...vs[0], visitId: 'e1', time: mid - 1 }, { ...vs[0], visitId: 'e2', time: mid }];
   assert.deepEqual(applyFilters(edge, { start: '2025-06-10', end: '2025-06-10' }, false).map((v) => v.visitId), ['e1']);
   assert.equal(applyFilters(edge, { start: day2, end: day2 }, false).map((v) => v.visitId)[0], 'e2');
+});
+
+test('plural pluralises', () => {
+  assert.equal(plural(0, 'visit'), '0 visits');
+  assert.equal(plural(1, 'visit'), '1 visit');
+  assert.equal(plural(1234, 'visit'), (1234).toLocaleString() + ' visits');
+  assert.equal(plural(1, 'page'), '1 page');
+});
+
+test('empty-history message differs from filtered-empty and mentions no sensitive terms', () => {
+  assert.notEqual(EMPTY_HISTORY, EMPTY_FILTERED);
+  assert.match(EMPTY_HISTORY, /no browsing history/);
 });

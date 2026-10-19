@@ -107,7 +107,8 @@ button.vtitle.masked-btn{border:0;background:none;padding:0;text-align:left}
 .settings[hidden]{display:none}
 .settings h2{margin-bottom:6px}
 .settings p{margin:4px 0;color:var(--muted)}
-.settings textarea{width:100%;min-height:140px;font:12px/1.4 ui-monospace,monospace;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px;resize:vertical}
+.settings label{display:block;margin:8px 0 4px}
+.settings textarea{display:block;width:100%;min-height:140px;font:12px/1.4 ui-monospace,monospace;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px;resize:vertical}
 .settings pre{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px;overflow:auto;margin:6px 0}
 .settings .row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
 .rules-error{color:var(--flag);font-weight:600;margin:6px 0 0}
