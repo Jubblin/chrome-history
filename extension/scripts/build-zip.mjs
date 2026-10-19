@@ -53,7 +53,9 @@ export function buildZip(files) {
   const locals = [], centrals = [];
   let offset = 0;
   for (const f of files) {
-    const data = readFileSync(join(root, f));
+    let data = readFileSync(join(root, f));
+    // Text files are shipped with LF whatever the checkout's line endings, so the zip is reproducible.
+    if (!f.endsWith('.png')) data = Buffer.from(data.toString('latin1').replace(/\r\n/g, '\n'), 'latin1');
     const comp = data; // stored, not deflated: output must not depend on the zlib version
     const name = Buffer.from(f, 'utf8');
     const crc = crc32(data);

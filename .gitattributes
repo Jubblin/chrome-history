@@ -1,0 +1,4 @@
+# Generated and byte-compared files (rules, vectors, the extension zip) must not
+# depend on the checkout's line-ending conversion (Windows autocrlf).
+* text=auto eol=lf
+*.png binary

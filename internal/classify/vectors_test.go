@@ -175,6 +175,8 @@ func TestVectorsFresh(t *testing.T) {
 	if err != nil {
 		t.Fatalf("%v (generate with UPDATE_VECTORS=1)", err)
 	}
+	// Compare ignoring line endings: a Windows checkout may convert LF to CRLF.
+	got = bytes.ReplaceAll(got, []byte("\r\n"), []byte("\n"))
 	if !bytes.Equal(got, want) {
 		t.Fatal("extension/test/vectors.json is stale; regenerate with: UPDATE_VECTORS=1 go test ./internal/classify -run TestVectorsFresh")
 	}
