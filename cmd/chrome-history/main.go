@@ -1,4 +1,4 @@
-// Command chrome-history serves a local UI for browsing Chromium history.
+// Command chrome-history is a browsing history audit tool: it serves a local timeline UI for Chromium-family browser history.
 package main
 
 import (

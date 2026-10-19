@@ -1,9 +1,9 @@
-# chrome-history
+# Browsing History Timeline
 
 [![CI](https://github.com/Jubblin/chrome-history/actions/workflows/ci.yml/badge.svg)](https://github.com/Jubblin/chrome-history/actions/workflows/ci.yml)
 [![Security](https://github.com/Jubblin/chrome-history/actions/workflows/security.yml/badge.svg)](https://github.com/Jubblin/chrome-history/actions/workflows/security.yml)
 
-A local, read-only timeline viewer for Chromium-family browser history (Chrome, Chromium, Edge, Brave, Vivaldi, Opera).
+A local, read-only browsing history audit tool: it shows a timeline of your browser history and flags sensitive visits. It supports Chromium-family browsers (Chrome, Chromium, Edge, Brave, Vivaldi, Opera).
 It ships as one self-contained binary with the web UI embedded. No data leaves your machine.
 
 ## Quick start (try it on synthetic data)
@@ -51,13 +51,13 @@ The tool only reads the `History` database (see [Privacy](#privacy)), so you can
 Not tested on a Chromebook; this is based on how ChromeOS's Linux support is documented to work.
 
 - **Works:** ChromeOS can run Linux apps in a container (Settings > Advanced > Developers > Linux development environment). Inside it, use the `linux_amd64` release archive, or `linux_arm64` on ARM models (`uname -m` prints `x86_64` or `aarch64`). It can audit a Chrome or other Chromium browser installed inside that container, or a `History` file you copy into the container and open with `--profile PATH`.
-- **Does not work with this app:** the history of the Chrome you use on ChromeOS itself. To audit that, install the [Chrome extension](#chrome-extension) in ChromeOS Chrome instead; it reads history through Chrome's own `history` API, so it can see what the Linux container cannot. ChromeOS keeps that profile in encrypted per-user storage that the Linux container cannot read, and the Files app does not expose it. The same goes for Chrome on Android on a Chromebook. Don't weaken device security (for example with developer mode) to get at it.
+- **Does not work with this app:** the history of the Chrome you use on ChromeOS itself. To audit that, install the [browser extension](#browser-extension) in ChromeOS Chrome instead; it reads history through Chrome's own `history` API, so it can see what the Linux container cannot. ChromeOS keeps that profile in encrypted per-user storage that the Linux container cannot read, and the Files app does not expose it. The same goes for Chrome on Android on a Chromebook. Don't weaken device security (for example with developer mode) to get at it.
 - **Opening the UI:** the container has no browser, so run `./chrome-history --no-open` and open the printed URL, which contains the access token, in ChromeOS Chrome. ChromeOS normally forwards `localhost` ports from the container, so `http://localhost:8080/?token=...` should work. The server listens on `127.0.0.1` only and accepts only the hosts `localhost`, `127.0.0.1` and `[::1]`, so a container hostname such as `penguin.linux.test` is rejected. If forwarding misbehaves, keep a fixed port with `--port` (default 8080; `--port 0` picks a random one).
 - **Google Takeout:** its Chrome history export is JSON, which this tool does not import.
 
-## Chrome extension
+## Browser extension
 
-The `extension/` folder is a Manifest V3 Chrome extension that shows the same kind of audit timeline (days and sessions, activity chart, top sites, filters, sensitive-category flags with a hide toggle, CSV export) for the Chrome profile it is installed in. It reads history with Chrome's `history` permission, makes no network requests (strict CSP, no host permissions) and stores only your optional custom rules in `chrome.storage.local`. Privacy policy: [`extension/store/PRIVACY.md`](extension/store/PRIVACY.md). It has not been published to the Chrome Web Store yet.
+The `extension/` folder is a Manifest V3 browser extension, Browsing History Timeline, that shows the same kind of audit timeline (days and sessions, activity chart, top sites, filters, sensitive-category flags with a hide toggle, CSV export) for the Chrome profile it is installed in. It reads history with Chrome's `history` permission, makes no network requests (strict CSP, no host permissions) and stores only your optional custom rules in `chrome.storage.local`. Privacy policy: [`extension/store/PRIVACY.md`](extension/store/PRIVACY.md). It has not been published to the Chrome Web Store yet.
 
 **Install unpacked:** step-by-step guide, with checksum verification, updating and troubleshooting: [`docs/INSTALL-EXTENSION.md`](docs/INSTALL-EXTENSION.md). In short: download and verify the release zip, unzip it into a new, EMPTY, permanent folder, then in `chrome://extensions` turn on Developer mode and choose **Load unpacked**. (From a checkout, `make extension-zip` builds the same zip.)
 
