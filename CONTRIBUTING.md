@@ -47,6 +47,19 @@ Option 2: install Go 1.22 or newer locally and run the commands below directly.
 | `go vet ./...` | must be clean |
 | `go test -race ./...` | must pass |
 
+### Chrome extension
+
+The extension in `extension/` needs Node 22+ on the host and has no npm dependencies.
+
+| Command | Purpose |
+|---|---|
+| `make extension-test` | unit tests (`node --test`), including manifest checks and the built-zip checks |
+| `make extension-check` | fails if the extension's copy of `internal/classify/rules.json` is stale (`make extension-sync` fixes it) |
+| `make extension-lint` | manifest lint |
+| `make extension-zip` | reproducible zip in `dist/` |
+
+Browser checks (`extension/scripts/chrome-check.cjs`, `ui-check.cjs`, `zip-check.cjs`) need `playwright-core` and its full Chromium (branded Chrome ignores `--load-extension`); see `extension/README.md`. They use synthetic fixture data only. Never put real history in extension tests or screenshots. Anything for tests (stub classifier, mock history, fixture page) lives in `extension/ui/test-support/`, which must never be shipped or imported from shipped code; the zip test enforces that.
+
 Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-Chrome-History-Token: <token>"`. The token cookie is `Secure`, so use a Chromium-based browser or Firefox for the UI (Safari does not send Secure cookies over http); the cookie must stay `Secure`.
 
 ## Project layout
@@ -86,7 +99,7 @@ git tag -a v1.2.3 -m "v1.2.3"
 git push origin v1.2.3
 ```
 
-The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It writes a `SHA256SUMS` file, adds build provenance attestations, and creates a **draft** GitHub Release with generated notes, which you publish by hand. The tag is injected as the version, so `chrome-history --version` prints it.
+The `Release` workflow (`.github/workflows/release.yml`) then runs gofmt, `go vet` and `go test -race`, builds static (`CGO_ENABLED=0`, `-trimpath`) binaries for Linux, macOS and Windows on amd64 and arm64, and packages each as `.tar.gz` (`.zip` on Windows) together with `LICENSE` and `README.md`. It also builds the Chrome extension zip (`chrome-history-extension_vX.Y.Z.zip`; the tag must equal the manifest version), writes a `SHA256SUMS` file covering it too, adds build provenance attestations, and creates a **draft** GitHub Release with generated notes, which you publish by hand. The tag is injected as the version, so `chrome-history --version` prints it.
 
 Once the workflow succeeds:
 

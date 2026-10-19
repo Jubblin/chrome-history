@@ -381,14 +381,9 @@ function wire() {
   });
 }
 
-async function init() {
+// `history` is the chrome.history API, passed in by ui/main.js. This module never selects the source itself.
+export async function start(history) {
   wire();
-  let history = chrome.history;
-  if (new URLSearchParams(location.search).get('fixture') === '1') {
-    try {
-      history = (await import('./test-support/fixture.js')).fixtureHistory();
-    } catch { setStatus('Fixture mode is not available in this build.'); return; }
-  }
   try {
     st.bundled = await loadBundledRules();
     const text = (await store.get(RULES_KEY)) ?? '';
@@ -404,4 +399,3 @@ async function init() {
   refresh();
   await loadAll(history);
 }
-init();

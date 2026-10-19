@@ -2,7 +2,7 @@
 
 An audit timeline for the browsing history of the profile it is installed in. It reads history through `chrome.history`, makes no network requests, and requests only the `history` and `storage` permissions (`storage` holds the optional user classification rules in `chrome.storage.local`; nothing leaves the device). Incognito browsing is not recorded by Chrome and is not accessible to the extension.
 
-Status: scaffold, data layer and timeline UI. The classifier and packaging come in separate changes.
+Status: data layer, classifier, timeline UI and packaging. Web Store assets and submission notes are in `store/`.
 
 ## Load unpacked
 1. Open `chrome://extensions`, enable Developer mode.
@@ -22,7 +22,7 @@ Status: scaffold, data layer and timeline UI. The classifier and packaging come 
   - `visitsPerDay`, `topDomains`, `groupSessions` (default gap 30 minutes, inclusive) match the Go app.
     **Days use the browser's local time zone.**
   - `filterVisits` (date range, end exclusive, text in url/title, domain or parent domain, transition types).
-  - `createMockHistory(entries)` in-memory `chrome.history` for tests and offline/fixture mode.
+  - `createMockHistory(entries)` (ui/test-support/mock-history.js, not shipped) in-memory `chrome.history` for tests and offline/fixture mode.
 - `scripts/make-fixture.js` deterministic synthetic history generator (10k+ visits).
 
 ## Tests
@@ -41,5 +41,11 @@ Status: scaffold, data layer and timeline UI. The classifier and packaging come 
 - `timeline.html` + `ui/app.js` (view) + `ui/model.js` (pure, unit-tested filtering/layout/CSV) + `ui/timeline.css` (copied from `web/static/app.css`, plus extension additions).
 - Loads all history progressively via `loadVisits`, classifies each visit with the classifier (single integration point: `ui/classify-import.js`, which re-exports `src/classify/index.js`), and renders day/session groups 200 rows at a time.
 - User rules are edited in the Settings panel and stored as raw text in `chrome.storage.local` under `userRulesText` (needs the `storage` permission; without it they only last for the page's lifetime).
-- Fixture mode: open `timeline.html?fixture=1` to run against a synthetic 12k-visit mock history (`ui/test-support/`, test-only, must be excluded from the shipped zip; without those files the page reports fixture mode is unavailable).
+- Fixture mode: open `ui/test-support/timeline-fixture.html` (its own page and entry point, `fixture-main.js`) to run against a synthetic 12k-visit mock history. The shipped page (`timeline.html` -> `ui/main.js`) always uses `chrome.history` and ignores URL parameters; `ui/test-support/` is not in the zip, so fixture mode does not exist in the shipped build.
 - `scripts/ui-check.cjs` drives the UI in headless Chromium (fixture mode, then real history from local pages), writes screenshots of synthetic data, and checks masking, CSV, rules, keyboard, CSP and network. Same Playwright setup as `chrome-check.cjs`.
+
+## Packaging
+- `make extension-zip` (optionally `TAG=vX.Y.Z`, which must equal the manifest version) writes `dist/chrome-history-extension_v<version>.zip`. `make extension-lint` checks the manifest alone.
+- The zip is built from an **allowlist** in `scripts/build-zip.mjs` (`manifest.json`, `timeline.html`, `icons/`, `src/`, `ui/`, minus `ui/test-support/`, the duplicate `src/classify/rules.json` and source maps). Tests, scripts, `store/`, README and `package.json` are never included, so a stray dev file cannot leak in. Entries are sorted with fixed timestamps and modes, so two builds are byte-identical.
+- `test/package.test.js` checks the built zip (reproducible, no excluded files, no fixture code or URL-parameter reads, every import resolves inside the zip). `scripts/zip-check.cjs <zip>` loads the zip contents in Chromium and confirms `?fixture=1` does nothing.
+- Web Store text, privacy policy, icons and screenshots: `store/` (`CHECKLIST.md` lists what is still manual). Regenerate icons with `python3 -I store/make-icons.py icons` and screenshots with `store/make-screenshots.cjs` (needs Playwright's Chromium; loads the unpacked tree in fixture mode).

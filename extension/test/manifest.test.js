@@ -40,3 +40,11 @@ test('timeline.html has no inline script, style or handlers (CSP)', () => {
   const s = readFileSync(new URL('timeline.html', root), 'utf8');
   assert.ok(!/<script(?![^>]*\bsrc=)/i.test(s) && !/<style/i.test(s) && !/\son\w+=|style=/i.test(s));
 });
+
+test('fixture page is a path-adjusted copy of timeline.html (test-support only)', () => {
+  const real = readFileSync(new URL('timeline.html', root), 'utf8');
+  const fx = readFileSync(new URL('ui/test-support/timeline-fixture.html', root), 'utf8');
+  const expected = real.replace('href="ui/favicon.svg"', 'href="../favicon.svg"').replace('href="ui/timeline.css"', 'href="../timeline.css"').replace('src="ui/main.js"', 'src="fixture-main.js"');
+  assert.equal(fx, expected);
+  assert.match(real, /src="ui\/main\.js"/);
+});

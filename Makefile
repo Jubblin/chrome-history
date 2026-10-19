@@ -9,7 +9,7 @@ BIN ?= bin/chrome-history
 export CGO_ENABLED ?= 0
 LDFLAGS := -s -w
 
-.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check
+.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check extension-lint extension-zip
 
 build:
 	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/chrome-history
@@ -62,3 +62,12 @@ dev-shell:
 dev-down:
 	-devpod delete $(DEVPOD_WS) --force
 	-kubectl delete namespace $(DEV_NAMESPACE) --ignore-not-found
+
+# Validate the extension manifest (permissions, CSP, icons, version format).
+extension-lint:
+	node extension/scripts/build-zip.mjs --lint
+
+# Reproducible Web Store / release zip in dist/ (allowlist; no tests, scripts or fixtures).
+# Pass TAG=vX.Y.Z to require the manifest version to match.
+extension-zip: extension-check extension-lint
+	node extension/scripts/build-zip.mjs --out dist $(if $(TAG),--tag "$$TAG",)

@@ -1,5 +1,5 @@
 // TEST SUPPORT ONLY (fixture mode, ?fixture=1). Synthetic data; not shipped in the zip.
-import { createMockHistory } from '../../src/history/index.js';
+import { createMockHistory } from './mock-history.js';
 import { makeFixtureEntries } from '../../scripts/make-fixture.js';
 
 const DAY = 864e5;
