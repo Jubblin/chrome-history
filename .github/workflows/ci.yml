@@ -1,5 +1,11 @@
 name: CI
 
+# Which jobs run is decided by the "changes" job (see .github/scripts/changes.sh
+# and CONTRIBUTING.md): Go jobs for Go or shared changes, the extension job for
+# extension or shared changes, nothing for docs-only changes. Jobs are skipped
+# with job-level conditions, never workflow-level path filters, so the
+# "ci-ok" check always reports and can be required.
+
 on:
   push:
     branches: [main]
@@ -13,7 +19,36 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: changes
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.detect.outputs.go }}
+      extension: ${{ steps.detect.outputs.extension }}
+      javascript: ${{ steps.detect.outputs.javascript }}
+      codeql: ${{ steps.detect.outputs.codeql }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history so the diff against the base or previous tip works.
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Test the path classifier
+        run: |
+          shellcheck .github/scripts/*.sh
+          sh .github/scripts/changes_test.sh
+      - name: Decide what to run
+        id: detect
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: sh .github/scripts/detect.sh
+
   lint:
+    needs: changes
+    if: needs.changes.outputs.go == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -39,7 +74,8 @@ jobs:
           git diff --exit-code go.mod go.sum
 
   test:
-    needs: lint
+    needs: [changes, lint]
+    if: needs.changes.outputs.go == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -79,7 +115,8 @@ jobs:
           CGO_ENABLED: "0"
 
   cross-build:
-    needs: lint
+    needs: [changes, lint]
+    if: needs.changes.outputs.go == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -102,6 +139,8 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
 
   extension:
+    needs: changes
+    if: needs.changes.outputs.extension == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -130,3 +169,21 @@ jobs:
             dist/chrome-history-extension_v*.zip
             dist/SHA256SUMS-extension
           if-no-files-found: error
+
+  # One stable check name to require in branch protection. Skipped jobs pass;
+  # failed or cancelled ones fail it.
+  ci-ok:
+    if: always()
+    needs: [changes, lint, test, cross-build, extension]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every needed job to have passed or been skipped
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          for r in $RESULTS; do
+            case $r in
+              success | skipped) ;;
+              *) echo "::error::a required job finished as '$r'"; exit 1 ;;
+            esac
+          done

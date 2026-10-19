@@ -62,6 +62,24 @@ Browser checks (`extension/scripts/chrome-check.cjs`, `ui-check.cjs`, `zip-check
 
 Try the UI with `make run-fixture` and open the URL it prints (it contains the per-run access token). With curl, send `-H "X-Chrome-History-Token: <token>"`. The token cookie is `Secure`, so use a Chromium-based browser or Firefox for the UI (Safari does not send Secure cookies over http); the cookie must stay `Secure`.
 
+### Which CI jobs run
+
+A first job, `changes`, looks at the files a pull request (or a push to `main`) touches and skips work that cannot be affected. It uses job-level conditions rather than workflow `paths:` filters, so every workflow always reports its checks.
+
+| Changed path | Go jobs (lint, test, cross-build, govulncheck, CodeQL go) | Extension job | CodeQL javascript-typescript |
+|---|---|---|---|
+| `**/*.go`, `go.mod`, `go.sum`, `cmd/**`, `internal/**` | yes | no | no |
+| `web/**` | yes | no | yes |
+| `extension/**/*.go` | yes | yes | yes |
+| `extension/**` (other than Go files and the docs below) | no | yes | yes |
+| `Makefile`, `.gitattributes`, `.github/**`, `internal/classify/rules.json`, `internal/classify/vectors_test.go` | yes | yes | yes |
+| root `*.md`, `LICENSE`, `.devcontainer/**`, `extension/store/**`, `extension/**/*.md` | no | no | no |
+| anything else, or an empty or unknown diff | yes | yes | yes |
+
+Scheduled and manual runs, new branches and force pushes run everything. The release workflow (tags `v*`) always builds and tests everything.
+
+`ci-ok` (in CI) and `security-ok` (in Security) always run and pass when every job they depend on passed or was skipped, so each is a single stable check name to require in branch protection. The rules live in `.github/scripts/changes.sh`; `.github/scripts/changes_test.sh` tests them (run `sh .github/scripts/changes_test.sh`) and CI runs it, so update both when you add a new kind of path.
+
 ## Project layout
 
 - `cmd/chrome-history`: the server binary and its flags.
