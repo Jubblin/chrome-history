@@ -16,12 +16,12 @@ list=
 case ${EVENT_NAME:-} in
 pull_request)
 	[ -n "${BASE_SHA:-}" ] && [ -n "${HEAD_SHA:-}" ] &&
-		list=$(git -c core.quotepath=off diff --name-only "$BASE_SHA...$HEAD_SHA" 2>/dev/null) || list=
+		list=$(git -c core.quotepath=off diff --no-renames --name-only "$BASE_SHA...$HEAD_SHA" 2>/dev/null) || list=
 	;;
 push)
 	if [ -n "${BEFORE_SHA:-}" ] && [ "$BEFORE_SHA" != "$zero" ] && [ -n "${HEAD_SHA:-}" ] &&
 		git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
-		list=$(git -c core.quotepath=off diff --name-only "$BEFORE_SHA" "$HEAD_SHA" 2>/dev/null) || list=
+		list=$(git -c core.quotepath=off diff --no-renames --name-only "$BEFORE_SHA" "$HEAD_SHA" 2>/dev/null) || list=
 	fi
 	;;
 esac
