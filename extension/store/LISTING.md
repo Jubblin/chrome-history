@@ -1,0 +1,46 @@
+# Chrome Web Store listing text
+
+Everything here is draft text to paste into the developer dashboard. Nothing has been submitted.
+
+## Name
+Chrome History Audit Timeline
+
+## Short description (max 132 characters; also the manifest description)
+A local, read-only audit timeline of this profile's browsing history. Makes no network requests.
+
+## Category
+Productivity (alternatively: Privacy & Security, if offered as a category for your account)
+
+## Single-purpose statement
+Show the user an audit timeline of their own browsing history, flagging potentially sensitive categories, entirely on their device.
+
+## Detailed description
+See what your Chrome profile has recorded about you.
+
+Chrome History Audit Timeline turns your browsing history into a readable timeline: visits grouped into days and sessions, an activity chart, top sites, search and filters (date range, site, transition type), and CSV export.
+
+Visits that look sensitive (gambling, health, finance, adult content, privacy tools, news and politics) get clear badges, per-day counts and category filters, so you can review what is recorded before you share a screen, hand over a device, or clean up. "Hide sensitive details" masks flagged titles, URLs and sites everywhere, including in the CSV export.
+
+Private by design:
+- Works entirely on your device. No network requests, no servers, no accounts, no analytics, no remote code.
+- Read-only: it never changes or deletes history.
+- The only thing it stores is your optional custom rules (and the hide toggle) in this browser profile.
+- Open source; the category rules are plain lists you can extend with your own "add" and "allow" rules.
+
+Limits: current profile only, no incognito, and no time-on-page durations (Chrome does not provide them). On managed devices an administrator may block the extension.
+
+## Permission justifications
+- **history**: The whole purpose of the extension is to display the user's own browsing history. It uses `chrome.history.search` and `chrome.history.getVisits` to read URLs, titles, visit times and transition types. The data is shown only to the user on the extension's own page and is never transmitted; the extension has no network access.
+- **storage**: Saves the user's own classification rules (text) in `chrome.storage.local`. Nothing else is stored in it. (The "Hide sensitive details" on/off preference is kept in the extension page's local storage, which needs no permission.)
+
+No host permissions are requested. No remote code is used.
+
+## Data-usage disclosures (dashboard "Privacy practices" tab)
+- Data handled: **web history** (read locally, not collected or transmitted).
+- Collected/transmitted off device: none. Not sold, not used for unrelated purposes, not used for creditworthiness.
+- Remote code: No.
+
+## Assets
+- Icons: `../icons/icon-{16,32,48,128}.png` (generated from `icon.svg`, original artwork).
+- Screenshots (1280x800, synthetic fixture data): `screenshots/`.
+- Privacy policy: `PRIVACY.md` (needs a public URL, see the checklist).

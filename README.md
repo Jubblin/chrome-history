@@ -51,9 +51,24 @@ The tool only reads the `History` database (see [Privacy](#privacy)), so you can
 Not tested on a Chromebook; this is based on how ChromeOS's Linux support is documented to work.
 
 - **Works:** ChromeOS can run Linux apps in a container (Settings > Advanced > Developers > Linux development environment). Inside it, use the `linux_amd64` release archive, or `linux_arm64` on ARM models (`uname -m` prints `x86_64` or `aarch64`). It can audit a Chrome or other Chromium browser installed inside that container, or a `History` file you copy into the container and open with `--profile PATH`.
-- **Does not work:** the history of the Chrome you use on ChromeOS itself. ChromeOS keeps that profile in encrypted per-user storage that the Linux container cannot read, and the Files app does not expose it. The same goes for Chrome on Android on a Chromebook. Don't weaken device security (for example with developer mode) to get at it.
+- **Does not work with this app:** the history of the Chrome you use on ChromeOS itself. To audit that, install the [Chrome extension](#chrome-extension) in ChromeOS Chrome instead; it reads history through Chrome's own `history` API, so it can see what the Linux container cannot. ChromeOS keeps that profile in encrypted per-user storage that the Linux container cannot read, and the Files app does not expose it. The same goes for Chrome on Android on a Chromebook. Don't weaken device security (for example with developer mode) to get at it.
 - **Opening the UI:** the container has no browser, so run `./chrome-history --no-open` and open the printed URL, which contains the access token, in ChromeOS Chrome. ChromeOS normally forwards `localhost` ports from the container, so `http://localhost:8080/?token=...` should work. The server listens on `127.0.0.1` only and accepts only the hosts `localhost`, `127.0.0.1` and `[::1]`, so a container hostname such as `penguin.linux.test` is rejected. If forwarding misbehaves, keep a fixed port with `--port` (default 8080; `--port 0` picks a random one).
 - **Google Takeout:** its Chrome history export is JSON, which this tool does not import.
+
+## Chrome extension
+
+The `extension/` folder is a Manifest V3 Chrome extension that shows the same kind of audit timeline (days and sessions, activity chart, top sites, filters, sensitive-category flags with a hide toggle, CSV export) for the Chrome profile it is installed in. It reads history with Chrome's `history` permission, makes no network requests (strict CSP, no host permissions) and stores only your optional custom rules in `chrome.storage.local`. Privacy policy: [`extension/store/PRIVACY.md`](extension/store/PRIVACY.md). It has not been published to the Chrome Web Store yet.
+
+**Install unpacked:** run `make extension-zip` (or take the zip from a release), unzip it into a new, EMPTY folder (the files are at the zip root; or use the `extension/` folder directly), open `chrome://extensions`, turn on Developer mode, choose **Load unpacked** and select the folder. Click the toolbar button to open the timeline.
+
+**ChromeOS:** this is the way to audit ChromeOS's own Chrome, which the Linux app cannot reach. Load it as above in ChromeOS Chrome (Developer mode in `chrome://extensions` is a Chrome setting, not ChromeOS developer mode, and does not weaken device security).
+
+**Limits:**
+- Current profile only (install it in each profile you want to audit); incognito visits are not recorded by Chrome and the extension does not run in incognito.
+- No visit durations (Chrome's API does not provide them); days use your local time zone.
+- Managed devices (school or work policies) may block unpacked or unlisted extensions, or the `history` permission.
+- Not tested on a Chromebook; automated checks run in Playwright's Chromium.
+- Large histories load progressively; the first screen appears quickly and totals fill in as loading finishes.
 
 ## Use it on your real history
 

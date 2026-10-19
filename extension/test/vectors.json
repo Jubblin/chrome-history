@@ -1,0 +1,11670 @@
+{
+ "comment": "Generated from the Go classifier; do not edit. Regenerate: UPDATE_VECTORS=1 go test ./internal/classify -run TestVectorsFresh",
+ "bundled": [
+  {
+   "url": "https://www.4tube.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://4tube.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.adultfriendfinder.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://adultfriendfinder.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.anyporn.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://anyporn.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.ashleymadison.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://ashleymadison.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.babes.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://babes.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.bangbros.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://bangbros.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.beeg.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://beeg.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.blacked.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://blacked.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.bongacams.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://bongacams.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.brazzers.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://brazzers.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.cam4.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://cam4.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.camsoda.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://camsoda.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.chaturbate.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://chaturbate.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.clips4sale.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://clips4sale.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.deeper.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://deeper.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.digitalplayground.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://digitalplayground.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.drtuber.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://drtuber.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.e621.net/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://e621.net:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.empflix.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://empflix.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.eporner.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://eporner.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.evilangel.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://evilangel.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.fakehub.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://fakehub.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.fansly.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://fansly.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.flirt4free.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://flirt4free.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.fuq.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://fuq.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.gelbooru.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://gelbooru.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.hclips.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://hclips.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.hqporner.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://hqporner.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.hustler.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://hustler.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.imlive.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://imlive.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.ixxx.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://ixxx.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.jerkmate.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://jerkmate.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.kink.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://kink.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.literotica.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://literotica.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.livejasmin.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://livejasmin.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.manyvids.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://manyvids.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.mofos.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://mofos.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.motherless.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://motherless.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.myfreecams.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://myfreecams.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.naughtyamerica.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://naughtyamerica.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.nhentai.net/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://nhentai.net:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.nubiles.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://nubiles.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.nuvid.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://nuvid.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.onlyfans.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://onlyfans.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.penthouse.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://penthouse.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.playboy.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://playboy.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.porn.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://porn.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.porndig.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://porndig.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.pornhat.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://pornhat.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.pornhd.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://pornhd.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.pornhub.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://pornhub.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.pornone.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://pornone.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.pornpics.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://pornpics.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.porntrex.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://porntrex.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.porntube.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://porntube.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.realitykings.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://realitykings.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.redtube.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://redtube.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.rule34.xxx/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://rule34.xxx:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.sex.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://sex.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.slutload.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://slutload.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.spankbang.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://spankbang.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.stripchat.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://stripchat.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.sunporno.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://sunporno.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.teamskeet.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://teamskeet.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.thumbzilla.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://thumbzilla.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.tnaflix.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://tnaflix.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.tube8.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://tube8.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.tushy.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://tushy.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.twistys.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://twistys.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.txxx.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://txxx.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.vixen.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://vixen.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.wicked.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://wicked.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.xhamster.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://xhamster.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.xnxx.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://xnxx.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.xtube.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://xtube.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.xvideos.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://xvideos.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.xxxbunker.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://xxxbunker.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.youjizz.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://youjizz.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.youporn.com/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://youporn.com:8443/a/b?q=1",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://hentai.example/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://shop-hentai.example/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://site.example/hentai/page",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://site.example/hentais/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-hentai/page",
+   "want": []
+  },
+  {
+   "url": "https://myhentai.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=hentai",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/HENTAI",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://porn.example/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://shop-porn.example/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://site.example/porn/page",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://site.example/porns/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-porn/page",
+   "want": []
+  },
+  {
+   "url": "https://myporn.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=porn",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/PORN",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://xxx.example/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://shop-xxx.example/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://site.example/xxx/page",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://site.example/xxxs/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-xxx/page",
+   "want": []
+  },
+  {
+   "url": "https://myxxx.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=xxx",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/XXX",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://www.abnamro.nl/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://abnamro.nl:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.acorns.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://acorns.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.affirm.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://affirm.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.afterpay.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://afterpay.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ajbell.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ajbell.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ally.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ally.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.americanexpress.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://americanexpress.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.anna.money/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://anna.money:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.anz.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://anz.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.anz.com.au/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://anz.com.au:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.atombank.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://atombank.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.aviva.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://aviva.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.axisbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://axisbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bankofamerica.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bankofamerica.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bankofscotland.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bankofscotland.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bankrate.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bankrate.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.barclays.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://barclays.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.barclays.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://barclays.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bbva.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bbva.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bbva.es/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bbva.es:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bestinvest.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bestinvest.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.betterment.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://betterment.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.binance.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://binance.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.binance.us/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://binance.us:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bitfinex.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bitfinex.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bitpanda.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bitpanda.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bitstamp.net/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bitstamp.net:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.blockchain.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://blockchain.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bmo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bmo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bnpparibas.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bnpparibas.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bradesco.com.br/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bradesco.com.br:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.bybit.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://bybit.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.caixabank.es/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://caixabank.es:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.capitalone.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://capitalone.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.capitalone.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://capitalone.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.cash.app/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://cash.app:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.cashplus.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://cashplus.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.charlesstanley.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://charlesstanley.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.chase.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://chase.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.chase.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://chase.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.checkmyfile.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://checkmyfile.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.chime.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://chime.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.cibc.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://cibc.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.citi.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://citi.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.citibank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://citibank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.clearpay.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://clearpay.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.clearscore.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://clearscore.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.cmcmarkets.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://cmcmarkets.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.co-operativebank.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://co-operativebank.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.coinbase.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://coinbase.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.coingecko.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://coingecko.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.coinmama.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://coinmama.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.coinmarketcap.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://coinmarketcap.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.commbank.com.au/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://commbank.com.au:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.commerzbank.de/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://commerzbank.de:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.creditkarma.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://creditkarma.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.crypto.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://crypto.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.curve.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://curve.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.danskebank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://danskebank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.db.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://db.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.dbs.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://dbs.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.degiro.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://degiro.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.degiro.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://degiro.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.discover.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://discover.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.equifax.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://equifax.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.equifax.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://equifax.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.etoro.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://etoro.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.etrade.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://etrade.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.experian.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://experian.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.experian.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://experian.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.fidelity.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://fidelity.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.fidelity.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://fidelity.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.firstdirect.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://firstdirect.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.freeagent.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://freeagent.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.freetrade.io/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://freetrade.io:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.gemini.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://gemini.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.gocardless.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://gocardless.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.habito.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://habito.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.halifax.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://halifax.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.handelsbanken.se/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://handelsbanken.se:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.hdfcbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://hdfcbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.hl.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://hl.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.hmrc.gov.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://hmrc.gov.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.hrblock.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://hrblock.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.hsbc.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://hsbc.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.hsbc.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://hsbc.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.icbc.com.cn/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://icbc.com.cn:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.icicibank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://icicibank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ig.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ig.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ii.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ii.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ing.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ing.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ing.de/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ing.de:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ing.nl/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ing.nl:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.interactivebrokers.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://interactivebrokers.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.intesasanpaolo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://intesasanpaolo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.irs.gov/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://irs.gov:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.itau.com.br/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://itau.com.br:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.jpmorgan.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://jpmorgan.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.klarna.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://klarna.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.kraken.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://kraken.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.kroo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://kroo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.kucoin.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://kucoin.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ledger.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ledger.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.legalandgeneral.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://legalandgeneral.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.lendingclub.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://lendingclub.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.lendingtree.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://lendingtree.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.lloydsbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://lloydsbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.marcus.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://marcus.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.mbna.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://mbna.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.metamask.io/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://metamask.io:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.metrobankonline.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://metrobankonline.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.mettle.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://mettle.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.mizuhobank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://mizuhobank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.monese.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://monese.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.moneyboxapp.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://moneyboxapp.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.moneyfarm.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://moneyfarm.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.moneygram.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://moneygram.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.moneyhelper.org.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://moneyhelper.org.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.moneysavingexpert.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://moneysavingexpert.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.moneysupermarket.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://moneysupermarket.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.monzo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://monzo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.morganstanley.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://morganstanley.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.mufg.jp/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://mufg.jp:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.n26.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://n26.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nab.com.au/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nab.com.au:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nationwide.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nationwide.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.natwest.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://natwest.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.navient.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://navient.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.navyfederal.org/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://navyfederal.org:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nelnet.net/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nelnet.net:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nerdwallet.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nerdwallet.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nestpensions.org.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nestpensions.org.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.neteller.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://neteller.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nordea.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nordea.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nubank.com.br/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nubank.com.br:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.nutmeg.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://nutmeg.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ocbc.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ocbc.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.okx.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://okx.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.paxful.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://paxful.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.payoneer.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://payoneer.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.paypal.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://paypal.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.paypal.me/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://paypal.me:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.paysafecard.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://paysafecard.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.plus500.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://plus500.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.pnc.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://pnc.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.prosper.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://prosper.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.prudential.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://prudential.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.quickenloans.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://quickenloans.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.rabobank.nl/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://rabobank.nl:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.rbc.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://rbc.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.rbcroyalbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://rbcroyalbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.rbs.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://rbs.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.remitly.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://remitly.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.revolut.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://revolut.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.robinhood.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://robinhood.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.rocketmortgage.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://rocketmortgage.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.royallondon.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://royallondon.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.sainsburysbank.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://sainsburysbank.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.santander.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://santander.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.santander.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://santander.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.saxo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://saxo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.sbi.co.in/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://sbi.co.in:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.schwab.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://schwab.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.scotiabank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://scotiabank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.scottishwidows.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://scottishwidows.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.seb.se/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://seb.se:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.sezzle.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://sezzle.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.skrill.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://skrill.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.slc.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://slc.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.smbc.co.jp/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://smbc.co.jp:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.societegenerale.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://societegenerale.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.sofi.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://sofi.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.standardlife.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://standardlife.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.starlingbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://starlingbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.studentaid.gov/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://studentaid.gov:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.swedbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://swedbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.synchrony.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://synchrony.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.tax.service.gov.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://tax.service.gov.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.taxact.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://taxact.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.td.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://td.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.tdameritrade.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://tdameritrade.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.tdbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://tdbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.tescobank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://tescobank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.tide.co/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://tide.co:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.trading212.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://trading212.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.transunion.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://transunion.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.transunion.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://transunion.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.trezor.io/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://trezor.io:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.truist.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://truist.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.tsb.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://tsb.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.turbotax.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://turbotax.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.ubs.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://ubs.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.unicredit.it/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://unicredit.it:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.uobgroup.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://uobgroup.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.uphold.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://uphold.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.upstart.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://upstart.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.usaa.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://usaa.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.usbank.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://usbank.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.vanguard.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://vanguard.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.vanguardinvestor.co.uk/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://vanguardinvestor.co.uk:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.venmo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://venmo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.virginmoney.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://virginmoney.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.wealthfront.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://wealthfront.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.wellsfargo.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://wellsfargo.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.westernunion.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://westernunion.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.westpac.com.au/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://westpac.com.au:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.wise.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://wise.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.worldremit.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://worldremit.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.xe.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://xe.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.xero.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://xero.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.zellepay.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://zellepay.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.zopa.com/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://zopa.com:8443/a/b?q=1",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://internetbanking.example/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://shop-internetbanking.example/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://site.example/internetbanking/page",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://site.example/internetbankings/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-internetbanking/page",
+   "want": []
+  },
+  {
+   "url": "https://myinternetbanking.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=internetbanking",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/INTERNETBANKING",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://online-banking.example/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://shop-online-banking.example/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://site.example/online-banking/page",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://site.example/online-bankings/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-online-banking/page",
+   "want": []
+  },
+  {
+   "url": "https://myonline-banking.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=online-banking",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/ONLINE-BANKING",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://onlinebanking.example/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://shop-onlinebanking.example/",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://site.example/onlinebanking/page",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://site.example/onlinebankings/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-onlinebanking/page",
+   "want": []
+  },
+  {
+   "url": "https://myonlinebanking.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=onlinebanking",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/ONLINEBANKING",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "https://www.1xbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://1xbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.22bet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://22bet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.32red.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://32red.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.888.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://888.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.888casino.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://888casino.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.888poker.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://888poker.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.888sport.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://888sport.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.acrpoker.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://acrpoker.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.americascardroom.eu/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://americascardroom.eu:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.barstoolsportsbook.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://barstoolsportsbook.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bc.game/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bc.game:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.begambleaware.org/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://begambleaware.org:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bet-at-home.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bet-at-home.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bet365.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bet365.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betano.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betano.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betclic.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betclic.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betdaq.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betdaq.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betfair.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betfair.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betfred.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betfred.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betmgm.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betmgm.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betmgm.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betmgm.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betonline.ag/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betonline.ag:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betrivers.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betrivers.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betsson.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betsson.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bettingexpert.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bettingexpert.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betuk.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betuk.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betvictor.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betvictor.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betway.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betway.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.betwinner.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://betwinner.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bitstarz.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bitstarz.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bovada.lv/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bovada.lv:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.boylesports.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://boylesports.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.buzzbingo.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://buzzbingo.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.bwin.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://bwin.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.caesarscasino.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://caesarscasino.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.caesarssportsbook.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://caesarssportsbook.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.casumo.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://casumo.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.cloudbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://cloudbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.codere.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://codere.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.comeon.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://comeon.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.coral.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://coral.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.draftkings.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://draftkings.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.duelbits.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://duelbits.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.espnbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://espnbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.fanduel.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://fanduel.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.fdj.fr/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://fdj.fr:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.foxybingo.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://foxybingo.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.galabingo.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://galabingo.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.galacasino.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://galacasino.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.galaspins.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://galaspins.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.gamblingcommission.gov.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://gamblingcommission.gov.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.gamblingtherapy.org/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://gamblingtherapy.org:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.gamcare.org.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://gamcare.org.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.gamstop.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://gamstop.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.ggpoker.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://ggpoker.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.ggpoker.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://ggpoker.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.grosvenorcasinos.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://grosvenorcasinos.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.ignitioncasino.eu/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://ignitioncasino.eu:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.interwetten.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://interwetten.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.jackpotjoy.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://jackpotjoy.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.kwiff.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://kwiff.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.ladbrokes.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://ladbrokes.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.leovegas.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://leovegas.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.livescorebet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://livescorebet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.lottery.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://lottery.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.lotterypost.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://lotterypost.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.lottoland.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://lottoland.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.matchbook.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://matchbook.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.meccabingo.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://meccabingo.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.megamillions.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://megamillions.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.melbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://melbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.midnite.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://midnite.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.mrgreen.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://mrgreen.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.mybookie.ag/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://mybookie.ag:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.national-lottery.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://national-lottery.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.national-lottery.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://national-lottery.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.natural8.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://natural8.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.neds.com.au/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://neds.com.au:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.nordicbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://nordicbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.oddschecker.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://oddschecker.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.oddsportal.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://oddsportal.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.paddypower.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://paddypower.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.parimatch.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://parimatch.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.partycasino.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://partycasino.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.partypoker.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://partypoker.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.pinnacle.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://pinnacle.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.pmu.fr/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://pmu.fr:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.pointsbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://pointsbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.pokerlistings.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://pokerlistings.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.pokernews.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://pokernews.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.pokerstars.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://pokerstars.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.powerball.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://powerball.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.quinnbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://quinnbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.rollbit.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://rollbit.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.roobet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://roobet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.skybet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://skybet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.smarkets.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://smarkets.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.sportingbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sportingbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.sportingindex.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sportingindex.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.sportium.es/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sportium.es:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.sportsbet.com.au/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sportsbet.com.au:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.sportsbetting.ag/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sportsbetting.ag:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.spreadex.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://spreadex.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.stake.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://stake.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.sunbets.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sunbets.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.tab.com.au/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://tab.com.au:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.talksportbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://talksportbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.thelotter.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://thelotter.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.tipico.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://tipico.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.tipico.de/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://tipico.de:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.tombola.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://tombola.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.tonybet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://tonybet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.unibet.co.uk/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://unibet.co.uk:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.unibet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://unibet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.virginbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://virginbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.williamhill.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://williamhill.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.winamax.fr/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://winamax.fr:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.wsop.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://wsop.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.wynnbet.com/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://wynnbet.com:8443/a/b?q=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://casino.example/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://shop-casino.example/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://site.example/casino/page",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://site.example/casinos/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-casino/page",
+   "want": []
+  },
+  {
+   "url": "https://mycasino.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=casino",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/CASINO",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://poker.example/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://shop-poker.example/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://site.example/poker/page",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://site.example/pokers/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-poker/page",
+   "want": []
+  },
+  {
+   "url": "https://mypoker.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=poker",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/POKER",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sportsbook.example/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://shop-sportsbook.example/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://site.example/sportsbook/page",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://site.example/sportsbooks/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-sportsbook/page",
+   "want": []
+  },
+  {
+   "url": "https://mysportsbook.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=sportsbook",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/SPORTSBOOK",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://www.988lifeline.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://988lifeline.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.aa.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://aa.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.aetna.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://aetna.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.aidsmap.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://aidsmap.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.alcoholics-anonymous.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://alcoholics-anonymous.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.alz.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://alz.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.alzheimers.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://alzheimers.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.amwell.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://amwell.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.anthem.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://anthem.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.anxietyuk.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://anxietyuk.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.arthritis.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://arthritis.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.asthmaandlung.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://asthmaandlung.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.autism.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://autism.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.axahealth.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://axahealth.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bacp.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bacp.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bcbs.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bcbs.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.beateatingdisorders.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://beateatingdisorders.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.betterhelp.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://betterhelp.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bhf.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bhf.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bipolaruk.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bipolaruk.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bpas.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bpas.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.brook.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://brook.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bupa.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bupa.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.bupa.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://bupa.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cancer.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cancer.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cancer.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cancer.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cancerresearchuk.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cancerresearchuk.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cdc.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cdc.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cerebral.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cerebral.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.chemist4u.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://chemist4u.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.chemistdirect.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://chemistdirect.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cigna.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cigna.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.clevelandclinic.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://clevelandclinic.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.counselling-directory.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://counselling-directory.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.crohnsandcolitis.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://crohnsandcolitis.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.cruse.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://cruse.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.diabetes.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://diabetes.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.diabetes.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://diabetes.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.doctor-4-u.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://doctor-4-u.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.doxy.me/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://doxy.me:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.drinkaware.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://drinkaware.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.drugs.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://drugs.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.emedicinehealth.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://emedicinehealth.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.epilepsy.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://epilepsy.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.epilepsy.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://epilepsy.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.euroclinix.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://euroclinix.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.everydayhealth.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://everydayhealth.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.fda.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://fda.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.forhers.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://forhers.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.forhims.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://forhims.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.goodrx.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://goodrx.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.headspace.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://headspace.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.health.harvard.edu/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://health.harvard.edu:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.healthcare.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://healthcare.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.healthline.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://healthline.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.heart.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://heart.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.hims.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://hims.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.hopkinsmedicine.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://hopkinsmedicine.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.hse.ie/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://hse.ie:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.humana.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://humana.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.kaiserpermanente.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://kaiserpermanente.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.kidney.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://kidney.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.livi.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://livi.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.lloydspharmacy.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://lloydspharmacy.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.macmillan.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://macmillan.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mariestopes.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mariestopes.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mayoclinic.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mayoclinic.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mdanderson.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mdanderson.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mdlive.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mdlive.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medexpress.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medexpress.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medicalnewstoday.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medicalnewstoday.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medicare.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medicare.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medicinenet.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medicinenet.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medicines.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medicines.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medlineplus.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medlineplus.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.medscape.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://medscape.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mentalhealth.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mentalhealth.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mhra.gov.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mhra.gov.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mind.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mind.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mskcc.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mskcc.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mssociety.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mssociety.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mychart.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mychart.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.mychart.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://mychart.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nami.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nami.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.narcoticsanonymous.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://narcoticsanonymous.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nationaleatingdisorders.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nationaleatingdisorders.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nationalmssociety.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nationalmssociety.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.netdoctor.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://netdoctor.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nhs.net/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nhs.net:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nhs.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nhs.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nhsinform.scot/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nhsinform.scot:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nice.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nice.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.nih.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://nih.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.numan.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://numan.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.ocdaction.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://ocdaction.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.ocduk.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://ocduk.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.onlinedoctor.superdrug.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://onlinedoctor.superdrug.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.oxfordonlinepharmacy.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://oxfordonlinepharmacy.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.papyrus-uk.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://papyrus-uk.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.parkinsons.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://parkinsons.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.patient.info/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://patient.info:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.patientaccess.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://patientaccess.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.pharmacy2u.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://pharmacy2u.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.plannedparenthood.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://plannedparenthood.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.psychologytoday.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://psychologytoday.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.pushdoctor.co.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://pushdoctor.co.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.rethink.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://rethink.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.ro.co/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://ro.co:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.rxlist.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://rxlist.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.samaritans.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://samaritans.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.samhsa.gov/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://samhsa.gov:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.sane.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://sane.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.stroke.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://stroke.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.stroke.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://stroke.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.talkspace.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://talkspace.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.talktofrank.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://talktofrank.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.teladoc.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://teladoc.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.thecalmzone.net/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://thecalmzone.net:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.tht.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://tht.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.treated.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://treated.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.uhc.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://uhc.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.unitedhealthcare.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://unitedhealthcare.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.uptodate.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://uptodate.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.versusarthritis.org/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://versusarthritis.org:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.verywellhealth.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://verywellhealth.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.verywellmind.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://verywellmind.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.webmd.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://webmd.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.who.int/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://who.int:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.youngminds.org.uk/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://youngminds.org.uk:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.zavamed.com/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://zavamed.com:8443/a/b?q=1",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://symptom-checker.example/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://shop-symptom-checker.example/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://site.example/symptom-checker/page",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://site.example/symptom-checkers/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-symptom-checker/page",
+   "want": []
+  },
+  {
+   "url": "https://mysymptom-checker.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=symptom-checker",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/SYMPTOM-CHECKER",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://symptomchecker.example/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://shop-symptomchecker.example/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://site.example/symptomchecker/page",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://site.example/symptomcheckers/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-symptomchecker/page",
+   "want": []
+  },
+  {
+   "url": "https://mysymptomchecker.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=symptomchecker",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/SYMPTOMCHECKER",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://telehealth.example/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://shop-telehealth.example/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://site.example/telehealth/page",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://site.example/telehealths/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-telehealth/page",
+   "want": []
+  },
+  {
+   "url": "https://mytelehealth.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=telehealth",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/TELEHEALTH",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "https://www.38degrees.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://38degrees.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.abc.net.au/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://abc.net.au:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.abcnews.go.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://abcnews.go.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.aclu.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://aclu.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.actionnetwork.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://actionnetwork.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.adamsmith.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://adamsmith.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.aei.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://aei.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.afp.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://afp.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.aljazeera.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://aljazeera.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.allianceparty.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://allianceparty.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.amnesty.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://amnesty.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.ansa.it/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://ansa.it:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.apnews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://apnews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.avaaz.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://avaaz.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.axios.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://axios.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.ballotpedia.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://ballotpedia.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.bbc.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bbc.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.bbc.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bbc.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.belfasttelegraph.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://belfasttelegraph.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.bigbrotherwatch.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bigbrotherwatch.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.bild.de/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bild.de:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.bloomberg.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bloomberg.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.breitbart.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://breitbart.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.brookings.edu/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://brookings.edu:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.bylinetimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bylinetimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.cato.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://cato.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.cbc.ca/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://cbc.ca:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.cbsnews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://cbsnews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.change.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://change.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.channelnewsasia.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://channelnewsasia.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.chathamhouse.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://chathamhouse.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.cnbc.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://cnbc.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.cnn.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://cnn.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.congress.gov/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://congress.gov:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.conservativehome.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://conservativehome.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.conservatives.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://conservatives.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.corriere.it/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://corriere.it:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.dailymail.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://dailymail.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.dailywire.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://dailywire.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.dawn.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://dawn.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.democrats.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://democrats.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.dnc.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://dnc.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.donaldjtrump.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://donaldjtrump.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.dw.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://dw.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.economist.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://economist.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.electoralcommission.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://electoralcommission.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.elpais.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://elpais.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.euractiv.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://euractiv.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.euronews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://euronews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.europarl.europa.eu/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://europarl.europa.eu:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.express.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://express.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.extinctionrebellion.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://extinctionrebellion.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.fabians.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://fabians.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.faz.net/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://faz.net:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.fivethirtyeight.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://fivethirtyeight.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.foxnews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://foxnews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.france24.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://france24.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.ft.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://ft.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.gbnews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://gbnews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.gop.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://gop.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.greenparty.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://greenparty.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.greenpeace.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://greenpeace.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.haaretz.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://haaretz.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.heraldscotland.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://heraldscotland.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.heritage.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://heritage.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.hindustantimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://hindustantimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.hopenothate.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://hopenothate.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.house.gov/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://house.gov:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.hrw.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://hrw.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.huffpost.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://huffpost.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.iea.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://iea.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.ifs.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://ifs.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.independent.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://independent.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.independent.ie/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://independent.ie:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.inews.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://inews.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.instituteforgovernment.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://instituteforgovernment.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.irishtimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://irishtimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.japantimes.co.jp/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://japantimes.co.jp:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.jpost.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://jpost.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.koreaherald.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://koreaherald.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.kyivindependent.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://kyivindependent.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.labour.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://labour.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.labourlist.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://labourlist.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.latimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://latimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.lbc.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://lbc.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.lefigaro.fr/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://lefigaro.fr:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.lemonde.fr/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://lemonde.fr:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.libdems.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://libdems.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.libertyhumanrights.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://libertyhumanrights.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.meduza.io/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://meduza.io:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.metro.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://metro.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.middleeasteye.net/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://middleeasteye.net:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.migrationwatchuk.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://migrationwatchuk.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.mirror.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://mirror.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.motherjones.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://motherjones.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.moveon.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://moveon.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.msnbc.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://msnbc.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.mydup.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://mydup.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.naacp.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://naacp.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.nationalpost.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://nationalpost.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.nationalreview.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://nationalreview.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.nbcnews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://nbcnews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.ndtv.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://ndtv.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.news.com.au/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://news.com.au:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.news.sky.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://news.sky.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.newsmax.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://newsmax.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.newstatesman.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://newstatesman.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.newsweek.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://newsweek.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.newyorker.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://newyorker.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.novaramedia.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://novaramedia.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.npr.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://npr.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.number10.gov.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://number10.gov.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.nypost.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://nypost.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.nytimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://nytimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.nzherald.co.nz/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://nzherald.co.nz:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.oann.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://oann.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.opendemocracy.net/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://opendemocracy.net:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.openrightsgroup.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://openrightsgroup.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.order-order.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://order-order.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.parliament.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://parliament.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.peoplesmomentum.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://peoplesmomentum.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.plaid.cymru/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://plaid.cymru:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.politico.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://politico.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.politico.eu/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://politico.eu:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.politicshome.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://politicshome.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.private-eye.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://private-eye.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.propublica.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://propublica.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.prospectmagazine.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://prospectmagazine.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.reformuk.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://reformuk.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.repubblica.it/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://repubblica.it:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.resolutionfoundation.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://resolutionfoundation.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.reuters.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://reuters.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.rnc.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://rnc.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.rt.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://rt.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.rte.ie/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://rte.ie:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.scmp.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://scmp.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.scotsman.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://scotsman.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.sdlp.ie/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://sdlp.ie:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.senate.gov/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://senate.gov:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.sierraclub.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://sierraclub.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.sinnfein.ie/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://sinnfein.ie:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.skynews.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://skynews.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.slate.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://slate.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.smh.com.au/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://smh.com.au:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.snp.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://snp.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.spectator.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://spectator.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.spiegel.de/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://spiegel.de:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.standard.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://standard.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.stopthewar.org.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://stopthewar.org.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.straitstimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://straitstimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.stuff.co.nz/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://stuff.co.nz:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.tass.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://tass.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.taxpayersalliance.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://taxpayersalliance.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.telegraph.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://telegraph.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theage.com.au/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theage.com.au:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theatlantic.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theatlantic.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theaustralian.com.au/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theaustralian.com.au:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thecanary.co/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thecanary.co:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thefederalist.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thefederalist.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theglobeandmail.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theglobeandmail.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theguardian.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theguardian.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thehill.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thehill.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thehindu.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thehindu.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theintercept.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theintercept.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thenational.scot/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thenational.scot:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thestar.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thestar.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thesun.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thesun.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thetimes.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thetimes.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.thetimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://thetimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theweek.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theweek.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.theyworkforyou.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://theyworkforyou.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.time.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://time.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.timesofindia.indiatimes.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://timesofindia.indiatimes.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.timesofisrael.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://timesofisrael.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.tortoisemedia.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://tortoisemedia.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.ukip.org/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://ukip.org:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.unherd.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://unherd.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.usatoday.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://usatoday.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.vox.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://vox.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.walesonline.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://walesonline.co.uk:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.washingtonpost.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://washingtonpost.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.whitehouse.gov/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://whitehouse.gov:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.wsj.com/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://wsj.com:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.zeit.de/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://zeit.de:8443/a/b?q=1",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://www.10minutemail.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://10minutemail.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.4everproxy.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://4everproxy.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.addy.io/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://addy.io:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.airvpn.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://airvpn.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.anonymizer.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://anonymizer.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.anonymouse.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://anonymouse.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.astrill.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://astrill.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.atlasvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://atlasvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.azirevpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://azirevpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.betternet.co/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://betternet.co:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.blockaway.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://blockaway.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.briarproject.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://briarproject.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.browserleaks.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://browserleaks.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.cock.li/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://cock.li:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.countermail.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://countermail.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.coveryourtracks.eff.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://coveryourtracks.eff.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.croxyproxy.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://croxyproxy.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.cyberghostvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://cyberghostvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.disroot.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://disroot.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.dnsleaktest.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://dnsleaktest.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.expressvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://expressvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.geti2p.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://geti2p.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.getsession.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://getsession.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ghostery.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ghostery.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.guerrillamail.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://guerrillamail.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hide.me/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hide.me:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hidemy.name/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hidemy.name:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hidemyass.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hidemyass.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hidester.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hidester.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hola.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hola.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hotspotshield.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hotspotshield.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.hushmail.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://hushmail.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.incogni.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://incogni.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ipleak.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ipleak.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ipredator.se/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ipredator.se:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ipvanish.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ipvanish.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ivpn.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ivpn.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.joindeleteme.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://joindeleteme.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.kproxy.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://kproxy.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.mailbox.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://mailbox.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.mailfence.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://mailfence.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.megaproxy.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://megaproxy.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.mullvad.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://mullvad.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.nordvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://nordvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.onionshare.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://onionshare.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ovpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ovpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.perfect-privacy.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://perfect-privacy.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.posteo.de/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://posteo.de:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.privacyguides.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://privacyguides.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.privadovpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://privadovpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.privateinternetaccess.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://privateinternetaccess.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.proton.me/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://proton.me:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.protonmail.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://protonmail.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.protonvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://protonvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.proxyium.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://proxyium.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.proxysite.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://proxysite.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.purevpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://purevpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.riseup.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://riseup.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.securedrop.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://securedrop.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.signal.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://signal.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.simplelogin.io/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://simplelogin.io:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.ssd.eff.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://ssd.eff.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.strongvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://strongvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.surfshark.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://surfshark.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.tails.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://tails.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.temp-mail.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://temp-mail.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.threema.ch/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://threema.ch:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.torguard.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://torguard.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.torproject.org/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://torproject.org:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.tunnelbear.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://tunnelbear.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.tuta.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://tuta.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.tutanota.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://tutanota.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.tutanota.de/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://tutanota.de:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.urban-vpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://urban-vpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.vpnbook.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://vpnbook.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.vpnunlimited.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://vpnunlimited.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.vyprvpn.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://vyprvpn.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.whoer.net/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://whoer.net:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.windscribe.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://windscribe.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.zendproxy.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://zendproxy.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://www.zenmate.com/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://zenmate.com:8443/a/b?q=1",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://anonymizer.example/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://shop-anonymizer.example/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://site.example/anonymizer/page",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://site.example/anonymizers/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-anonymizer/page",
+   "want": []
+  },
+  {
+   "url": "https://myanonymizer.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=anonymizer",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/ANONYMIZER",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://vpn.example/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://shop-vpn.example/",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://site.example/vpn/page",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://site.example/vpns/page",
+   "want": []
+  },
+  {
+   "url": "https://site.example/x-vpn/page",
+   "want": []
+  },
+  {
+   "url": "https://myvpn.example/",
+   "want": []
+  },
+  {
+   "url": "https://site.example/?q=vpn",
+   "want": []
+  },
+  {
+   "url": "https://SITE.example/VPN",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://developer.mozilla.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.mozilla.org/x",
+   "want": []
+  },
+  {
+   "url": "https://github.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.github.com/x",
+   "want": []
+  },
+  {
+   "url": "https://gitlab.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.gitlab.com/x",
+   "want": []
+  },
+  {
+   "url": "https://npmjs.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.npmjs.com/x",
+   "want": []
+  },
+  {
+   "url": "https://pkg.go.dev/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pkg.go.dev/x",
+   "want": []
+  },
+  {
+   "url": "https://pypi.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pypi.org/x",
+   "want": []
+  },
+  {
+   "url": "https://readthedocs.io/",
+   "want": []
+  },
+  {
+   "url": "https://sub.readthedocs.io/x",
+   "want": []
+  },
+  {
+   "url": "https://stackexchange.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackexchange.com/x",
+   "want": []
+  },
+  {
+   "url": "https://stackoverflow.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackoverflow.com/x",
+   "want": []
+  },
+  {
+   "url": "https://wikipedia.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wikipedia.org/x",
+   "want": []
+  },
+  {
+   "url": "https://wiktionary.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wiktionary.org/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.mozilla.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.mozilla.org/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.paypal.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.paypal.com/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.revolut.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.revolut.com/x",
+   "want": []
+  },
+  {
+   "url": "https://developers.binance.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developers.binance.com/x",
+   "want": []
+  },
+  {
+   "url": "https://docs.kraken.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.docs.kraken.com/x",
+   "want": []
+  },
+  {
+   "url": "https://docs.wise.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.docs.wise.com/x",
+   "want": []
+  },
+  {
+   "url": "https://github.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.github.com/x",
+   "want": []
+  },
+  {
+   "url": "https://gitlab.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.gitlab.com/x",
+   "want": []
+  },
+  {
+   "url": "https://npmjs.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.npmjs.com/x",
+   "want": []
+  },
+  {
+   "url": "https://pkg.go.dev/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pkg.go.dev/x",
+   "want": []
+  },
+  {
+   "url": "https://pypi.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pypi.org/x",
+   "want": []
+  },
+  {
+   "url": "https://readthedocs.io/",
+   "want": []
+  },
+  {
+   "url": "https://sub.readthedocs.io/x",
+   "want": []
+  },
+  {
+   "url": "https://stackexchange.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackexchange.com/x",
+   "want": []
+  },
+  {
+   "url": "https://stackoverflow.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackoverflow.com/x",
+   "want": []
+  },
+  {
+   "url": "https://wikipedia.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wikipedia.org/x",
+   "want": []
+  },
+  {
+   "url": "https://wiktionary.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wiktionary.org/x",
+   "want": []
+  },
+  {
+   "url": "https://careers.draftkings.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.careers.draftkings.com/x",
+   "want": []
+  },
+  {
+   "url": "https://careers.fanduel.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.careers.fanduel.com/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.mozilla.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.mozilla.org/x",
+   "want": []
+  },
+  {
+   "url": "https://github.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.github.com/x",
+   "want": []
+  },
+  {
+   "url": "https://gitlab.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.gitlab.com/x",
+   "want": []
+  },
+  {
+   "url": "https://npmjs.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.npmjs.com/x",
+   "want": []
+  },
+  {
+   "url": "https://pkg.go.dev/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pkg.go.dev/x",
+   "want": []
+  },
+  {
+   "url": "https://pypi.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pypi.org/x",
+   "want": []
+  },
+  {
+   "url": "https://readthedocs.io/",
+   "want": []
+  },
+  {
+   "url": "https://sub.readthedocs.io/x",
+   "want": []
+  },
+  {
+   "url": "https://stackexchange.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackexchange.com/x",
+   "want": []
+  },
+  {
+   "url": "https://stackoverflow.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackoverflow.com/x",
+   "want": []
+  },
+  {
+   "url": "https://wikipedia.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wikipedia.org/x",
+   "want": []
+  },
+  {
+   "url": "https://wiktionary.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wiktionary.org/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.mozilla.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.mozilla.org/x",
+   "want": []
+  },
+  {
+   "url": "https://github.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.github.com/x",
+   "want": []
+  },
+  {
+   "url": "https://gitlab.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.gitlab.com/x",
+   "want": []
+  },
+  {
+   "url": "https://jobs.nhs.uk/",
+   "want": []
+  },
+  {
+   "url": "https://sub.jobs.nhs.uk/x",
+   "want": []
+  },
+  {
+   "url": "https://npmjs.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.npmjs.com/x",
+   "want": []
+  },
+  {
+   "url": "https://pkg.go.dev/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pkg.go.dev/x",
+   "want": []
+  },
+  {
+   "url": "https://pypi.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pypi.org/x",
+   "want": []
+  },
+  {
+   "url": "https://readthedocs.io/",
+   "want": []
+  },
+  {
+   "url": "https://sub.readthedocs.io/x",
+   "want": []
+  },
+  {
+   "url": "https://stackexchange.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackexchange.com/x",
+   "want": []
+  },
+  {
+   "url": "https://stackoverflow.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackoverflow.com/x",
+   "want": []
+  },
+  {
+   "url": "https://wikipedia.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wikipedia.org/x",
+   "want": []
+  },
+  {
+   "url": "https://wiktionary.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wiktionary.org/x",
+   "want": []
+  },
+  {
+   "url": "https://cooking.nytimes.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.cooking.nytimes.com/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.nytimes.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.nytimes.com/x",
+   "want": []
+  },
+  {
+   "url": "https://jobs.theguardian.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.jobs.theguardian.com/x",
+   "want": []
+  },
+  {
+   "url": "https://wirecutter.nytimes.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wirecutter.nytimes.com/x",
+   "want": []
+  },
+  {
+   "url": "https://developer.mozilla.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.developer.mozilla.org/x",
+   "want": []
+  },
+  {
+   "url": "https://github.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.github.com/x",
+   "want": []
+  },
+  {
+   "url": "https://gitlab.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.gitlab.com/x",
+   "want": []
+  },
+  {
+   "url": "https://npmjs.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.npmjs.com/x",
+   "want": []
+  },
+  {
+   "url": "https://pkg.go.dev/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pkg.go.dev/x",
+   "want": []
+  },
+  {
+   "url": "https://pypi.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.pypi.org/x",
+   "want": []
+  },
+  {
+   "url": "https://readthedocs.io/",
+   "want": []
+  },
+  {
+   "url": "https://sub.readthedocs.io/x",
+   "want": []
+  },
+  {
+   "url": "https://stackexchange.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackexchange.com/x",
+   "want": []
+  },
+  {
+   "url": "https://stackoverflow.com/",
+   "want": []
+  },
+  {
+   "url": "https://sub.stackoverflow.com/x",
+   "want": []
+  },
+  {
+   "url": "https://wikipedia.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wikipedia.org/x",
+   "want": []
+  },
+  {
+   "url": "https://wiktionary.org/",
+   "want": []
+  },
+  {
+   "url": "https://sub.wiktionary.org/x",
+   "want": []
+  },
+  {
+   "url": "https://www.bet365.com/en/",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://BET365.com",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://sports.bet365.com:8443/x?y=1",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://a.b.c.bbc.co.uk/",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://bbc.co.uk./",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://example.co.uk/",
+   "want": []
+  },
+  {
+   "url": "https://casino-vpn.example/",
+   "want": [
+    "gambling",
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://porn-casino.example/",
+   "want": [
+    "adult",
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://casino.example/vpn/porn",
+   "want": [
+    "adult",
+    "gambling",
+    "privacy"
+   ]
+  },
+  {
+   "url": "https://plain.example/page?q=casino",
+   "want": []
+  },
+  {
+   "url": "https://example.com/",
+   "want": []
+  },
+  {
+   "url": "https://example.org/news",
+   "want": []
+  },
+  {
+   "url": "https://notbet365.example/",
+   "want": []
+  },
+  {
+   "url": "https://notbet365.com/",
+   "want": []
+  },
+  {
+   "url": "https://bet365.com.evil.example/",
+   "want": []
+  },
+  {
+   "url": "https://bet365-com.example/",
+   "want": []
+  },
+  {
+   "url": "https://mynhs.uk/",
+   "want": []
+  },
+  {
+   "url": "https://example.com/bet365.com",
+   "want": []
+  },
+  {
+   "url": "https://example.com/?next=bet365.com",
+   "want": []
+  },
+  {
+   "url": "https://torproject.org.example/",
+   "want": []
+  },
+  {
+   "url": "https://fakepaypal.com/",
+   "want": []
+  },
+  {
+   "url": "https://xbbc.co.uk/",
+   "want": []
+  },
+  {
+   "url": "https://127.0.0.1:8080/",
+   "want": []
+  },
+  {
+   "url": "https://[::1]:8080/vpn",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "http://www.nhs.uk/conditions/",
+   "want": [
+    "health"
+   ]
+  },
+  {
+   "url": "ftp://files.bbc.co.uk/a",
+   "want": [
+    "news_politics"
+   ]
+  },
+  {
+   "url": "https://user:pw@www.paypal.com/signin",
+   "want": [
+    "finance"
+   ]
+  },
+  {
+   "url": "file:///tmp/casino.html",
+   "want": []
+  },
+  {
+   "url": "chrome://settings/",
+   "want": []
+  },
+  {
+   "url": "about:blank",
+   "want": []
+  },
+  {
+   "url": "",
+   "want": []
+  },
+  {
+   "url": "://bad url",
+   "want": []
+  },
+  {
+   "url": "https://games.example/online/Poker/lobby",
+   "want": [
+    "gambling"
+   ]
+  },
+  {
+   "url": "https://free.example/xxx/",
+   "want": [
+    "adult"
+   ]
+  },
+  {
+   "url": "https://games.example/poker-hand-evaluator",
+   "want": []
+  },
+  {
+   "url": "https://pokerface.example/",
+   "want": []
+  },
+  {
+   "url": "https://example.com/Caf%C3%A9/vpn",
+   "want": [
+    "privacy"
+   ]
+  },
+  {
+   "url": "mailto:a@casino.example",
+   "want": []
+  }
+ ],
+ "user": [
+  {
+   "name": "add and allow",
+   "rules": {
+    "add": {
+     "gambling": {
+      "domains": [
+       "lucky.example",
+       "*.Other.Example"
+      ],
+      "keywords": [
+       "lotto"
+      ]
+     },
+     "finance": {
+      "domains": [
+       "mybank.example"
+      ]
+     }
+    },
+    "allow": {
+     "news_politics": {
+      "domains": [
+       "bbc.co.uk"
+      ]
+     },
+     "gambling": {
+      "domains": [
+       "bet365.com"
+      ],
+      "keywords": [
+       "pokerface"
+      ]
+     },
+     "privacy": {
+      "keywords": [
+       "vpn-docs"
+      ]
+     }
+    }
+   },
+   "cases": [
+    {
+     "url": "https://lucky.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://www.lucky.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://x.other.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://shop.example/lotto/results",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://shop.example/LOTTOS",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://mybank.example/",
+     "want": [
+      "finance"
+     ]
+    },
+    {
+     "url": "https://notlucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.bbc.co.uk/news",
+     "want": []
+    },
+    {
+     "url": "https://bet365.com/",
+     "want": []
+    },
+    {
+     "url": "https://sub.bet365.com/",
+     "want": []
+    },
+    {
+     "url": "https://games.example/pokerface/",
+     "want": []
+    },
+    {
+     "url": "https://games.example/poker/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://lucky.example/pokerface",
+     "want": []
+    },
+    {
+     "url": "https://casino-vpn.example/vpn-docs",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/x",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://my-clinic.example/",
+     "want": []
+    },
+    {
+     "url": "https://example.com/clinicians",
+     "want": []
+    },
+    {
+     "url": "https://www.nhs.uk/clinic",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://github.com/",
+     "want": []
+    },
+    {
+     "url": "https://sub.github.com/porn",
+     "want": []
+    },
+    {
+     "url": "https://safe.example/porn",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://porn.example/",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://example.com/",
+     "want": []
+    }
+   ]
+  },
+  {
+   "name": "allow domain beats keyword",
+   "rules": {
+    "allow": {
+     "gambling": {
+      "domains": [
+       "casino-news.example"
+      ]
+     }
+    }
+   },
+   "cases": [
+    {
+     "url": "https://lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://x.other.example/",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/lotto/results",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/LOTTOS",
+     "want": []
+    },
+    {
+     "url": "https://mybank.example/",
+     "want": []
+    },
+    {
+     "url": "https://notlucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.bbc.co.uk/news",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://sub.bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://games.example/pokerface/",
+     "want": []
+    },
+    {
+     "url": "https://games.example/poker/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://lucky.example/pokerface",
+     "want": []
+    },
+    {
+     "url": "https://casino-vpn.example/vpn-docs",
+     "want": [
+      "gambling",
+      "privacy"
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/",
+     "want": []
+    },
+    {
+     "url": "https://casino-news.example/x",
+     "want": []
+    },
+    {
+     "url": "https://my-clinic.example/",
+     "want": []
+    },
+    {
+     "url": "https://example.com/clinicians",
+     "want": []
+    },
+    {
+     "url": "https://www.nhs.uk/clinic",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://github.com/",
+     "want": []
+    },
+    {
+     "url": "https://sub.github.com/porn",
+     "want": []
+    },
+    {
+     "url": "https://safe.example/porn",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://porn.example/",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://example.com/",
+     "want": []
+    }
+   ]
+  },
+  {
+   "name": "user keyword is a substring",
+   "rules": {
+    "add": {
+     "health": {
+      "keywords": [
+       "clinic"
+      ]
+     }
+    }
+   },
+   "cases": [
+    {
+     "url": "https://lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://x.other.example/",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/lotto/results",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/LOTTOS",
+     "want": []
+    },
+    {
+     "url": "https://mybank.example/",
+     "want": []
+    },
+    {
+     "url": "https://notlucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.bbc.co.uk/news",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://sub.bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://games.example/pokerface/",
+     "want": []
+    },
+    {
+     "url": "https://games.example/poker/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://lucky.example/pokerface",
+     "want": []
+    },
+    {
+     "url": "https://casino-vpn.example/vpn-docs",
+     "want": [
+      "gambling",
+      "privacy"
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/x",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://my-clinic.example/",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://example.com/clinicians",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://www.nhs.uk/clinic",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://github.com/",
+     "want": []
+    },
+    {
+     "url": "https://sub.github.com/porn",
+     "want": []
+    },
+    {
+     "url": "https://safe.example/porn",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://porn.example/",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://example.com/",
+     "want": []
+    }
+   ]
+  },
+  {
+   "name": "user add not affected by bundled allow",
+   "rules": {
+    "add": {
+     "adult": {
+      "domains": [
+       "github.com"
+      ]
+     }
+    }
+   },
+   "cases": [
+    {
+     "url": "https://lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://x.other.example/",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/lotto/results",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/LOTTOS",
+     "want": []
+    },
+    {
+     "url": "https://mybank.example/",
+     "want": []
+    },
+    {
+     "url": "https://notlucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.bbc.co.uk/news",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://sub.bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://games.example/pokerface/",
+     "want": []
+    },
+    {
+     "url": "https://games.example/poker/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://lucky.example/pokerface",
+     "want": []
+    },
+    {
+     "url": "https://casino-vpn.example/vpn-docs",
+     "want": [
+      "gambling",
+      "privacy"
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/x",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://my-clinic.example/",
+     "want": []
+    },
+    {
+     "url": "https://example.com/clinicians",
+     "want": []
+    },
+    {
+     "url": "https://www.nhs.uk/clinic",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://github.com/",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://sub.github.com/porn",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://safe.example/porn",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://porn.example/",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://example.com/",
+     "want": []
+    }
+   ]
+  },
+  {
+   "name": "allow keyword needs a match to apply",
+   "rules": {
+    "allow": {
+     "adult": {
+      "keywords": [
+       "safe"
+      ]
+     }
+    }
+   },
+   "cases": [
+    {
+     "url": "https://lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.lucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://x.other.example/",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/lotto/results",
+     "want": []
+    },
+    {
+     "url": "https://shop.example/LOTTOS",
+     "want": []
+    },
+    {
+     "url": "https://mybank.example/",
+     "want": []
+    },
+    {
+     "url": "https://notlucky.example/",
+     "want": []
+    },
+    {
+     "url": "https://www.bbc.co.uk/news",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://sub.bet365.com/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://games.example/pokerface/",
+     "want": []
+    },
+    {
+     "url": "https://games.example/poker/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://lucky.example/pokerface",
+     "want": []
+    },
+    {
+     "url": "https://casino-vpn.example/vpn-docs",
+     "want": [
+      "gambling",
+      "privacy"
+     ]
+    },
+    {
+     "url": "https://www.theguardian.com/",
+     "want": [
+      "news_politics"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://casino-news.example/x",
+     "want": [
+      "gambling"
+     ]
+    },
+    {
+     "url": "https://my-clinic.example/",
+     "want": []
+    },
+    {
+     "url": "https://example.com/clinicians",
+     "want": []
+    },
+    {
+     "url": "https://www.nhs.uk/clinic",
+     "want": [
+      "health"
+     ]
+    },
+    {
+     "url": "https://github.com/",
+     "want": []
+    },
+    {
+     "url": "https://sub.github.com/porn",
+     "want": []
+    },
+    {
+     "url": "https://safe.example/porn",
+     "want": []
+    },
+    {
+     "url": "https://porn.example/",
+     "want": [
+      "adult"
+     ]
+    },
+    {
+     "url": "https://example.com/",
+     "want": []
+    }
+   ]
+  }
+ ]
+}

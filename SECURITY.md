@@ -51,6 +51,14 @@ In scope:
 - the rules-file parser (`internal/classify`);
 - bypasses of the "hide sensitive details" masking, where flagged text, URLs or domains still reach the page, the CSV export or the API results when masking is on.
 
+Chrome extension (`extension/`):
+
+- cross-site scripting through history strings (titles, URLs, domains) in the extension pages, and any weakening of the extension-page CSP (`default-src 'none'`, no inline script, `connect-src 'none'`);
+- anything that makes the extension send data off the device, load remote code, or request more permissions than `history` and `storage` (no host permissions);
+- the user rules parser (`extension/src/classify`): size limit, prototype pollution, regular-expression denial of service;
+- bypasses of "Hide sensitive details" in the page or the CSV export;
+- the release zip: files that should not ship (test-only code, fixture mode) being reachable from it.
+
 Out of scope:
 
 - attacks that need local code execution or access to the same user account: the tool reads files that user can already read;

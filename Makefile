@@ -9,7 +9,7 @@ BIN ?= bin/chrome-history
 export CGO_ENABLED ?= 0
 LDFLAGS := -s -w
 
-.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down
+.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check extension-lint extension-zip
 
 build:
 	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/chrome-history
@@ -23,6 +23,18 @@ cross:
 	GOOS=darwin  GOARCH=arm64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-darwin-arm64 ./cmd/chrome-history
 	GOOS=darwin  GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-darwin-amd64 ./cmd/chrome-history
 	GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-windows-amd64.exe ./cmd/chrome-history
+
+# Chrome extension tests: Node >= 22 on the host, no dependencies.
+extension-test:
+	cd extension && node --test "test/*.test.js"
+
+# Copy internal/classify/rules.json (source of truth) into the extension.
+extension-sync:
+	node extension/scripts/sync-rules.mjs
+
+# Fail if the extension's copy of the rules is out of date.
+extension-check:
+	node extension/scripts/sync-rules.mjs --check
 
 fixture:
 	go run ./cmd/make-fixture -out fixture
@@ -50,3 +62,12 @@ dev-shell:
 dev-down:
 	-devpod delete $(DEVPOD_WS) --force
 	-kubectl delete namespace $(DEV_NAMESPACE) --ignore-not-found
+
+# Validate the extension manifest (permissions, CSP, icons, version format).
+extension-lint:
+	node extension/scripts/build-zip.mjs --lint
+
+# Reproducible Web Store / release zip in dist/ (allowlist; no tests, scripts or fixtures).
+# Pass TAG=vX.Y.Z to require the manifest version to match.
+extension-zip: extension-check extension-lint
+	node extension/scripts/build-zip.mjs --out dist $(if $(TAG),--tag "$$TAG",)

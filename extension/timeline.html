@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>History timeline</title>
+<link rel="icon" href="ui/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="ui/timeline.css">
+</head>
+<body>
+<a class="skip" href="#timeline">Skip to timeline</a>
+<a class="skip" href="#filters">Skip to filters</a>
+<header class="top">
+  <h1>History</h1>
+  <button type="button" id="settings-btn" aria-expanded="false" aria-controls="settings">Settings</button>
+  <progress id="load-progress" aria-label="Loading history" hidden></progress>
+  <button type="button" id="load-cancel" hidden>Cancel loading</button>
+  <span id="status" role="status" aria-live="polite"></span>
+</header>
+
+<main>
+  <p id="rules-notice" class="rules-error" role="status"></p>
+  <section id="settings" class="settings" aria-label="Classification rules" hidden>
+    <h2>Your classification rules</h2>
+    <p>Stored only in this browser profile. <code>add</code> flags more domains or keywords in a category; <code>allow</code> removes matches (it wins over everything else).</p>
+    <pre>{"add": {"finance": {"domains": ["mybank.example"]}},
+ "allow": {"news_politics": {"domains": ["example.org"]}}}</pre>
+    <label for="rules-text">Rules (JSON, leave empty for none)</label>
+    <textarea id="rules-text" spellcheck="false" aria-describedby="rules-error"></textarea>
+    <p id="rules-error" class="rules-error" role="alert"></p>
+    <div class="row">
+      <button type="button" id="rules-save">Save rules</button>
+      <button type="button" id="rules-revert">Revert changes</button>
+      <span id="rules-status" role="status" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="overview" aria-label="Overview">
+    <div class="chart-wrap">
+      <h2>Activity <small id="chart-unit"></small><small><span class="legend-flag" aria-hidden="true"></span>striped = flagged visits</small></h2>
+      <div id="chart" class="chart" role="group" aria-label="Visits per period. Use left and right arrow keys to move between bars, Enter to zoom to that period."></div>
+    </div>
+    <div class="domains-wrap">
+      <h2>Top domains</h2>
+      <ol id="domains" class="domains"></ol>
+    </div>
+  </section>
+
+  <form id="filters" class="filters" tabindex="-1" autocomplete="off">
+    <label>From <input type="date" id="f-start"></label>
+    <label>To <input type="date" id="f-end"></label>
+    <label class="grow">Search <input type="search" id="f-q" placeholder="title or URL"></label>
+    <label>Domain <input type="text" id="f-domain" placeholder="example.com"></label>
+    <details class="transitions">
+      <summary>Transition types</summary>
+      <div id="f-trans" class="trans-list"></div>
+    </details>
+    <label class="hide-toggle"><input type="checkbox" id="f-hide"> Hide sensitive details</label>
+    <button type="button" id="f-reset">Reset</button>
+    <button type="button" id="f-csv">Export CSV</button>
+  </form>
+  <div id="mask-live" role="status" aria-live="polite"><p id="mask-note" class="mask-note" hidden>Sensitive visits are hidden and are not included in this search.</p></div>
+  <fieldset id="cats" class="cats">
+    <legend>Flagged categories <small>(show only visits in any selected category)</small></legend>
+    <div id="cat-chips" class="chips"></div>
+  </fieldset>
+  <div id="summary-line" class="summary-line"></div>
+
+  <div id="timeline" class="timeline" tabindex="-1"></div>
+  <div id="sentinel" class="sentinel"><button type="button" id="more" hidden>Load more</button></div>
+  <p id="empty" class="empty" hidden>No visits match these filters.</p>
+</main>
+<script type="module" src="ui/main.js"></script>
+</body>
+</html>
