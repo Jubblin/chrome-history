@@ -23,6 +23,7 @@ check "README only" false false false README.md
 check "root docs and license" false false false CONTRIBUTING.md SECURITY.md LICENSE
 check "devcontainer only" false false false .devcontainer/devcontainer.json
 check "extension src only" false true true extension/src/background.js
+check "go file under extension counts as Go too" true true true extension/tools/gen.go
 check "extension manifest" false true true extension/manifest.json
 check "extension store only" false false false extension/store/listing.txt
 check "extension readme only" false false false extension/README.md

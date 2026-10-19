@@ -13,6 +13,7 @@
 #   shared, run everything:
 #     Makefile, .gitattributes, .github/**,
 #     internal/classify/rules.json, internal/classify/vectors_test.go
+#   extension/**/*.go: Go as well as extension and javascript
 #   extension (and javascript): extension/**
 #   Go: **/*.go, go.mod, go.sum, cmd/**, internal/**
 #   Go and javascript: web/**
@@ -35,6 +36,11 @@ while IFS= read -r p || [ -n "$p" ]; do
 	esac
 	case $p in
 	Makefile | .gitattributes | .github/* | internal/classify/rules.json | internal/classify/vectors_test.go)
+		go=true
+		ext=true
+		js=true
+		;;
+	extension/*.go)
 		go=true
 		ext=true
 		js=true

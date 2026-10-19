@@ -70,7 +70,8 @@ A first job, `changes`, looks at the files a pull request (or a push to `main`) 
 |---|---|---|---|
 | `**/*.go`, `go.mod`, `go.sum`, `cmd/**`, `internal/**` | yes | no | no |
 | `web/**` | yes | no | yes |
-| `extension/**` (except the docs below) | no | yes | yes |
+| `extension/**/*.go` | yes | yes | yes |
+| `extension/**` (other than Go files and the docs below) | no | yes | yes |
 | `Makefile`, `.gitattributes`, `.github/**`, `internal/classify/rules.json`, `internal/classify/vectors_test.go` | yes | yes | yes |
 | root `*.md`, `LICENSE`, `.devcontainer/**`, `extension/store/**`, `extension/**/*.md` | no | no | no |
 | anything else, or an empty or unknown diff | yes | yes | yes |
