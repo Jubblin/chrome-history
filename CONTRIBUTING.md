@@ -29,12 +29,12 @@ Option 1: the devcontainer on a local k3s cluster, through DevPod (see [.devcont
 
 ```
 export KUBECONFIG=$HOME/.kube/config
-make dev-up       # create/start the pod (Go 1.22)
+make dev-up       # create/start the pod (Go 1.27)
 make dev-shell    # shell into it
 make dev-down     # delete the pod, volume and namespace
 ```
 
-Option 2: install Go 1.22 or newer locally and run the commands below directly.
+Option 2: install Go 1.26 or newer locally and run the commands below directly.
 
 ## Build, test and lint
 

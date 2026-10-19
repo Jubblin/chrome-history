@@ -82,12 +82,16 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         go: [stable]
         include:
-          # Proves the minimum Go version in go.mod still builds and tests.
-          # Older toolchains cannot run -race binaries on current macOS, so
-          # the minimum is only checked on Linux.
+          # Proves the oldest supported Go release still builds and tests.
+          # go.mod's go directive (1.26.0) is the real minimum, and its
+          # toolchain line names the newer release used for development, so
+          # this job pins GOTOOLCHAIN=local to stop the toolchain line from
+          # silently switching it to the newer release. Older toolchains
+          # cannot run -race binaries on current macOS, so the oldest is only
+          # checked on Linux. Bump together with go.mod when Go 1.26 goes EOL.
           - os: ubuntu-latest
-            go: oldest
-            gofile: go.mod
+            go: "1.26"
+            toolchain: local
     name: test (${{ matrix.os }}, ${{ matrix.go }})
     runs-on: ${{ matrix.os }}
     steps:
@@ -96,11 +100,11 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
-          # Exactly one of the two inputs is set: oldest uses go.mod, the
-          # others use the go-version from the matrix.
-          go-version: ${{ matrix.gofile == '' && matrix.go || '' }}
-          go-version-file: ${{ matrix.gofile }}
+          go-version: ${{ matrix.go }}
           cache: true
+      - name: Never switch toolchains (the job must run the Go it names)
+        if: matrix.toolchain == 'local'
+        run: echo "GOTOOLCHAIN=local" >> "$GITHUB_ENV"
       - name: Build (CGO off)
         run: go build ./...
         env:
