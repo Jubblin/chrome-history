@@ -47,7 +47,7 @@ test('zip is reproducible: two builds are byte-identical', () => {
 
 test('zip name carries the manifest version and manifest is at the root', () => {
   const m = JSON.parse(files.get('manifest.json'));
-  assert.ok(zipPath.endsWith(`chrome-history-extension_v${m.version}.zip`));
+  assert.ok(zipPath.endsWith(`history-timeline-extension_v${m.version}.zip`));
   assert.deepEqual(lintManifest(m), []);
 });
 

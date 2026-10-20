@@ -121,10 +121,10 @@ func TestSweepStale(t *testing.T) {
 		}
 		return d
 	}
-	stale := mk("chrome-history-stale", time.Hour)
-	fresh := mk("chrome-history-fresh", time.Minute)
+	stale := mk("history-timeline-stale", time.Hour)
+	fresh := mk("history-timeline-fresh", time.Minute)
 	other := mk("something-else", time.Hour)
-	file := filepath.Join(root, "chrome-history-file")
+	file := filepath.Join(root, "history-timeline-file")
 	os.WriteFile(file, nil, 0o600)
 	os.Chtimes(file, time.Now().Add(-time.Hour), time.Now().Add(-time.Hour))
 

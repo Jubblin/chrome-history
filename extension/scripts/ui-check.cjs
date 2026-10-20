@@ -103,7 +103,7 @@ const rows = (page) => page.locator('#timeline .visit').count();
     await page.fill('#f-q', 'XSS title');
     await page.waitForFunction(() => /^[\d,]+ visits? match(es)?/.test(document.getElementById('summary-line').textContent) && document.querySelectorAll('#timeline .visit').length <= 2);
     const shown = await page.locator('#timeline .vtitle').first().textContent();
-    check(xss.imgs === 0 && xss.title === 'History timeline' && xss.anchors === 0 && shown.includes('<img'), 'XSS-style titles rendered as text only; javascript: URLs not linked');
+    check(xss.imgs === 0 && xss.title === 'Browsing History Timeline' && xss.anchors === 0 && shown.includes('<img'), 'XSS-style titles rendered as text only; javascript: URLs not linked');
     await page.fill('#f-q', '');
 
     // chart zoom + roving tabindex

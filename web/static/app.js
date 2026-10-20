@@ -11,7 +11,7 @@ const CAT_ICON = { adult: '18+', gambling: '\u2660', health: '+', finance: '$', 
 const CAT_LABEL = { adult: 'Adult', gambling: 'Gambling', health: 'Health', finance: 'Finance',
   privacy: 'Privacy tools', news_politics: 'News & politics' };
 const catLabel = c => CAT_LABEL[c] || c;
-const HIDE_KEY = 'chrome-history.hideSensitive';
+const HIDE_KEY = 'history-timeline.hideSensitive';
 const MASK = '[hidden]';
 const $ = id => document.getElementById(id);
 const st = { profile: '', gapMs: 30 * 60000, offset: 0, total: 0, loading: false, done: false,

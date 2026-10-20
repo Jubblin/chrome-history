@@ -342,13 +342,13 @@ func ParseCategories(names []string) ([]string, error) {
 	return out, nil
 }
 
-// DefaultRulesPath returns <user config dir>/chrome-history/rules.json.
+// DefaultRulesPath returns <user config dir>/history-timeline/rules.json.
 func DefaultRulesPath() (string, error) {
 	d, err := os.UserConfigDir()
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(d, "chrome-history", "rules.json"), nil
+	return filepath.Join(d, "history-timeline", "rules.json"), nil
 }
 
 // ParseUserRules parses and validates user rules JSON. Unknown fields,

@@ -96,7 +96,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   }
   const out = resolve(opt('--out') ?? join(root, '..', 'dist'));
   mkdirSync(out, { recursive: true });
-  const file = join(out, `chrome-history-extension_v${m.version}.zip`);
+  const file = join(out, `history-timeline-extension_v${m.version}.zip`);
   writeFileSync(file, buildZip(files));
   console.log(relative(process.cwd(), file) || file, `(${files.length} files)`);
 }

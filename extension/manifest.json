@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Chrome History Audit Timeline",
-  "version": "0.2.1",
+  "name": "Browsing History Timeline",
+  "version": "0.3.0",
   "description": "A local, read-only audit timeline of this profile's browsing history. Makes no network requests.",
   "minimum_chrome_version": "116",
   "permissions": [

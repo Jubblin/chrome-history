@@ -2,27 +2,27 @@
 export KUBECONFIG ?= $(HOME)/.kube/config
 export PATH := $(HOME)/.local/bin:$(PATH)
 
-DEVPOD_WS ?= chrome-history
-DEV_NAMESPACE ?= chrome-history-dev
+DEVPOD_WS ?= history-timeline
+DEV_NAMESPACE ?= history-timeline-dev
 
-BIN ?= bin/chrome-history
+BIN ?= bin/history-timeline
 export CGO_ENABLED ?= 0
 LDFLAGS := -s -w
 
 .PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check extension-lint extension-zip
 
 build:
-	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/chrome-history
+	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/history-timeline
 
 test:
 	go vet ./...
 	go test -count=1 ./...
 
 cross:
-	GOOS=linux   GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-linux-amd64 ./cmd/chrome-history
-	GOOS=darwin  GOARCH=arm64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-darwin-arm64 ./cmd/chrome-history
-	GOOS=darwin  GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-darwin-amd64 ./cmd/chrome-history
-	GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/chrome-history-windows-amd64.exe ./cmd/chrome-history
+	GOOS=linux   GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/history-timeline-linux-amd64 ./cmd/history-timeline
+	GOOS=darwin  GOARCH=arm64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/history-timeline-darwin-arm64 ./cmd/history-timeline
+	GOOS=darwin  GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/history-timeline-darwin-amd64 ./cmd/history-timeline
+	GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "$(LDFLAGS)" -o dist/history-timeline-windows-amd64.exe ./cmd/history-timeline
 
 # Chrome extension tests: Node >= 22 on the host, no dependencies.
 extension-test:

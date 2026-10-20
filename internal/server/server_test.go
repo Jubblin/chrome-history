@@ -13,7 +13,7 @@ import (
 	"testing/fstest"
 	"time"
 
-	"chrome-history/internal/history"
+	"history-timeline/internal/history"
 
 	_ "modernc.org/sqlite"
 )
