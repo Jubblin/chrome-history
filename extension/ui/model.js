@@ -1,7 +1,8 @@
 // Pure view-model logic for the timeline (no DOM, no chrome.* APIs) so it can be unit tested.
 import { dayKey, filterVisits, DEFAULT_SESSION_GAP_MS } from '../src/history/index.js';
 
-export const MASK = '[hidden]';
+import { MASK, csvCell } from './ui-common.js';
+export { MASK, csvCell };
 export const plural = (n, one, many = one + 's') => `${n.toLocaleString()} ${n === 1 ? one : many}`;
 export const EMPTY_HISTORY = 'The browser has no browsing history for this profile (it may be new, or its history was cleared). Visit some pages, then reload this tab.';
 export const EMPTY_FILTERED = 'No visits match these filters.';
@@ -115,11 +116,6 @@ export function layout(visits, gapMs = DEFAULT_SESSION_GAP_MS) {
 }
 
 // ---- CSV ----
-export function csvCell(value) {
-  let s = String(value ?? '');
-  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
-  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-}
 // Masks every flagged visit regardless of per-row reveals when `hide` is on.
 export function toCsv(visits, hide) {
   const rows = [['time', 'url', 'title', 'domain', 'transition', 'categories'].join(',')];

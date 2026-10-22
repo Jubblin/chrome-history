@@ -38,7 +38,7 @@ check "web only" true false true web/static/app.js
 check "Makefile" true true true Makefile
 check ".gitattributes" true true true .gitattributes
 check "workflow" true true true .github/workflows/ci.yml
-check "dependabot" true true true .github/dependabot.yml
+check "renovate config" true true true renovate.json
 check "mix docs and go" true false false README.md cmd/x/main.go
 check "mix extension and go" true true true extension/src/a.js cmd/x/main.go
 check "mix docs and extension store" false false false README.md extension/store/a.png

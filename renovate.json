@@ -5,6 +5,18 @@
   "baseBranchPatterns": [
     "main"
   ],
-  "labels": ["dependencies", "renovate", "hugo"],
-  "automergeStrategy": "merge-commit"
+  "labels": ["dependencies", "renovate"],
+  "automergeStrategy": "merge-commit",
+  "packageRules": [
+    {
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "go-minor-patch"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "actions-minor-patch"
+    }
+  ]
 }

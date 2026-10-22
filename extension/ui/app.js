@@ -1,33 +1,22 @@
 // Timeline page. All history-derived strings (titles, URLs, domains) are untrusted:
 // they only enter the DOM via textContent / setAttribute, never innerHTML.
 import { loadVisits, TRANSITIONS } from '../src/history/index.js';
+import { el, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, downloadBlob, buildTransitionFilter, fillRow as sharedFillRow } from './ui-common.js';
 import { CATEGORIES, createClassifier, parseUserRules, loadBundledRules } from './classify-import.js';
-import { MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED, isFlagged, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
+import { MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
 
 const PAGE = 200;
 const HIDE_KEY = 'history-timeline.hideSensitive';
 const RULES_KEY = 'userRulesText';
-const CAT_ICON = { adult: '18+', gambling: '♠', health: '+', finance: '$', privacy: '◍', news_politics: '§' };
 const catLabel = (id) => CATEGORIES.find((c) => c.id === id)?.label ?? id;
+const catBadge = (c) => makeCatBadge(c, catLabel(c));
 const $ = (id) => document.getElementById(id);
-const pad = (n) => String(n).padStart(2, '0');
-const localTime = (ms) => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-const fmtDay = (ms) => new Date(ms).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-const num = (n) => n.toLocaleString();
 
 const st = { all: [], classifier: null, bundled: null, hide: false, revealed: new Set(), cats: new Set(),
   filtered: [], lay: null, rendered: 0, cur: { day: -1, sess: -1, dayEl: null, sessEl: null }, loading: false, rulesSaved: '' };
 
-function el(tag, cls, text) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (text != null) e.textContent = text;
-  return e;
-}
 const setStatus = (m) => { $('status').textContent = m || ''; };
-const hue = (s) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % 360; };
-const safeHref = (u) => { try { const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
 
 // ---- storage (chrome.storage.local; in-memory fallback if the permission is absent) ----
 const mem = {};
@@ -45,25 +34,8 @@ function selectedTransitions() {
 const filters = () => ({ start: $('f-start').value, end: $('f-end').value, text: $('f-q').value, domain: $('f-domain').value,
   transitions: selectedTransitions(), cats: st.cats });
 
-function buildTransitionFilter() {
-  for (const t of TRANSITIONS) {
-    const l = el('label');
-    const c = el('input');
-    c.type = 'checkbox'; c.checked = true; c.value = t;
-    c.addEventListener('change', () => refresh());
-    l.append(c, document.createTextNode(t));
-    $('f-trans').appendChild(l);
-  }
-}
 
 // ---- rendering ----
-function catBadge(c) {
-  const b = el('span', 'cat cat-' + c);
-  const ic = el('i', '', CAT_ICON[c] || '*');
-  ic.setAttribute('aria-hidden', 'true');
-  b.append(ic, el('span', '', catLabel(c)));
-  return b;
-}
 
 function renderChart(visits) {
   const { unit, bins } = chartBins(visits);
@@ -130,43 +102,13 @@ function renderChips(visits) {
   if (had) box.querySelector(`[data-cat="${had}"]`)?.focus();
 }
 
-function fillRow(row, v) {
-  const masked = isMasked(v, st.hide, st.revealed);
-  row.classList.toggle('masked', masked);
-  const t = el('time', '', localTime(v.time));
-  t.dateTime = new Date(v.time).toISOString();
-  const badge = el('span', 'badge', masked ? MASK : (v.domain || '(none)'));
-  if (masked) badge.classList.add('domain-hidden'); else badge.style.background = `hsl(${hue(v.domain)} 45% 38%)`;
-  const main = el('div', 'vmain');
-  let tl, url;
-  if (masked) {
-    tl = el('span', 'vtitle', 'Sensitive details hidden');
-    url = el('span', 'vurl', '••••••••');
-  } else {
-    const title = v.title || v.url;
-    const href = safeHref(v.url);
-    if (href) { tl = el('a', 'vtitle', title); tl.href = href; tl.rel = 'noopener noreferrer'; tl.target = '_blank'; }
-    else tl = el('span', 'vtitle', title);
-    tl.title = title;
-    url = el('span', 'vurl', v.url); url.title = v.url;
-  }
-  main.append(tl, url);
-  const meta = el('div', 'vmeta');
-  for (const c of v.categories) meta.append(catBadge(c));
-  meta.append(el('span', 'tr', v.transition));
-  if (st.hide && isFlagged(v)) {
-    const rb = el('button', 'reveal', masked ? 'Reveal' : 'Hide');
-    rb.type = 'button';
-    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${localTime(v.time)} visit`);
-    rb.addEventListener('click', () => {
-      if (masked) st.revealed.add(v.visitId); else st.revealed.delete(v.visitId);
-      fillRow(row, v);
-      row.querySelector('.reveal')?.focus();
-    });
-    meta.append(rb);
-  }
-  row.replaceChildren(t, badge, main, meta);
-}
+const toView = (v) => ({
+  id: v.visitId, timeMs: v.time, iso: new Date(v.time).toISOString(), url: v.url, title: v.title, domain: v.domain,
+  transition: v.transition, categories: v.categories, durationMs: 0,
+  masked: isMasked(v, st.hide, st.revealed), hide: st.hide,
+  onToggleReveal: () => { if (st.revealed.has(v.visitId)) st.revealed.delete(v.visitId); else st.revealed.add(v.visitId); },
+});
+const fillRow = (row, v) => sharedFillRow(row, () => toView(v), catBadge);
 
 function renderMore(count) {
   const tl = $('timeline');
@@ -326,21 +268,14 @@ function initSettings(savedText) {
 // ---- CSV ----
 function exportCsv() {
   const blob = new Blob([toCsv(st.filtered, st.hide)], { type: 'text/csv' });
-  const a = el('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'history.csv';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  downloadBlob(blob, 'history.csv');
   setStatus(`Exported ${num(st.filtered.length)} rows`);
 }
 
 // ---- wiring ----
-const debounce = (fn, ms) => { let t; return () => { clearTimeout(t); t = setTimeout(fn, ms); }; };
 
 function wire() {
-  buildTransitionFilter();
+  buildTransitionFilter($('f-trans'), TRANSITIONS, () => refresh());
   $('filters').addEventListener('submit', (e) => e.preventDefault());
   const deb = debounce(() => refresh(), 250);
   $('f-q').addEventListener('input', deb);

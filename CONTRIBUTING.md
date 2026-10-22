@@ -126,7 +126,7 @@ Once the workflow succeeds:
 
 Re-running the workflow for a tag whose release is still a draft replaces the draft's assets; if the release is already published the job fails with a clear message and changes nothing. Attestations are created at build time for the archives and `SHA256SUMS`, so the draft state does not affect them. Check a download with `sha256sum -c SHA256SUMS` or `gh attestation verify <file> --repo Jubblin/history-timeline`.
 
-CI (`ci.yml`) and the security scans (`security.yml`) run on every pull request. Workflow actions are pinned to full commit SHAs and updated by Dependabot.
+CI (`ci.yml`) and the security scans (`security.yml`) run on every pull request. Workflow actions are pinned to full commit SHAs and updated by Renovate.
 
 ## Pull requests
 
