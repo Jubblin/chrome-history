@@ -1,4 +1,4 @@
-import { MASK, el, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, csvCell, downloadBlob, buildTransitionFilter, fillRow as sharedFillRow } from './ui-common.js';
+import { MASK, binOf, binRange, el, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, csvCell, downloadBlob, buildTransitionFilter, fillRow as sharedFillRow } from './ui-common.js';
 (() => {
 'use strict';
 // All history-derived strings (titles, URLs, domains) are untrusted: they are
@@ -17,7 +17,6 @@ const $ = id => document.getElementById(id);
 const st = { profile: '', gapMs: 30 * 60000, offset: 0, total: 0, loading: false, done: false,
   topDomains: [], gen: 0, hidden: new Set(), cats: new Set(), hide: false, revealed: new Set(), day: null, dayEl: null, sessEl: null, sessCount: 0, lastMs: null };
 
-const calDate = ms => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; };
 const localDate = ms => { const d = new Date(ms); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
 
@@ -55,24 +54,6 @@ async function loadProfiles() {
 }
 
 // ---------- overview ----------
-function binOf(dateStr, unit) {
-  if (unit === 'day') return dateStr;
-  const [y, m, d] = dateStr.split('-').map(Number);
-  if (unit === 'month') return `${y}-${pad(m)}`;
-  const t = Date.UTC(y, m - 1, d);
-  const dow = (new Date(t).getUTCDay() + 6) % 7; // Monday start
-  return calDate(t - dow * 86400000);
-}
-function binRange(key, unit) {
-  if (unit === 'day') return [key, key];
-  if (unit === 'month') {
-    const [y, m] = key.split('-').map(Number);
-    return [`${key}-01`, calDate(Date.UTC(y, m, 0))];
-  }
-  const [y, m, d] = key.split('-').map(Number);
-  return [key, calDate(Date.UTC(y, m - 1, d) + 6 * 86400000)];
-}
-
 async function loadSummary() {
   const f = filters();
   const s = await api('summary', { profile: f.profile, start: f.start, end: f.end, category: f.category, maskFlagged: f.maskFlagged });

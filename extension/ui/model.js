@@ -1,7 +1,7 @@
 // Pure view-model logic for the timeline (no DOM, no chrome.* APIs) so it can be unit tested.
 import { dayKey, filterVisits, DEFAULT_SESSION_GAP_MS } from '../src/history/index.js';
 
-import { MASK, csvCell } from './ui-common.js';
+import { MASK, csvCell, binOf, binRange } from './ui-common.js';
 export { MASK, csvCell };
 export const plural = (n, one, many = one + 's') => `${n.toLocaleString()} ${n === 1 ? one : many}`;
 export const EMPTY_HISTORY = 'The browser has no browsing history for this profile (it may be new, or its history was cleared). Visit some pages, then reload this tab.';
@@ -47,23 +47,6 @@ export function categoryCounts(visits) {
 }
 
 // ---- chart bins (local days; weeks start Monday) ----
-const localDate = (y, m, d) => `${y}-${pad(m)}-${pad(d)}`;
-function binOf(day, unit) {
-  if (unit === 'day') return day;
-  const [y, m, d] = day.split('-').map(Number);
-  if (unit === 'month') return `${y}-${pad(m)}`;
-  const dt = new Date(y, m - 1, d);
-  const back = (dt.getDay() + 6) % 7;
-  const s = new Date(y, m - 1, d - back);
-  return localDate(s.getFullYear(), s.getMonth() + 1, s.getDate());
-}
-export function binRange(key, unit) {
-  if (unit === 'day') return [key, key];
-  const p = key.split('-').map(Number);
-  if (unit === 'month') { const e = new Date(p[0], p[1], 0); return [`${key}-01`, localDate(e.getFullYear(), e.getMonth() + 1, e.getDate())]; }
-  const e = new Date(p[0], p[1] - 1, p[2] + 6);
-  return [key, localDate(e.getFullYear(), e.getMonth() + 1, e.getDate())];
-}
 export function chartBins(visits) {
   const days = new Map();
   for (const v of visits) {
