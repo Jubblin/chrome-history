@@ -56,3 +56,59 @@ export function downloadBlob(blob, filename) {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
+
+export const fmtDur = (ms) => {
+  if (!ms || ms < 1000) return '';
+  const s = Math.round(ms / 1000);
+  if (s < 60) return s + 's';
+  const m = Math.floor(s / 60);
+  return m < 60 ? `${m}m ${s % 60}s` : `${Math.floor(m / 60)}h ${m % 60}m`;
+};
+
+// Fills (or refills) a visit row from a normalised view-model. Each front end supplies
+// makeView(): () => {id, timeMs, iso, url, title, domain, transition, categories, durationMs,
+//                    masked, hide, onToggleReveal}   (onToggleReveal flips that front end's reveal state)
+// and catBadge(category). makeView is re-called after a reveal toggle so state is always fresh.
+// Privacy: when vm.masked, the real title, URL and domain are never placed in the DOM.
+export function fillRow(row, makeView, catBadge) {
+  const vm = makeView();
+  const masked = !!vm.masked;
+  row.classList.toggle('masked', masked);
+  const t = el('time', '', localTime(vm.timeMs));
+  t.dateTime = vm.iso;
+  const badge = el('span', 'badge', masked ? MASK : (vm.domain || '(none)'));
+  if (masked) badge.classList.add('domain-hidden');
+  else badge.style.background = `hsl(${hue(vm.domain || '')} 45% 38%)`;
+  const main = el('div', 'vmain');
+  let tl, url;
+  if (masked) {
+    tl = el('span', 'vtitle', 'Sensitive details hidden');
+    url = el('span', 'vurl', '••••••••');
+  } else {
+    const title = vm.title || vm.url;
+    const href = safeHref(vm.url);
+    if (href) { tl = el('a', 'vtitle', title); tl.href = href; tl.rel = 'noopener noreferrer'; tl.target = '_blank'; }
+    else tl = el('span', 'vtitle', title);
+    tl.title = title;
+    url = el('span', 'vurl', vm.url);
+    url.title = vm.url;
+  }
+  main.append(tl, url);
+  const meta = el('div', 'vmeta');
+  for (const c of vm.categories) meta.append(catBadge(c));
+  meta.append(el('span', 'tr', vm.transition));
+  const d = fmtDur(vm.durationMs);
+  if (d) meta.append(document.createTextNode(d));
+  if (vm.hide && vm.categories.length) {
+    const rb = el('button', 'reveal', masked ? 'Reveal' : 'Hide');
+    rb.type = 'button';
+    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${localTime(vm.timeMs)} visit`);
+    rb.addEventListener('click', () => {
+      vm.onToggleReveal();
+      fillRow(row, makeView, catBadge);
+      row.querySelector('.reveal')?.focus();
+    });
+    meta.append(rb);
+  }
+  row.replaceChildren(t, badge, main, meta);
+}

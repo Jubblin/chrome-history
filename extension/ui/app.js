@@ -1,9 +1,9 @@
 // Timeline page. All history-derived strings (titles, URLs, domains) are untrusted:
 // they only enter the DOM via textContent / setAttribute, never innerHTML.
 import { loadVisits, TRANSITIONS } from '../src/history/index.js';
-import { el, hue, safeHref, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, downloadBlob, buildTransitionFilter } from './ui-common.js';
+import { el, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, downloadBlob, buildTransitionFilter, fillRow as sharedFillRow } from './ui-common.js';
 import { CATEGORIES, createClassifier, parseUserRules, loadBundledRules } from './classify-import.js';
-import { MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED, isFlagged, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
+import { MASK, plural, EMPTY_HISTORY, EMPTY_FILTERED, isMasked, annotate, applyFilters, categoryCounts, chartBins, domainStats, layout, toCsv } from './model.js';
 
 const PAGE = 200;
 const HIDE_KEY = 'history-timeline.hideSensitive';
@@ -102,43 +102,13 @@ function renderChips(visits) {
   if (had) box.querySelector(`[data-cat="${had}"]`)?.focus();
 }
 
-function fillRow(row, v) {
-  const masked = isMasked(v, st.hide, st.revealed);
-  row.classList.toggle('masked', masked);
-  const t = el('time', '', localTime(v.time));
-  t.dateTime = new Date(v.time).toISOString();
-  const badge = el('span', 'badge', masked ? MASK : (v.domain || '(none)'));
-  if (masked) badge.classList.add('domain-hidden'); else badge.style.background = `hsl(${hue(v.domain)} 45% 38%)`;
-  const main = el('div', 'vmain');
-  let tl, url;
-  if (masked) {
-    tl = el('span', 'vtitle', 'Sensitive details hidden');
-    url = el('span', 'vurl', '••••••••');
-  } else {
-    const title = v.title || v.url;
-    const href = safeHref(v.url);
-    if (href) { tl = el('a', 'vtitle', title); tl.href = href; tl.rel = 'noopener noreferrer'; tl.target = '_blank'; }
-    else tl = el('span', 'vtitle', title);
-    tl.title = title;
-    url = el('span', 'vurl', v.url); url.title = v.url;
-  }
-  main.append(tl, url);
-  const meta = el('div', 'vmeta');
-  for (const c of v.categories) meta.append(catBadge(c));
-  meta.append(el('span', 'tr', v.transition));
-  if (st.hide && isFlagged(v)) {
-    const rb = el('button', 'reveal', masked ? 'Reveal' : 'Hide');
-    rb.type = 'button';
-    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${localTime(v.time)} visit`);
-    rb.addEventListener('click', () => {
-      if (masked) st.revealed.add(v.visitId); else st.revealed.delete(v.visitId);
-      fillRow(row, v);
-      row.querySelector('.reveal')?.focus();
-    });
-    meta.append(rb);
-  }
-  row.replaceChildren(t, badge, main, meta);
-}
+const toView = (v) => ({
+  id: v.visitId, timeMs: v.time, iso: new Date(v.time).toISOString(), url: v.url, title: v.title, domain: v.domain,
+  transition: v.transition, categories: v.categories, durationMs: 0,
+  masked: isMasked(v, st.hide, st.revealed), hide: st.hide,
+  onToggleReveal: () => { if (st.revealed.has(v.visitId)) st.revealed.delete(v.visitId); else st.revealed.add(v.visitId); },
+});
+const fillRow = (row, v) => sharedFillRow(row, () => toView(v), catBadge);
 
 function renderMore(count) {
   const tl = $('timeline');

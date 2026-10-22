@@ -1,4 +1,4 @@
-import { MASK, el, hue, safeHref, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, csvCell, downloadBlob, buildTransitionFilter } from './ui-common.js';
+import { MASK, el, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, csvCell, downloadBlob, buildTransitionFilter, fillRow as sharedFillRow } from './ui-common.js';
 (() => {
 'use strict';
 // All history-derived strings (titles, URLs, domains) are untrusted: they are
@@ -20,13 +20,6 @@ const st = { profile: '', gapMs: 30 * 60000, offset: 0, total: 0, loading: false
 const calDate = ms => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; };
 const localDate = ms => { const d = new Date(ms); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-const fmtDur = ms => {
-  if (!ms || ms < 1000) return '';
-  const s = Math.round(ms / 1000);
-  if (s < 60) return s + 's';
-  const m = Math.floor(s / 60);
-  return m < 60 ? `${m}m ${s % 60}s` : `${Math.floor(m / 60)}h ${m % 60}m`;
-};
 
 async function api(path, params) {
   const q = new URLSearchParams({ tz: TZ });
@@ -218,50 +211,13 @@ function updateSessionHead(sess) {
 
 function isMasked(v) { return st.hide && v.categories.length > 0 && !st.revealed.has(v.id); }
 
-// Fills (or refills) a visit row. Masked rows never put the real title, URL or
-// domain into the DOM.
-function fillRow(row, v) {
-  const masked = isMasked(v);
-  row.classList.toggle('masked', masked);
-  const t = el('time', '', localTime(v.timeMs));
-  t.dateTime = v.time;
-  const badge = el('span', 'badge', masked ? MASK : (v.domain || '(none)'));
-  if (masked) badge.classList.add('domain-hidden');
-  else badge.style.background = `hsl(${hue(v.domain || '')} 45% 38%)`;
-  const main = el('div', 'vmain');
-  let tl, url;
-  if (masked) {
-    tl = el('span', 'vtitle', 'Sensitive details hidden');
-    url = el('span', 'vurl', '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022');
-  } else {
-    const title = v.title || v.url;
-    const href = safeHref(v.url);
-    if (href) { tl = el('a', 'vtitle', title); tl.href = href; tl.rel = 'noopener noreferrer'; tl.target = '_blank'; }
-    else tl = el('span', 'vtitle', title);
-    tl.title = title;
-    url = el('span', 'vurl', v.url);
-    url.title = v.url;
-  }
-  main.append(tl, url);
-  const meta = el('div', 'vmeta');
-  for (const c of v.categories) meta.append(catBadge(c));
-  meta.append(el('span', 'tr', v.transition));
-  const d = fmtDur(v.durationMs);
-  if (d) meta.append(document.createTextNode(d));
-  if (st.hide && v.categories.length) {
-    const rb = el('button', 'reveal', masked ? 'Reveal' : 'Hide');
-    rb.type = 'button';
-    rb.setAttribute('aria-label', `${masked ? 'Reveal' : 'Hide'} details of the ${localTime(v.timeMs)} visit`);
-    rb.addEventListener('click', () => {
-      if (masked) st.revealed.add(v.id); else st.revealed.delete(v.id);
-      fillRow(row, v);
-      const nb = row.querySelector('.reveal');
-      if (nb) nb.focus();
-    });
-    meta.append(rb);
-  }
-  row.replaceChildren(t, badge, main, meta);
-}
+const toView = (v) => ({
+  id: v.id, timeMs: v.timeMs, iso: v.time, url: v.url, title: v.title, domain: v.domain,
+  transition: v.transition, categories: v.categories, durationMs: v.durationMs,
+  masked: isMasked(v), hide: st.hide,
+  onToggleReveal: () => { if (st.revealed.has(v.id)) st.revealed.delete(v.id); else st.revealed.add(v.id); },
+});
+const fillRow = (row, v) => sharedFillRow(row, () => toView(v), catBadge);
 
 function renderVisit(v) {
   v.categories = v.categories || [];
