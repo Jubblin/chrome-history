@@ -112,3 +112,20 @@ export function fillRow(row, makeView, catBadge) {
   }
   row.replaceChildren(t, badge, main, meta);
 }
+
+// ---- chart binning (pure calendar-date arithmetic on 'YYYY-MM-DD'; timezone independent; weeks start Monday) ----
+const calDay = (ms) => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`; };
+export function binOf(day, unit) {
+  if (unit === 'day') return day;
+  const [y, m, d] = day.split('-').map(Number);
+  if (unit === 'month') return `${y}-${pad(m)}`;
+  const t = Date.UTC(y, m - 1, d);
+  const back = (new Date(t).getUTCDay() + 6) % 7;
+  return calDay(t - back * 86400000);
+}
+export function binRange(key, unit) {
+  if (unit === 'day') return [key, key];
+  const p = key.split('-').map(Number);
+  if (unit === 'month') return [`${key}-01`, calDay(Date.UTC(p[0], p[1], 0))];
+  return [key, calDay(Date.UTC(p[0], p[1] - 1, p[2]) + 6 * 86400000)];
+}
