@@ -1,3 +1,4 @@
+import { MASK, el, hue, safeHref, pad, localTime, fmtDay, num, debounce, catBadge as makeCatBadge, csvCell, downloadBlob, buildTransitionFilter } from './ui-common.js';
 (() => {
 'use strict';
 // All history-derived strings (titles, URLs, domains) are untrusted: they are
@@ -7,28 +8,18 @@ const PAGE = 200;
 const rowData = new WeakMap();
 const TRANSITIONS = ['link','typed','auto_bookmark','auto_subframe','manual_subframe','generated',
   'start_page','form_submit','reload','keyword','keyword_generated','unknown'];
-const CAT_ICON = { adult: '18+', gambling: '\u2660', health: '+', finance: '$', privacy: '\u25cd', news_politics: '\u00a7' };
 const CAT_LABEL = { adult: 'Adult', gambling: 'Gambling', health: 'Health', finance: 'Finance',
   privacy: 'Privacy tools', news_politics: 'News & politics' };
 const catLabel = c => CAT_LABEL[c] || c;
+const catBadge = c => makeCatBadge(c, catLabel(c));
 const HIDE_KEY = 'history-timeline.hideSensitive';
-const MASK = '[hidden]';
 const $ = id => document.getElementById(id);
 const st = { profile: '', gapMs: 30 * 60000, offset: 0, total: 0, loading: false, done: false,
   topDomains: [], gen: 0, hidden: new Set(), cats: new Set(), hide: false, revealed: new Set(), day: null, dayEl: null, sessEl: null, sessCount: 0, lastMs: null };
 
-function el(tag, cls, text) {
-  const e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (text != null) e.textContent = text;
-  return e;
-}
-const pad = n => String(n).padStart(2, '0');
 const calDate = ms => { const d = new Date(ms); return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; };
 const localDate = ms => { const d = new Date(ms); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
-const localTime = ms => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-const fmtDay = ms => new Date(ms).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
 const fmtDur = ms => {
   if (!ms || ms < 1000) return '';
   const s = Math.round(ms / 1000);
@@ -36,7 +27,6 @@ const fmtDur = ms => {
   const m = Math.floor(s / 60);
   return m < 60 ? `${m}m ${s % 60}s` : `${Math.floor(m / 60)}h ${m % 60}m`;
 };
-const num = n => n.toLocaleString();
 
 async function api(path, params) {
   const q = new URLSearchParams({ tz: TZ });
@@ -206,8 +196,6 @@ async function loadCategories() {
 }
 
 // ---------- timeline ----------
-function hue(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % 360; }
-function safeHref(u) { try { const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : null; } catch (_) { return null; } }
 
 function resetTimeline() {
   st.gen++;
@@ -227,13 +215,6 @@ function updateSessionHead(sess) {
   sessionHead(sess).textContent = `Session ${span} · ${vs} visit${vs === 1 ? '' : 's'} loaded`;
 }
 
-function catBadge(c) {
-  const b = el('span', 'cat cat-' + c);
-  const ic = el('i', '', CAT_ICON[c] || '*');
-  ic.setAttribute('aria-hidden', 'true');
-  b.append(ic, el('span', '', catLabel(c)));
-  return b;
-}
 
 function isMasked(v) { return st.hide && v.categories.length > 0 && !st.revealed.has(v.id); }
 
@@ -379,29 +360,16 @@ async function refresh() {
 }
 
 // ---------- transition filter ----------
-function buildTransitionFilter() {
-  const box = $('f-trans');
-  for (const t of TRANSITIONS) {
-    const l = el('label');
-    const c = el('input');
-    c.type = 'checkbox'; c.checked = true; c.value = t;
-    c.addEventListener('change', () => {
-      if (c.checked) st.hidden.delete(t); else st.hidden.add(t);
-      for (const row of document.querySelectorAll('.visit')) row.hidden = st.hidden.has(row.dataset.tr);
-      updateSummaryLine();
-      checkSentinel();
-    });
-    l.append(c, document.createTextNode(t));
-    box.appendChild(l);
-  }
+function initTransitionFilter() {
+  buildTransitionFilter($('f-trans'), TRANSITIONS, (t, checked) => {
+    if (checked) st.hidden.delete(t); else st.hidden.add(t);
+    for (const row of document.querySelectorAll('.visit')) row.hidden = st.hidden.has(row.dataset.tr);
+    updateSummaryLine();
+    checkSentinel();
+  });
 }
 
 // ---------- CSV ----------
-function csvCell(v) {
-  let s = String(v ?? '');
-  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; // neutralise spreadsheet formulas
-  return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-}
 async function exportCsv() {
   const btn = $('f-csv');
   btn.disabled = true;
@@ -424,23 +392,16 @@ async function exportCsv() {
       offset += r.visits.length;
     }
     const blob = new Blob([rows.join('\r\n') + '\r\n'], { type: 'text/csv' });
-    const a = el('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'history.csv';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    downloadBlob(blob, 'history.csv');
     setStatus(`Exported ${num(rows.length - 1)} rows`);
   } catch (e) { setStatus('Export failed: ' + e.message); }
   finally { btn.disabled = false; }
 }
 
 // ---------- wiring ----------
-function debounce(fn, ms) { let t; return () => { clearTimeout(t); t = setTimeout(fn, ms); }; }
 
 async function init() {
-  buildTransitionFilter();
+  initTransitionFilter();
   try { await loadProfiles(); } catch (e) { setStatus('Error: ' + e.message); return; }
   $('profile').addEventListener('change', e => { st.profile = e.target.value; refresh(); });
   $('filters').addEventListener('submit', e => e.preventDefault());

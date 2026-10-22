@@ -157,6 +157,8 @@ jobs:
         run: make extension-test
       - name: Extension rules are in sync with internal/classify/rules.json
         run: make extension-check
+      - name: Shared UI helpers are in sync with shared/ui-common.js
+        run: make ui-check
       - name: Build the zip twice and require identical bytes
         run: |
           set -euo pipefail

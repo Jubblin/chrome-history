@@ -9,7 +9,7 @@ BIN ?= bin/history-timeline
 export CGO_ENABLED ?= 0
 LDFLAGS := -s -w
 
-.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check extension-lint extension-zip
+.PHONY: build test cross fixture run-fixture dev-provider dev-up dev-shell dev-down extension-test extension-sync extension-check ui-sync ui-check extension-lint extension-zip
 
 build:
 	go build -trimpath -ldflags "$(LDFLAGS)" -o $(BIN) ./cmd/history-timeline
@@ -63,11 +63,18 @@ dev-down:
 	-devpod delete $(DEVPOD_WS) --force
 	-kubectl delete namespace $(DEV_NAMESPACE) --ignore-not-found
 
+# shared/ui-common.js is the source of truth for helpers used by both front ends.
+ui-sync:
+	node extension/scripts/sync-ui-common.mjs
+
+ui-check:
+	node extension/scripts/sync-ui-common.mjs --check
+
 # Validate the extension manifest (permissions, CSP, icons, version format).
 extension-lint:
 	node extension/scripts/build-zip.mjs --lint
 
 # Reproducible Web Store / release zip in dist/ (allowlist; no tests, scripts or fixtures).
 # Pass TAG=vX.Y.Z to require the manifest version to match.
-extension-zip: extension-check extension-lint
+extension-zip: extension-check ui-check extension-lint
 	node extension/scripts/build-zip.mjs --out dist $(if $(TAG),--tag "$$TAG",)
